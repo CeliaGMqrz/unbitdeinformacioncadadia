@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 15 Oct 2020 22:22:11 +0200</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Oct 2020 17:15:53 +0200</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalacion de hugo</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/instalacion-de-hugo/</link>
+      <pubDate>Fri, 16 Oct 2020 17:15:53 +0200</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/instalacion-de-hugo/</guid>
+      <description>GUIA DE INSTALACIÓN HUGO ¿QUÉ ES HUGO? ¿EN QUÉ LENGUAJE ESTÁ ESCRITO? Hugo es un generador de sitios web estáticos. Se caracteriza por ser muy rápido y seguro.
+Está escrito en un lenguaje llamado &amp;lsquo;Go&amp;rsquo;, inspirado en la sintaxis de C e intenta ser dinámico como python. Ha sido desarrolado por Google y es un proyecto opensource.
+Instalación de Hugo En la página oficial de hugo, cuando vamos a la opción de descargar en Debian y Ubuntu, nos indica que podemos hacer la descarga con apt desde los repositorios de debian, pero dice que no es recomendable ya que usan versiones más antiguas y no están actualizadas.</description>
+    </item>
+    
     <item>
       <title>Instalación de VisualCode en Debian Buster</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/instalaci%C3%B3n-de-visualcode-en-debian-buster/</link>
