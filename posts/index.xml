@@ -6,8 +6,183 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 20 Oct 2020 13:05:53 +0200</lastBuildDate>
+        <lastBuildDate>Wed, 21 Oct 2020 21:54:22 +0200</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Virtualhosting_apache</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/virtualhosting_apache/</link>
+            <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/virtualhosting_apache/</guid>
+            <description>VirtualHosting con Apache Conceptos previos ¿Qué es un sitio web? Un sitio web es un conjunto de páginas web, propiamente dicho. Las páginas están relacionadas entre sí. Y a ese sitio web se accede en una dirección ip y a través de un puerto(80). Normalmente si cambiamos la ip o el puerto serviría otro sitio web.
+¿Qué es Hosting Virtual? El término Hosting Virtual se refiere a hacer funcionar más de un sitio web (tales como www.</description>
+            <content type="html"><![CDATA[<h1 id="virtualhosting-con-apache">VirtualHosting con Apache</h1>
+<h2 id="conceptos-previos">Conceptos previos</h2>
+<h3 id="qué-es-un-sitio-web">¿Qué es un sitio web?</h3>
+<p>Un sitio web es un conjunto de páginas web, propiamente dicho. Las páginas están relacionadas entre sí. Y a ese sitio web se accede en una dirección ip y a través de un puerto(80). Normalmente si cambiamos la ip o el puerto serviría otro sitio web.</p>
+<h3 id="qué-es-hosting-virtual">¿Qué es Hosting Virtual?</h3>
+<p>El término <strong>Hosting Virtual</strong> se refiere a hacer funcionar más de un sitio web (tales como <a href="http://www.company1.com">www.company1.com</a> y <a href="http://www.company2.com">www.company2.com</a>) en una sola máquina. Los sitios web virtuales pueden estar “basados en direcciones IP”, lo que significa que cada sitio web tiene una dirección IP diferente, o “basados en nombres diferentes”, lo que significa que con una sola dirección IP están funcionando sitios web con diferentes nombres (de dominio). Apache fue uno de los primeros servidores web en soportar hosting virtual basado en direcciones IP.</p>
+<p>En definitiva:</p>
+<p>Usando virtualhosting, el servidor desde una misma ip y desde el mismo puerto puede servir <strong>varios sitios web</strong>. Y cada uno podemos acceder por separado. Esto lo hace de manera que las peticiones al servidor se hacen con un <strong>nombre</strong> configurado en la <strong>cabecera host del servidor</strong>. Dependiendo del nombre con el que se acceda al servidor servirá un sitio o otro.</p>
+<p>En Apache hay configurado un virtualhost por defecto. Se llama <strong>default</strong>. El server name no está indicado, es decir que podemos entrar con cualquier nombre o con la misma dirección ip. El document root donde están los ficheros es <strong>/var/www/html</strong>.</p>
+<h2 id="objetivo">Objetivo</h2>
+<p>El objetivo de esta práctica es la puesta en marcha de dos sitios web utilizando el mismo servidor web apache. Hay que tener en cuenta lo siguiente:</p>
+<ul>
+<li>
+<p>Cada sitio web tendrá nombres distintos.</p>
+</li>
+<li>
+<p>Cada sitio web compartirán la misma dirección IP y el mismo puerto (80).</p>
+</li>
+</ul>
+<p>Queremos construir en nuestro servidor web apache dos sitios web con las siguientes características:</p>
+<ul>
+<li>
+<p>El nombre de dominio del primero será <a href="http://www.iesgn.org">www.iesgn.org</a>, su directorio base será /var/www/iesgn y contendrá una página llamada index.html, donde sólo se verá una bienvenida a la página del Instituto Gonzalo Nazareno.</p>
+</li>
+<li>
+<p>En el segundo sitio vamos a crear una página donde se pondrán noticias por parte de los departamento, el nombre de este sitio será <a href="http://www.departamentosgn.org">www.departamentosgn.org</a>, y su directorio base será /var/www/departamentos. En este sitio sólo tendremos una página inicial index.html, dando la bienvenida a la página de los departamentos del instituto.</p>
+</li>
+</ul>
+<h2 id="1-crear-los-ficheros-de-configuración-para-cada-sitio-web">1. Crear los ficheros de configuración para cada sitio web</h2>
+<p>Los ficheros de configuración de los sitios webs se encuentran en el directorio <strong>/etc/apache2/sites-available</strong>, por defecto hay dos ficheros, uno se llama &lsquo;000-default.conf&rsquo; que es la configuración del sitio web por defecto. Necesitamos tener dos ficheros para realizar la configuración de los dos sitios virtuales, para ello vamos a copiar el fichero 000-default.conf:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@mimaquina:/etc/apache2# cd sites-available/
+
+root@mimaquina:/etc/apache2/sites-available# ls
+000-default.conf  default-ssl.conf
+
+root@mimaquina:/etc/apache2/sites-available# cp 000-default.conf iesgn.conf
+
+root@mimaquina:/etc/apache2/sites-available# cp 000-default.conf departamentos.conf
+
+root@mimaquina:/etc/apache2/sites-available# ls
+000-default.conf  default-ssl.conf  departamentos.conf	iesgn.conf
+
+</code></pre></div><p>De esta manera tendremos un fichero llamado <strong>iesgn.conf</strong> para realizar la configuración del sitio web <strong><a href="http://www.iesgn.org">www.iesgn.org</a></strong>, y otro llamado <strong>departamentos.conf</strong> para el sitio web <strong><a href="http://www.departamentosgn.org">www.departamentosgn.org</a></strong>.</p>
+<h2 id="2-modificar-los-ficheros-de-configuración">2. Modificar los ficheros de configuración</h2>
+<p>Modificamos los ficheros iesgn.conf y departamentos.conf, para indicar el nombre que vamos ausar para acceder al host virtual (ServerName) y el directorio de trabajo (DocumentRoot).</p>
+<ul>
+<li>Editamos iesgn.conf:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">        ServerName www.iesgn.org
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/iesgn
+</code></pre></div><ul>
+<li>Editamos departamentos.conf:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">        ServerName www.departamentosgn.org
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/departamentosgn
+</code></pre></div><h2 id="3-crear-enlace-simbólico">3. Crear enlace simbólico</h2>
+<p>No es suficiente crear los ficheros de configuración de cada sitio web, es necesario crear un enlace simbólico a estos ficheros dentro del directorio <strong>/etc/apache2/sites-enabled</strong>, para ello:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@mimaquina:~# a2ensite iesgn.conf
+Enabling site iesgn.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+root@mimaquina:~# a2ensite departamentos
+Enabling site departamentos.
+To activate the new configuration, you need to run:
+  systemctl reload apache2
+
+
+root@mimaquina:/etc/apache2/sites-enabled# ls
+000-default.conf  departamentos.conf  iesgn.conf
+
+</code></pre></div><p>La creación de los enlaces simbólicos se puede hacer con la instrucción <strong>a2ensite nombre_fichero_configuracion</strong>, para deshabilitar el sitio tenemos que borrar el enlace simbólico o usar la instrucción <strong>a2dissite nombre_fichero_configuracion</strong>.</p>
+<h2 id="4-crear-indexhtml-necesario">4. Crear index.html necesario</h2>
+<p>Crea los directorios y los ficheros index.html necesarios en /var/www y reiniciamos el servicio.</p>
+<ul>
+<li>Creamos el directorio &lsquo;iesgn&rsquo; con su index.html</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@mimaquina:/var/www# mkdir iesgn
+root@mimaquina:/var/www# cd iesgn/
+root@mimaquina:/var/www/iesgn# nano index.html
+
+</code></pre></div><ul>
+<li>Creamos el directorio &lsquo;departamentosgn&rsquo; con su index.html</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@mimaquina:/var/www# mkdir departamentosgn
+root@mimaquina:/var/www# cd departamentosgn/
+root@mimaquina:/var/www/departamentosgn# ls
+root@mimaquina:/var/www/departamentosgn# cp ../iesgn/index.html index.html
+root@mimaquina:/var/www/departamentosgn# ls
+index.html
+root@mimaquina:/var/www/departamentosgn# nano index.html 
+</code></pre></div><ul>
+<li>Le damos los propietarios adecuados:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@mimaquina:~# chown -R www-data:www-data /var/www/departamentosgn
+root@mimaquina:~# chown -R www-data:www-data /var/www/iesgn
+
+</code></pre></div><ul>
+<li>Reiniciamos el servicio</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># systemctl reload apache2</span>
+</code></pre></div><h2 id="5-modificar-fichero-hosts-de-nuestra-máquina-física">5. Modificar fichero hosts de nuestra máquina física</h2>
+<p>Para terminar lo único que tendremos que hacer es cambiar el fichero hosts en los clientes y poner dos nuevas líneas donde se haga la conversión entre los dos nombre de dominio y la dirección IP del servidor.</p>
+<p>Le ponemos la dirección del servidor, osea la ip de nuestra máquina virtual, que, en este caso está conectada por un puente a nuestra anfitriona.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">  GNU nano 3.2                      /etc/hosts                                
+
+127.0.0.1       localhost
+127.0.1.1       mimaquina       mimaquina
+
+192.168.100.143      www.iesgn.org
+192.168.100.143      www.departamentosgn.org
+<span style="color:#75715e"># The following lines are desirable for IPv6 capable hosts</span>
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+</code></pre></div><ul>
+<li>Hacemos ping a las urls desde nuestra máquina anfitriona</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celia@debian:~/vagrant/virtualhosting$ ping www.departamentosgn.org
+PING www.departamentosgn.org <span style="color:#f92672">(</span>192.168.100.143<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from www.iesgn.org <span style="color:#f92672">(</span>192.168.100.143<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.406 ms
+<span style="color:#ae81ff">64</span> bytes from www.iesgn.org <span style="color:#f92672">(</span>192.168.100.143<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.374 ms
+^C
+--- www.departamentosgn.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 15ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.374/0.390/0.406/0.016 ms
+
+
+celia@debian:~/vagrant/virtualhosting$ ping www.iesgn.org
+PING www.iesgn.org <span style="color:#f92672">(</span>192.168.100.143<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from www.iesgn.org <span style="color:#f92672">(</span>192.168.100.143<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.389 ms
+<span style="color:#ae81ff">64</span> bytes from www.iesgn.org <span style="color:#f92672">(</span>192.168.100.143<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.396 ms
+^C
+--- www.iesgn.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 16ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.389/0.392/0.396/0.020 ms
+celia@debian:~/vagrant/virtualhosting$ 
+
+</code></pre></div><ul>
+<li>Lo vemos desde nuestro navegador en la máquina anfitriona:</li>
+</ul>
+<p><strong><a href="http://www.iesgn.org">www.iesgn.org</a></strong>
+<img src="https://github.com/CeliaGMqrz/virtualhosting_apache/blob/main/capturas/cap2.jpeg" alt="cap2.jpeg"></p>
+<p><strong><a href="http://www.departamentosgn.org">www.departamentosgn.org</a></strong>
+<img src="https://github.com/CeliaGMqrz/virtualhosting_apache/blob/main/capturas/cap1.jpeg" alt="cap1.jpeg"></p>
+<h3 id="repite-el-ejercicio-cambiando-los-directorios-de-trabajo-a-srvwww-qué-modificación-debes-hacer-en-el-fichero-etcapache2apache2conf">Repite el ejercicio cambiando los directorios de trabajo a /srv/www. ¿Qué modificación debes hacer en el fichero /etc/apache2/apache2.conf?</h3>
+<p>Sería el mismo procedimiento solo que debemos editar el fichero de configuración de apache2.conf de la siguiente forma. Comentando el directorio que coge por defecto y descomentando el nuevo directorio. En él podemos copiar las carpetas que teniamos en www y hacemos el mismo procedimiento, cambiando el documenroot a los ficheros de configuracion antes de iniciarlos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#&lt;Directory /var/www/&gt;</span>
+<span style="color:#75715e">#        Options Indexes FollowSymLinks</span>
+<span style="color:#75715e">#        AllowOverride None</span>
+<span style="color:#75715e">#        Require all granted</span>
+<span style="color:#75715e">#&lt;/Directory&gt;</span>
+
+&lt;Directory /srv/&gt;
+       Options Indexes FollowSymLinks
+       AllowOverride None
+       Require all granted
+&lt;/Directory&gt;
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Guía de instalación de Hugo</title>
