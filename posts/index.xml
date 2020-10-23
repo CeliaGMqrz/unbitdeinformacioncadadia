@@ -6,8 +6,44 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 21 Oct 2020 21:54:22 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 23 Oct 2020 10:01:57 +0200</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Cifrado asimetrico</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asimetrico/</link>
+            <pubDate>Fri, 23 Oct 2020 10:01:57 +0200</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asimetrico/</guid>
+            <description>Práctica: Cifrado asimétrico con gpg y openssl En esta práctica vamos a cifrar ficheros utilizando cifrado asimétrico utilizando el programa gpg.
+Cifrado asimétrico con gpg   Tarea 1: Generación de claves
+  Tarea 2: Importar / exportar clave pública
+  Tarea 3: Cifrado asimétrico con claves públicas
+  Tarea 4: Exportar clave a un servidor público de claves PGP
+  Cifrado asimétrico con openssl  Tarea 5: Cifrado asimétrico con openssl  </description>
+            <content type="html"><![CDATA[<h1 id="práctica-cifrado-asimétrico-con-gpg-y-openssl">Práctica: Cifrado asimétrico con gpg y openssl</h1>
+<p>En esta práctica vamos a cifrar ficheros utilizando cifrado asimétrico utilizando el programa gpg.</p>
+<h2 id="cifrado-asimétrico-con-gpg">Cifrado asimétrico con gpg</h2>
+<ul>
+<li>
+<p>Tarea 1: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/cifrado_asim%C3%A9trico_gpg_openssl.md">Generación de claves</a></p>
+</li>
+<li>
+<p>Tarea 2: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/importar_exportar_clavepub.md">Importar / exportar clave pública</a></p>
+</li>
+<li>
+<p>Tarea 3: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/cifrado_asimetrico_claves_publicas.md">Cifrado asimétrico con claves públicas</a></p>
+</li>
+<li>
+<p>Tarea 4: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/exportar_servidor_publico.md">Exportar clave a un servidor público de claves PGP</a></p>
+</li>
+</ul>
+<h2 id="cifrado-asimétrico-con-openssl">Cifrado asimétrico con openssl</h2>
+<ul>
+<li>Tarea 5: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/asimetrico_openssl.md">Cifrado asimétrico con openssl</a></li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Configuración de VirtualHosting con Apache</title>

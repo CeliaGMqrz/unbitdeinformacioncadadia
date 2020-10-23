@@ -3,27 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/cifrado/</loc>
+    <lastmod>2020-10-23T10:01:57+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asimetrico/</loc>
+    <lastmod>2020-10-23T10:01:57+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-10-23T10:01:57+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-10-23T10:01:57+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-10-23T10:01:57+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</loc>
     <lastmod>2020-10-21T21:54:22+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/configuraci%C3%B3n-de-virtualhosting-con-apache/</loc>
-    <lastmod>2020-10-21T21:54:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-10-21T21:54:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-10-21T21:54:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-10-21T21:54:22+02:00</lastmod>
   </url>
   
