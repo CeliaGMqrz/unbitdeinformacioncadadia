@@ -6,24 +6,24 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 23 Oct 2020 10:01:57 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 24 Oct 2020 14:45:15 +0200</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Cifrado asimétrico con gpg y openssl</title>
+            <title>Cifrado Asimétrico con GPG y OpenSSL</title>
             <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asim%C3%A9trico-con-gpg-y-openssl/</link>
-            <pubDate>Fri, 23 Oct 2020 10:01:57 +0200</pubDate>
+            <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
             
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asim%C3%A9trico-con-gpg-y-openssl/</guid>
             <description>Práctica: Cifrado asimétrico con gpg y openssl En esta práctica vamos a cifrar ficheros utilizando cifrado asimétrico utilizando el programa gpg.
-Cifrado asimétrico con gpg   Tarea 1: Generación de claves
+Cifrado Asimétrico con GPG   Tarea 1: Generación de claves
   Tarea 2: Importar / exportar clave pública
   Tarea 3: Cifrado asimétrico con claves públicas
   Tarea 4: Exportar clave a un servidor público de claves PGP
-  Cifrado asimétrico con openssl  Tarea 5: Cifrado asimétrico con openssl  </description>
+  Cifrado asimétrico con OPENSSL  Tarea 5: Cifrado asimétrico con openssl  </description>
             <content type="html"><![CDATA[<h1 id="práctica-cifrado-asimétrico-con-gpg-y-openssl">Práctica: Cifrado asimétrico con gpg y openssl</h1>
 <p>En esta práctica vamos a cifrar ficheros utilizando cifrado asimétrico utilizando el programa gpg.</p>
-<h2 id="cifrado-asimétrico-con-gpg">Cifrado asimétrico con gpg</h2>
+<h2 id="cifrado-asimétrico-con-gpg">Cifrado Asimétrico con GPG</h2>
 <ul>
 <li>
 <p>Tarea 1: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/cifrado_asim%C3%A9trico_gpg_openssl.md">Generación de claves</a></p>
@@ -38,7 +38,7 @@ Cifrado asimétrico con gpg   Tarea 1: Generación de claves
 <p>Tarea 4: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/exportar_servidor_publico.md">Exportar clave a un servidor público de claves PGP</a></p>
 </li>
 </ul>
-<h2 id="cifrado-asimétrico-con-openssl">Cifrado asimétrico con openssl</h2>
+<h2 id="cifrado-asimétrico-con-openssl">Cifrado asimétrico con OPENSSL</h2>
 <ul>
 <li>Tarea 5: <a href="https://github.com/CeliaGMqrz/cifrado_asimetrico_gpg_openssl/blob/main/asimetrico_openssl.md">Cifrado asimétrico con openssl</a></li>
 </ul>
@@ -46,11 +46,11 @@ Cifrado asimétrico con gpg   Tarea 1: Generación de claves
         </item>
         
         <item>
-            <title>Configuración de VirtualHosting con Apache</title>
-            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/configuraci%C3%B3n-de-virtualhosting-con-apache/</link>
+            <title>VirtualHosting Con Apache2</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/virtualhosting-con-apache2/</link>
             <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
             
-            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/configuraci%C3%B3n-de-virtualhosting-con-apache/</guid>
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/virtualhosting-con-apache2/</guid>
             <description>VirtualHosting con Apache Conceptos previos ¿Qué es un sitio web? Un sitio web es un conjunto de páginas web, propiamente dicho. Las páginas están relacionadas entre sí. Y a ese sitio web se accede en una dirección ip y a través de un puerto(80). Normalmente si cambiamos la ip o el puerto serviría otro sitio web.
 ¿Qué es Hosting Virtual? El término Hosting Virtual se refiere a hacer funcionar más de un sitio web (tales como www.</description>
             <content type="html"><![CDATA[<h1 id="virtualhosting-con-apache">VirtualHosting con Apache</h1>
@@ -200,9 +200,9 @@ celia@debian:~/vagrant/virtualhosting$
 <li>Lo vemos desde nuestro navegador en la máquina anfitriona:</li>
 </ul>
 <p><strong><a href="http://www.iesgn.org">www.iesgn.org</a></strong>
-<img src="/images/cap2.jpeg" alt="cap2.jpeg"></p>
+<img src="https://github.com/CeliaGMqrz/virtualhosting_apache/blob/main/capturas/cap2.jpeg" alt="cap2.jpeg"></p>
 <p><strong><a href="http://www.departamentosgn.org">www.departamentosgn.org</a></strong>
-<img src="/images/cap1.jpeg" alt="cap1.jpeg"></p>
+<img src="https://github.com/CeliaGMqrz/virtualhosting_apache/blob/main/capturas/cap1.jpeg" alt="cap1.jpeg"></p>
 <h3 id="repite-el-ejercicio-cambiando-los-directorios-de-trabajo-a-srvwww-qué-modificación-debes-hacer-en-el-fichero-etcapache2apache2conf">Repite el ejercicio cambiando los directorios de trabajo a /srv/www. ¿Qué modificación debes hacer en el fichero /etc/apache2/apache2.conf?</h3>
 <p>Sería el mismo procedimiento solo que debemos editar el fichero de configuración de apache2.conf de la siguiente forma. Comentando el directorio que coge por defecto y descomentando el nuevo directorio. En él podemos copiar las carpetas que teniamos en www y hacemos el mismo procedimiento, cambiando el documenroot a los ficheros de configuracion antes de iniciarlos.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#&lt;Directory /var/www/&gt;</span>
@@ -218,76 +218,6 @@ celia@debian:~/vagrant/virtualhosting$
 &lt;/Directory&gt;
 
 </code></pre></div>]]></content>
-        </item>
-        
-        <item>
-            <title>Guía de instalación de Hugo</title>
-            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/gu%C3%ADa-de-instalaci%C3%B3n-de-hugo/</link>
-            <pubDate>Tue, 20 Oct 2020 13:05:53 +0200</pubDate>
-            
-            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/gu%C3%ADa-de-instalaci%C3%B3n-de-hugo/</guid>
-            <description>GUIA DE INSTALACIÓN HUGO ¿QUÉ ES HUGO? ¿EN QUÉ LENGUAJE ESTÁ ESCRITO? Hugo es un generador de sitios web estáticos. Se caracteriza por ser muy rápido y seguro.
-Está escrito en un lenguaje llamado &amp;lsquo;Go&amp;rsquo;, inspirado en la sintaxis de C e intenta ser dinámico como python. Ha sido desarrolado por Google y es un proyecto opensource.
-Instalación de Hugo En la página oficial de hugo, cuando vamos a la opción de descargar en Debian y Ubuntu, nos indica que podemos hacer la descarga con apt desde los repositorios de debian, pero dice que no es recomendable ya que usan versiones más antiguas y no están actualizadas.</description>
-            <content type="html"><![CDATA[<h1 id="guia-de-instalación-hugo">GUIA DE INSTALACIÓN HUGO</h1>
-<h2 id="qué-es-hugo-en-qué-lenguaje-está-escrito">¿QUÉ ES HUGO? ¿EN QUÉ LENGUAJE ESTÁ ESCRITO?</h2>
-<p><strong>Hugo</strong> es un generador de sitios web estáticos. Se caracteriza por ser muy rápido y seguro.</p>
-<p>Está escrito en un lenguaje llamado &lsquo;Go&rsquo;, inspirado en la sintaxis de C e intenta ser dinámico como python. Ha sido desarrolado por Google y es un proyecto opensource.</p>
-<h2 id="instalación-de-hugo">Instalación de Hugo</h2>
-<p>En la página <a href="https://gohugo.io/getting-started/installing/">oficial de hugo</a>, cuando vamos a la opción de descargar en Debian y Ubuntu, nos indica que podemos hacer la descarga con apt desde los repositorios de debian, pero dice que no es recomendable ya que usan versiones más antiguas y no están actualizadas. Por lo que vamos a ir a GitHub, a los repositorios <a href="https://github.com/gohugoio/hugo">oficiales de Hugo</a>. Y vamos a hacer la instalación a partir de un sistema de gestión de paquetes de software libre llamado Homebrew.</p>
-<h3 id="un-poco-sobre-homebrew">Un poco sobre <strong>Homebrew</strong></h3>
-<p>Como hemos dicho es un <strong>sistema de paquetería</strong> de software libre, que entre otras características nos permite instalar software en nuestro directorio personal sin tener que utilizar permisos de superusuario. Tambíen podemos instalar software no empaquetado y permite tener versiones actualizadas aunque la distribución sea antigua.</p>
-<h3 id="instalación-de-homebrew">Instalación de Homebrew</h3>
-<ul>
-<li>Necesitaremos instalar el siguiente paquete como requisito</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">~$ sudo apt-get install build-essential curl file git
-</code></pre></div><ul>
-<li>Si lo instalamos desde las fuentes hacemos lo siguiente:</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">~$ git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
-~$ mkdir ~/.linuxbrew/bin
-~$ ln -s ../Homebrew/bin/brew ~/.linuxbrew/bin
-~$ eval <span style="color:#66d9ef">$(</span>~/.linuxbrew/bin/brew shellenv<span style="color:#66d9ef">)</span>
-</code></pre></div><h3 id="instalar-hugo-con-homebrew">Instalar Hugo con Homebrew</h3>
-<ul>
-<li>Es muy sencillo e intuitivo Homebrew, instalamos hugo de la siente manera.</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">~$ brew install hugo
-</code></pre></div><ul>
-<li>Vamos a ver si la version que tenemos de hugo.</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ hugo version
-Hugo Static Site Generator v0.76.3/extended linux/amd64 BuildDate: unknown
-</code></pre></div><h3 id="crear-nuestro-proyecto">Crear nuestro proyecto</h3>
-<ul>
-<li>Vamos a crear nuestro proyecto con Hugo, necesitamos un nombre para nuestro sitio. En mi caso lo he llamado <strong>&lsquo;unbitdeinformacioncadadia&rsquo;</strong>:</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ hugo new site unbitdeinformacioncadadia
-Congratulations! Your new Hugo site is created in /home/celiagm/unbitdeinformacioncadadia.
-
-Just a few more steps and you<span style="color:#960050;background-color:#1e0010">&#39;</span>re ready to go:
-
-1. Download a theme into the same-named folder.
-   Choose a theme from https://themes.gohugo.io/ or
-   create your own with the <span style="color:#e6db74">&#34;hugo new theme &lt;THEMENAME&gt;&#34;</span> command.
-2. Perhaps you want to add some content. You can add single files
-   with <span style="color:#e6db74">&#34;hugo new &lt;SECTIONNAME&gt;/&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;</span>.
-3. Start the built-in live server via <span style="color:#e6db74">&#34;hugo server&#34;</span>.
-
-Visit https://gohugo.io/ <span style="color:#66d9ef">for</span> quickstart guide and full documentation.
-
-</code></pre></div><ul>
-<li>Vamos al directorio que se ha generado y vemos los diferentes elementos:</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ cd unbitdeinformacioncadadia/
-celiagm@debian:~/unbitdeinformacioncadadia$ ls
-archetypes  config.toml  content  data  layouts  static  themes
-</code></pre></div><h2 id="qué-sistema-de-plantillas-utiliza-hugo">¿Qué sistema de plantillas utiliza Hugo?</h2>
-<p>Hugo usa archivos de plantilla para procesar contenido en HTML. Los archivos de plantilla son un puente entre el contenido y la presentación. La plantilla guía la presentación especificantdo el estilo a utilizar.</p>
-<p>Hay tres tipos de plantillas: única, de lista y parcial. Nosotros vamos a utilizar la de <strong>lista</strong> ya que, lo que vamos hacer es un grupo de contenido relacionado. Es decir, tendrá una página de inicio que actuará como portal para el resto del contenido del sitio (Entradas del blog, etc.)</p>
-<p>Para configurar temas y nuestro sitio web sigue en <a href="https://github.com/CeliaGMqrz/gen_pagina_estatica_hugo/blob/main/configuracion_hugo_temas_contenido.md">este enlace</a></p>
-]]></content>
         </item>
         
         <item>

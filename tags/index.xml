@@ -7,11 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 23 Oct 2020 10:01:57 +0200</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Oct 2020 14:45:15 +0200</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cifrado asimétrico</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/cifrado-asim%C3%A9trico/</link>
-      <pubDate>Fri, 23 Oct 2020 10:01:57 +0200</pubDate>
+      <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/cifrado-asim%C3%A9trico/</guid>
       <description></description>
@@ -20,7 +20,7 @@
     <item>
       <title>gpg</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/gpg/</link>
-      <pubDate>Fri, 23 Oct 2020 10:01:57 +0200</pubDate>
+      <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/gpg/</guid>
       <description></description>
@@ -29,7 +29,7 @@
     <item>
       <title>openssl</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/openssl/</link>
-      <pubDate>Fri, 23 Oct 2020 10:01:57 +0200</pubDate>
+      <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/openssl/</guid>
       <description></description>
@@ -50,24 +50,6 @@
       <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/virtualhosting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/hugo/</link>
-      <pubDate>Tue, 20 Oct 2020 13:05:53 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>instalar hugo</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-hugo/</link>
-      <pubDate>Tue, 20 Oct 2020 13:05:53 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-hugo/</guid>
       <description></description>
     </item>
     
@@ -95,6 +77,24 @@
       <pubDate>Thu, 15 Oct 2020 22:22:11 +0200</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/visualcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>instalar virtualbox</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-virtualbox/</link>
+      <pubDate>Thu, 15 Oct 2020 15:50:23 +0200</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-virtualbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Virtualbox</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/virtualbox/</link>
+      <pubDate>Thu, 15 Oct 2020 15:50:23 +0200</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/virtualbox/</guid>
       <description></description>
     </item>
     
