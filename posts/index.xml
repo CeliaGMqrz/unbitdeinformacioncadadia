@@ -46,11 +46,11 @@ Cifrado Asimétrico con GPG   Tarea 1: Generación de claves
         </item>
         
         <item>
-            <title>VirtualHosting Con Apache2</title>
-            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/virtualhosting-con-apache2/</link>
+            <title>Guia de Virtual Hosting Con Apache</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/guia-de-virtual-hosting-con-apache/</link>
             <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
             
-            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/virtualhosting-con-apache2/</guid>
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/guia-de-virtual-hosting-con-apache/</guid>
             <description>VirtualHosting con Apache Conceptos previos ¿Qué es un sitio web? Un sitio web es un conjunto de páginas web, propiamente dicho. Las páginas están relacionadas entre sí. Y a ese sitio web se accede en una dirección ip y a través de un puerto(80). Normalmente si cambiamos la ip o el puerto serviría otro sitio web.
 ¿Qué es Hosting Virtual? El término Hosting Virtual se refiere a hacer funcionar más de un sitio web (tales como www.</description>
             <content type="html"><![CDATA[<h1 id="virtualhosting-con-apache">VirtualHosting con Apache</h1>
