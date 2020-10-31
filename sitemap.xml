@@ -3,6 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/c/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/compilar/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/compilar-c/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/compilar-lynx/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/lynx/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-10-31T18:13:42+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/cifrado-asim%C3%A9trico/</loc>
     <lastmod>2020-10-24T14:45:15+02:00</lastmod>
   </url>
@@ -19,21 +64,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/openssl/</loc>
-    <lastmod>2020-10-24T14:45:15+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-10-24T14:45:15+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-10-24T14:45:15+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-10-24T14:45:15+02:00</lastmod>
   </url>
   

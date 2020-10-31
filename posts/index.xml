@@ -6,8 +6,263 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 24 Oct 2020 14:45:15 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 31 Oct 2020 18:13:42 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Compilar un programa en C con Makefile</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</link>
+            <pubDate>Sat, 31 Oct 2020 18:13:42 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</guid>
+            <description>Compilación de un programa en C utilizando un Makefile Requisitos previos  Suponemos que tenemos una máquina virtual con Debian Buster, en este caso voy a usar Vagrant con qemu-kvm para crearla. Necesitaremos tener instalado los paquetes necesarios (vagrant, qemu-kvm, virt-manager&amp;hellip;).  Usaremos el siguiente fichero Vagrantfile:
+Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;buster&amp;#34; config.vm.synced_folder &amp;#34;.&amp;#34;, &amp;#34;/vagrant&amp;#34;, disabled: true config.vm.provider :libvirt do |libvirt| libvirt.uri = &amp;#39;qemu+unix:///system&amp;#39; libvirt.host = &amp;#34;debian&amp;#34; libvirt.</description>
+            <content type="html"><![CDATA[<h1 id="compilación-de-un-programa-en-c-utilizando-un-makefile">Compilación de un programa en C utilizando un Makefile</h1>
+<h2 id="requisitos-previos">Requisitos previos</h2>
+<ul>
+<li>Suponemos que tenemos una máquina virtual con Debian Buster, en este caso voy a usar <strong>Vagrant</strong> con <strong>qemu-kvm</strong> para crearla. Necesitaremos tener instalado los paquetes necesarios (vagrant, qemu-kvm, virt-manager&hellip;).</li>
+</ul>
+<p>Usaremos el siguiente fichero Vagrantfile:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Vagrant.configure<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">do</span> |config|
+    config.vm.box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;debian/buster64&#34;</span>
+    config.vm.hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;buster&#34;</span>
+    config.vm.synced_folder <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;/vagrant&#34;</span>, disabled: true
+    config.vm.provider :libvirt <span style="color:#66d9ef">do</span> |libvirt|
+        libvirt.uri <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;qemu+unix:///system&#39;</span>
+        libvirt.host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;debian&#34;</span>
+        libvirt.cpus <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+        libvirt.memory <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span>
+    end
+end
+</code></pre></div><ul>
+<li>La máquina deberá estar actualizada y con los repositorios en orden</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nano /etc/apt/souces.list
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">deb http://deb.debian.org/debian buster main
+deb-src http://deb.debian.org/debian buster main
+
+deb http://deb.debian.org/debian-security/ buster/updates main
+deb-src http://deb.debian.org/debian-security/ buster/updates main
+
+deb http://deb.debian.org/debian buster-updates main
+deb-src http://deb.debian.org/debian buster-updates main
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt update
+sudo apt upgrade
+</code></pre></div><ul>
+<li>Ademas necesitaremos instalar algunos paquetes claves que nos pedirá al hacer la compilación e instalación de nuestro paquete. Uno de ellos lo vamos a descargar ya. Se trata de un paquete que contiene una lista informativa de los paquetes que se consideran esenciales para la creación de paquetes Debian, este es <strong>build-essential</strong>.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install build-essential
+</code></pre></div><h2 id="programa-escrito-en-c-lynx">Programa escrito en C: Lynx</h2>
+<p><strong>Lynx</strong> es un navegador web y cliente de gopher en modo texto. Este navegador es usado desde la linea de comandos, en terminales. Es muy útil para sistemas sin entorno gráfico y a la vez es fácil e intuitivo para su manejo.</p>
+<p>Está escrito en C, y en las fuentes aparece un fichero Makefile para poder compilarlo.</p>
+<ul>
+<li>
+<p><a href="https://packages.debian.org/buster/lynx">Información oficicial del paquete</a></p>
+</li>
+<li>
+<p><a href="https://sources.debian.org/src/lynx/2.8.9rel.1-3/">Contenido del paquete</a></p>
+</li>
+</ul>
+<h3 id="1-descargar-las-fuentes">1. Descargar las fuentes</h3>
+<ul>
+<li>Primero vamos a ubicarnos en un sitio adecuado para descargar las fuentes. En este caso vamos a /usr/local para no interferir con otros archivos del sistema y creamos una carpeta llamada lynx.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd /usr/local
+mkdir lynx
+</code></pre></div><ul>
+<li>Vamos a descargarnos el código fuente:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo apt source lynx
+</code></pre></div><ul>
+<li>Vemos el contenido:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx# ls
+lynx-2.8.9rel.1			 lynx_2.8.9rel.1-3.dsc	       lynx_2.8.9rel.1.orig.tar.bz2.asc
+lynx_2.8.9rel.1-3.debian.tar.xz  lynx_2.8.9rel.1.orig.tar.bz2
+
+
+</code></pre></div><ul>
+<li>Descomprimimos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo tar -xjvf lynx_2.8.9rel.1.orig.tar.bz2 
+
+</code></pre></div><ul>
+<li>Vemos el contenido de nuestra carpeta descomprimida</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vagrant@buster:/usr/local/lynx/lynx2.8.9rel.1$ ls
+ABOUT-NLS       COPYING.asc      VMSPrint.com  config.guess  fixed512.com  make-msc.bat  samples
+AUTHORS         INSTALLATION     WWW           config.hin    install-sh    makefile.bcb  scripts
+BUILD           LYHelp.hin       aclocal.m4    config.sub    lib           makefile.in   src
+CHANGES         LYMessages_en.h  bcblibs.bat   configure     lynx.cfg      makefile.msc  test
+COPYHEADER      PACKAGE          build.bat     configure.in  lynx.hlp      makelynx.bat  userdefs.h
+COPYHEADER.asc  PROBLEMS         build.com     descrip.mms   lynx.man      makew32.bat
+COPYING         README           clean.com     docs          lynx_help     po
+
+</code></pre></div><p>Como podemos comprobar hay un fichero llamado <em>INSTALLATION</em>, que nos va a indicar como tenemos que compilar e instalar lynx.</p>
+<ul>
+<li>
+<ol>
+<li>Autoconfigurar. Debemos utilizar ./configure</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# ./configure
+</code></pre></div><ul>
+<li>Nos encontramos con el siguiente error:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">configure: WARNING: pkg-config is not installed
+
+</code></pre></div><p>Nos está diciendo que necesitamos un paquete esencial para la compilación, lo instalamos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install pkg-config
+</code></pre></div><ul>
+<li>Volvemos a ejecutar <strong>./configure</strong> y encontramos otro error:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">configure: error: No curses header-files found
+</code></pre></div><p>Buscando este error por internet, he encontrado que se debe a que necesita una biblioteca que permite escribir interfaces basadas en texto llamada Ncurses. En concreto nos hace falta una librería que es la siguiente:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get install libncurses5-dev
+</code></pre></div><ul>
+<li>Volvemos a ejecutar configure y vemos que ahora se ejecuta perfectamente.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./configure
+</code></pre></div><p><a href="https://github.com/CeliaGMqrz/utilidades/blob/main/salida.md">salida</a></p>
+<ul>
+<li>Según la guía de <em>INSTALLATION</em> ahora tenemos que ejecutar <strong>make</strong> para crear los objetos y archivos necesarios.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make
+</code></pre></div><ul>
+<li>Estas son las últimas líneas que nos han salido:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Copying Lynx executable into top-level directory
+rm -f ../lynx
+cp lynx ../
+Welcome to Lynx!
+make<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Leaving directory <span style="color:#e6db74">&#39;/usr/local/lynx/lynx2.8.9rel.1/src&#39;</span>
+
+</code></pre></div><ul>
+<li>Vamos al directorio que nos ha creado donde están todos los ficheros objetos:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd lynx/lynx2.8.9rel.1/src/
+
+</code></pre></div><p><img src="/images/objetos.png" alt="objetos.png"></p>
+<ul>
+<li>Ahora deberemos de hacer un <em>make install</em> en el directorio adecuado</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# make install
+/bin/sh -c <span style="color:#e6db74">&#34;P=`echo lynx|sed &#39;s,x,x,&#39;`; \
+</span><span style="color:#e6db74">if test -f /usr/local/bin/</span>$P<span style="color:#e6db74"> ; then \
+</span><span style="color:#e6db74">      mv -f /usr/local/bin/</span>$P<span style="color:#e6db74"> /usr/local/bin/</span>$P<span style="color:#e6db74">.old; fi&#34;</span>
+/usr/bin/install -c lynx /usr/local/bin/<span style="color:#e6db74">`</span>echo lynx|sed <span style="color:#e6db74">&#39;s,x,x,&#39;</span><span style="color:#e6db74">`</span>
+mkdir -p /usr/local/share/man/man1
+/usr/bin/install -c -m <span style="color:#ae81ff">644</span> ./lynx.man /usr/local/share/man/man1/<span style="color:#e6db74">`</span>echo lynx|sed <span style="color:#e6db74">&#39;s,x,x,&#39;</span><span style="color:#e6db74">`</span>.1
+** installing ./lynx.cfg as /usr/local/etc/lynx.cfg
+** installing ./samples/lynx.lss as /usr/local/etc/lynx.lss
+
+Use make install-help to install the help-files
+Use make install-doc to install extra documentation files
+
+</code></pre></div><ul>
+<li>
+<p>Después de todo esto ya tendriamos instalado <strong>lynx</strong>, nos muestra cómo podemos instalar la ayuda y la documentación extra.</p>
+</li>
+<li>
+<p>Ahora ejecutamos <strong>lynx</strong> y vemos que funciona perfectamente.</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lynx www.google.es
+</code></pre></div><p><img src="/images/googlelynx.png" alt="googlelynx.png"></p>
+<h2 id="instalar-la-ayuda">Instalar la ayuda</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# make install-help
+mkdir -p /usr/local/share/lynx_help
+/bin/sh -c <span style="color:#e6db74">&#39;if cd &#34;/usr/local/share/lynx_help&#34; ; then \
+</span><span style="color:#e6db74">	WD=`pwd` ; \
+</span><span style="color:#e6db74">	TAIL=`basename &#34;/usr/local/share/lynx_help&#34;` ; \
+</span><span style="color:#e6db74">	HEAD=`echo &#34;$WD&#34;|sed -e &#34;s,/${TAIL}$,,&#34;` ; \
+</span><span style="color:#e6db74">	test &#34;x$WD&#34; != &#34;x$HEAD&#34; &amp;&amp; rm -fr * ; \
+</span><span style="color:#e6db74">	fi&#39;</span>
+test -d /usr/local/share/lynx_help/keystrokes <span style="color:#f92672">||</span> mkdir /usr/local/share/lynx_help/keystrokes
+Translating/copying html files
+/bin/sh -c <span style="color:#e6db74">&#39;sed_prog=`pwd`/help_files.sed &amp;&amp; \
+</span><span style="color:#e6db74">	cd ./lynx_help &amp;&amp; \
+</span><span style="color:#e6db74">	dirs=keystrokes &amp;&amp; \
+</span><span style="color:#e6db74">	files=&#34;*.html */*.html&#34; &amp;&amp; \
+</span><span style="color:#e6db74">	for f in $files ; do \
+</span><span style="color:#e6db74">		sed -f $sed_prog $f &gt; /usr/local/share/lynx_help/$f ; \
+</span><span style="color:#e6db74">	done &amp;&amp; \
+</span><span style="color:#e6db74">	if test &#34;&#34; != &#34;&#34; ; then \
+</span><span style="color:#e6db74">		(cd /usr/local/share/lynx_help &amp;&amp;  $files ) \
+</span><span style="color:#e6db74">	fi&#39;</span>
+Updating /usr/local/etc/lynx.cfg
+/bin/sh -c <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">&#39;if test -f /usr/local/etc/lynx.cfg ; then \
+</span><span style="color:#e6db74">	mv /usr/local/etc/lynx.cfg /usr/local/etc/lynx.tmp ; \
+</span><span style="color:#e6db74">else \
+</span><span style="color:#e6db74">	cp ./lynx.cfg /usr/local/etc/lynx.tmp ; \
+</span><span style="color:#e6db74">fi&#39;</span>
+Updating /usr/local/etc/lynx.cfg to point to installed help-files
+sed	-e <span style="color:#e6db74">&#39;/^HELPFILE:http/s!^!#!&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>	-e <span style="color:#e6db74">&#39;/^#HELPFILE:file/s!#!!&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>	/usr/local/etc/lynx.tmp | <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>/bin/sh ./scripts/cfg_path.sh lynx_help /usr/local/share/lynx_help | <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>/bin/sh ./scripts/cfg_path.sh lynx_doc  /usr/local/share/lynx_help | <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>sed	-e <span style="color:#e6db74">&#39;/^HELPFILE:file/s!$!!&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>	-e <span style="color:#e6db74">&#39;/^HELPFILE:file/s!$!!&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>	&gt;/usr/local/etc/lynx.cfg
+chmod <span style="color:#ae81ff">644</span> /usr/local/etc/lynx.cfg
+rm -f /usr/local/etc/lynx.tmp
+
+</code></pre></div><ul>
+<li>Comprobamos que tenemos la ayuda instalada</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# lynx --help
+USAGE: lynx <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>file<span style="color:#f92672">]</span>
+Options are:
+  -                 receive options and arguments from stdin
+  -accept_all_cookies 
+                    accept cookies without prompting <span style="color:#66d9ef">if</span> Set-Cookie handling
+                    is on <span style="color:#f92672">(</span>off<span style="color:#f92672">)</span>
+  -anonymous        apply restrictions <span style="color:#66d9ef">for</span> anonymous account,
+                    see also -restrictions
+  -assume_charset<span style="color:#f92672">=</span>MIMEname
+                    charset <span style="color:#66d9ef">for</span> documents that don<span style="color:#960050;background-color:#1e0010">&#39;</span>t specify it
+  -assume_local_charset<span style="color:#f92672">=</span>MIMEname
+                    charset assumed <span style="color:#66d9ef">for</span> local files
+  -assume_unrec_charset<span style="color:#f92672">=</span>MIMEname
+                    use this instead of unrecognized charsets
+  -auth<span style="color:#f92672">=</span>id:pw       authentication information <span style="color:#66d9ef">for</span> protected documents
+  -base             prepend a request URL comment and BASE tag to text/html
+                    outputs <span style="color:#66d9ef">for</span> -source dumps
+  -bibhost<span style="color:#f92672">=</span>URL      local bibp server <span style="color:#f92672">(</span>default http://bibhost/<span style="color:#f92672">)</span>
+  -book             use the bookmark page as the startfile <span style="color:#f92672">(</span>off<span style="color:#f92672">)</span>
+  -buried_news      toggles scanning of news articles <span style="color:#66d9ef">for</span> buried references <span style="color:#f92672">(</span>on<span style="color:#f92672">)</span>
+  -cache<span style="color:#f92672">=</span>NUMBER     NUMBER of documents cached in memory
+
+</code></pre></div><ul>
+<li>También podemos instalar la documentación</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# make install-doc
+mkdir -p /usr/local/share/lynx_doc
+Copying sample files
+/bin/sh -c <span style="color:#e6db74">&#39;\
+</span><span style="color:#e6db74">	( umask 022; \
+</span><span style="color:#e6db74">	  cd . &amp;&amp; \
+</span><span style="color:#e6db74">	  /usr/bin/tar -cf - C[HO]* PROBLEMS README docs samples test ) | \
+</span><span style="color:#e6db74">	( umask 022; \
+</span><span style="color:#e6db74">	  cd /usr/local/share/lynx_doc &amp;&amp; \
+</span><span style="color:#e6db74">	  chmod -R u+w . &amp;&amp; /usr/bin/tar -xf - )&#39;</span>
+/bin/sh -c <span style="color:#e6db74">&#39;if test &#34;&#34; != &#34;&#34; ; then \
+</span><span style="color:#e6db74">	(cd /usr/local/share/lynx_doc &amp;&amp;  -f docs/CHANGES*.[0-9] docs/*.announce ) \
+</span><span style="color:#e6db74">fi&#39;</span>
+/bin/sh -c <span style="color:#e6db74">&#39;for name in COPYING COPYHEADER; do \
+</span><span style="color:#e6db74">	cd /usr/local/share/lynx_help &amp;&amp; rm -f $name ;\
+</span><span style="color:#e6db74">	r= ;\
+</span><span style="color:#e6db74">	test &#34;ln -s&#34; = &#34;ln -s&#34; || r=`echo /usr/local/share/lynx_help|sed -e &#34;s%[^/]\+%..%g&#34; -e &#34;s%^.%%&#34;`; \
+</span><span style="color:#e6db74">	cd /usr/local/share/lynx_help &amp;&amp; ( ln -s $r/usr/local/share/lynx_doc/$name . || cp /usr/local/share/lynx_doc/$name . );\
+</span><span style="color:#e6db74">	done&#39;</span>
+/bin/sh -c <span style="color:#e6db74">&#39;case `id|sed -e &#34;s/(.*//&#34;` in uid=0) chown -R root /usr/local/share/lynx_doc;; esac&#39;</span>
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Cifrado Asimétrico con GPG y OpenSSL</title>

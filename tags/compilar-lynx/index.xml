@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>compilar lynx on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/compilar-lynx/</link>
+    <description>Recent content in compilar lynx on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 31 Oct 2020 18:13:42 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/compilar-lynx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Compilar un programa en C con Makefile</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</link>
+      <pubDate>Sat, 31 Oct 2020 18:13:42 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</guid>
+      <description>Compilación de un programa en C utilizando un Makefile Requisitos previos  Suponemos que tenemos una máquina virtual con Debian Buster, en este caso voy a usar Vagrant con qemu-kvm para crearla. Necesitaremos tener instalado los paquetes necesarios (vagrant, qemu-kvm, virt-manager&amp;hellip;).  Usaremos el siguiente fichero Vagrantfile:
+Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;buster&amp;#34; config.vm.synced_folder &amp;#34;.&amp;#34;, &amp;#34;/vagrant&amp;#34;, disabled: true config.vm.provider :libvirt do |libvirt| libvirt.uri = &amp;#39;qemu+unix:///system&amp;#39; libvirt.host = &amp;#34;debian&amp;#34; libvirt.</description>
+    </item>
+    
+  </channel>
+</rss>
