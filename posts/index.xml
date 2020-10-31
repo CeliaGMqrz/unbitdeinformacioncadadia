@@ -64,7 +64,7 @@ sudo apt upgrade
 <p><a href="https://sources.debian.org/src/lynx/2.8.9rel.1-3/">Contenido del paquete</a></p>
 </li>
 </ul>
-<h3 id="1-descargar-las-fuentes">1. Descargar las fuentes</h3>
+<h3 id="descargar-las-fuentes">Descargar las fuentes</h3>
 <ul>
 <li>Primero vamos a ubicarnos en un sitio adecuado para descargar las fuentes. En este caso vamos a /usr/local para no interferir con otros archivos del sistema y creamos una carpeta llamada lynx.</li>
 </ul>
@@ -100,13 +100,7 @@ COPYHEADER.asc  PROBLEMS         build.com     descrip.mms   lynx.man      makew
 COPYING         README           clean.com     docs          lynx_help     po
 
 </code></pre></div><p>Como podemos comprobar hay un fichero llamado <em>INSTALLATION</em>, que nos va a indicar como tenemos que compilar e instalar lynx.</p>
-<ul>
-<li>
-<ol>
-<li>Autoconfigurar. Debemos utilizar ./configure</li>
-</ol>
-</li>
-</ul>
+<h3 id="autoconfigurar-debemos-utilizar-configure">Autoconfigurar. Debemos utilizar ./configure</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# ./configure
 </code></pre></div><ul>
 <li>Nos encontramos con el siguiente error:</li>
@@ -126,6 +120,7 @@ COPYING         README           clean.com     docs          lynx_help     po
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./configure
 </code></pre></div><p><a href="https://github.com/CeliaGMqrz/utilidades/blob/main/salida.md">salida</a></p>
+<h3 id="compilar-makefile">COMPILAR. MAKEFILE</h3>
 <ul>
 <li>Según la guía de <em>INSTALLATION</em> ahora tenemos que ejecutar <strong>make</strong> para crear los objetos y archivos necesarios.</li>
 </ul>

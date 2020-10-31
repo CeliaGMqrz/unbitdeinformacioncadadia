@@ -51,7 +51,7 @@ Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debi
 Vagrant.configure(&#34;2&#34;) do |config| config.vm.box = &#34;debian/buster64&#34; config.vm.hostname = &#34;buster&#34; config.vm.synced_folder &#34;.&#34;, &#34;/vagrant&#34;, disabled: true config.vm.provider :libvirt do |libvirt| libvirt.uri = &#39;qemu&#43;unix:///system&#39; libvirt.host = &#34;debian&#34; libvirt.">
 <meta itemprop="datePublished" content="2020-10-31T18:13:42+01:00" />
 <meta itemprop="dateModified" content="2020-10-31T18:13:42+01:00" />
-<meta itemprop="wordCount" content="1065">
+<meta itemprop="wordCount" content="1066">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -147,7 +147,7 @@ Vagrant.configure(&#34;2&#34;) do |config| config.vm.box = &#34;debian/buster64&
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        5 minutes
+        6 minutes
 
         
       </p>
@@ -208,7 +208,7 @@ sudo apt upgrade
 <p><a href="https://sources.debian.org/src/lynx/2.8.9rel.1-3/">Contenido del paquete</a></p>
 </li>
 </ul>
-<h3 id="1-descargar-las-fuentes">1. Descargar las fuentes</h3>
+<h3 id="descargar-las-fuentes">Descargar las fuentes</h3>
 <ul>
 <li>Primero vamos a ubicarnos en un sitio adecuado para descargar las fuentes. En este caso vamos a /usr/local para no interferir con otros archivos del sistema y creamos una carpeta llamada lynx.</li>
 </ul>
@@ -244,13 +244,7 @@ COPYHEADER.asc  PROBLEMS         build.com     descrip.mms   lynx.man      makew
 COPYING         README           clean.com     docs          lynx_help     po
 
 </code></pre></div><p>Como podemos comprobar hay un fichero llamado <em>INSTALLATION</em>, que nos va a indicar como tenemos que compilar e instalar lynx.</p>
-<ul>
-<li>
-<ol>
-<li>Autoconfigurar. Debemos utilizar ./configure</li>
-</ol>
-</li>
-</ul>
+<h3 id="autoconfigurar-debemos-utilizar-configure">Autoconfigurar. Debemos utilizar ./configure</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# ./configure
 </code></pre></div><ul>
 <li>Nos encontramos con el siguiente error:</li>
@@ -270,6 +264,7 @@ COPYING         README           clean.com     docs          lynx_help     po
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./configure
 </code></pre></div><p><a href="https://github.com/CeliaGMqrz/utilidades/blob/main/salida.md">salida</a></p>
+<h3 id="compilar-makefile">COMPILAR. MAKEFILE</h3>
 <ul>
 <li>Según la guía de <em>INSTALLATION</em> ahora tenemos que ejecutar <strong>make</strong> para crear los objetos y archivos necesarios.</li>
 </ul>
@@ -434,7 +429,7 @@ Copying sample files
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1065 Words
+        1066 Words
       </p>
 
       <p>
