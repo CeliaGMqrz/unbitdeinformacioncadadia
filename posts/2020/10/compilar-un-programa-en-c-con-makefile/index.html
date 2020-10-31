@@ -51,7 +51,7 @@ Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debi
 Vagrant.configure(&#34;2&#34;) do |config| config.vm.box = &#34;debian/buster64&#34; config.vm.hostname = &#34;buster&#34; config.vm.synced_folder &#34;.&#34;, &#34;/vagrant&#34;, disabled: true config.vm.provider :libvirt do |libvirt| libvirt.uri = &#39;qemu&#43;unix:///system&#39; libvirt.host = &#34;debian&#34; libvirt.">
 <meta itemprop="datePublished" content="2020-10-31T18:13:42+01:00" />
 <meta itemprop="dateModified" content="2020-10-31T18:13:42+01:00" />
-<meta itemprop="wordCount" content="1074">
+<meta itemprop="wordCount" content="1076">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -279,13 +279,13 @@ Welcome to Lynx!
 make<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Leaving directory <span style="color:#e6db74">&#39;/usr/local/lynx/lynx2.8.9rel.1/src&#39;</span>
 
 </code></pre></div><ul>
-<li>Vamos al directorio que nos ha creado donde están todos los ficheros objetos:</li>
+<li>Vamos al directorio que nos ha creado y vemos donde están todos los ficheros objetos:</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd lynx/lynx2.8.9rel.1/src/
 
 </code></pre></div><p><img src="https://unbitdeinformacioncadadia.netlify.app/images/objetos.png" alt="objetos.png"></p>
 <ul>
-<li>Ahora deberemos de hacer un <em>make install</em> en el directorio adecuado</li>
+<li>Ahora deberemos de hacer un <em>make install</em> en el directorio adecuado:</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@buster:/usr/local/lynx/lynx2.8.9rel.1# make install
 /bin/sh -c <span style="color:#e6db74">&#34;P=`echo lynx|sed &#39;s,x,x,&#39;`; \
@@ -300,13 +300,9 @@ mkdir -p /usr/local/share/man/man1
 Use make install-help to install the help-files
 Use make install-doc to install extra documentation files
 
-</code></pre></div><ul>
-<li>
-<p>Después de todo esto ya tendriamos instalado <strong>lynx</strong>, nos muestra cómo podemos instalar la ayuda y la documentación extra.</p>
-</li>
-<li>
-<p>Ahora ejecutamos <strong>lynx</strong> y vemos que funciona perfectamente.</p>
-</li>
+</code></pre></div><p>Después de todo esto ya tendriamos instalado <strong>lynx</strong>, nos muestra cómo podemos instalar la ayuda y la documentación extra.</p>
+<ul>
+<li>Ahora ejecutamos <strong>lynx</strong> y vemos que funciona perfectamente.</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lynx www.google.es
 </code></pre></div><p><img src="https://unbitdeinformacioncadadia.netlify.app/images/googlelynx.png" alt="googlelynx.png"></p>
@@ -429,7 +425,7 @@ Copying sample files
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1074 Words
+        1076 Words
       </p>
 
       <p>
