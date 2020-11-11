@@ -3,12 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</loc>
-    <lastmod>2020-11-11T17:51:13+01:00</lastmod>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/entorno-lamp/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-lamp/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/lamp/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/linux/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/mysql/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</loc>
     <lastmod>2020-11-11T17:51:13+01:00</lastmod>
   </url>
   
@@ -19,16 +64,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/servidor-nginx/</loc>
-    <lastmod>2020-11-11T17:51:13+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-11-11T17:51:13+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-11-11T17:51:13+01:00</lastmod>
   </url>
   
@@ -85,11 +120,6 @@
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/openssl/</loc>
     <lastmod>2020-10-24T14:45:15+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</loc>
-    <lastmod>2020-10-21T21:54:22+02:00</lastmod>
   </url>
   
   <url>

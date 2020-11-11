@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>apache on Un bit de informacion cada día</title>
-    <link>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</link>
-    <description>Recent content in apache on Un bit de informacion cada día</description>
+    <title>instalar lamp on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-lamp/</link>
+    <description>Recent content in instalar lamp on Un bit de informacion cada día</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 11 Nov 2020 19:21:43 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/apache/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Nov 2020 19:21:43 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/instalar-lamp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Instalación de un entorno LAMP</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</link>
@@ -15,16 +15,6 @@
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</guid>
       <description>Instalación de un servidor LAMP Crea una instancia de vagrant basado en un box de debian o ubuntu  Primero creamos el fichero Vagrantfile  nano Vagrantfile  Le añadimos estas lineas para configurar nuestra máquina debian  # -*- mode: ruby -*- # vi: set ft=ruby : Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;debian-cms&amp;#34; config.vm.network :public_network, :bridge=&amp;gt;&amp;#34;enp5s0&amp;#34; end  Levantamos la máquina  vagrant up  Cuando esté lista entramos en la máquina por ssh  vagrant ssh  Una vez dentro le añadimos los repositorios esenciales y actualizamos la máquina  sudo su nano /etc/apt/sources.</description>
-    </item>
-    
-    <item>
-      <title>Guia de Virtual Hosting Con Apache</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/guia-de-virtual-hosting-con-apache/</link>
-      <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/guia-de-virtual-hosting-con-apache/</guid>
-      <description>VirtualHosting con Apache Conceptos previos ¿Qué es un sitio web? Un sitio web es un conjunto de páginas web, propiamente dicho. Las páginas están relacionadas entre sí. Y a ese sitio web se accede en una dirección ip y a través de un puerto(80). Normalmente si cambiamos la ip o el puerto serviría otro sitio web.
-¿Qué es Hosting Virtual? El término Hosting Virtual se refiere a hacer funcionar más de un sitio web (tales como www.</description>
     </item>
     
   </channel>
