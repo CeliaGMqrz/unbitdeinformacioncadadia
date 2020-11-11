@@ -7,7 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 31 Oct 2020 18:13:42 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Nov 2020 17:51:13 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nginx</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</link>
+      <pubDate>Wed, 11 Nov 2020 17:51:13 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>servidor nginx</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/servidor-nginx/</link>
+      <pubDate>Wed, 11 Nov 2020 17:51:13 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/servidor-nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtualhosting</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/virtualhosting/</link>
+      <pubDate>Wed, 11 Nov 2020 17:51:13 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/virtualhosting/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>c</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/c/</link>
@@ -68,33 +95,6 @@
       <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/gpg/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>openssl</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/openssl/</link>
-      <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/openssl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>apache</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</link>
-      <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>virtualhosting</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/virtualhosting/</link>
-      <pubDate>Wed, 21 Oct 2020 21:54:22 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/virtualhosting/</guid>
       <description></description>
     </item>
     
