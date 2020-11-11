@@ -222,9 +222,9 @@ Nov <span style="color:#ae81ff">06</span> 12:03:52 debian-cms apachectl<span sty
 Nov <span style="color:#ae81ff">06</span> 12:03:52 debian-cms systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Started The Apache HTTP Server.
 lines 1-22/22 <span style="color:#f92672">(</span>END<span style="color:#f92672">)</span>
 
-</code></pre></div><p><img src="images/index.png" alt="index.png"></p>
+</code></pre></div><p><img src="/images/lamp/index.png" alt="index.png"></p>
 <p>php en funcionamiento:</p>
-<p><img src="images/testphp.png" alt="testphp.png"></p>
+<p><img src="/images/lamp/testphp.png" alt="testphp.png"></p>
 <p>-&gt; <a href="https://github.com/CeliaGMqrz/cms_install_debian/blob/main/t2_drupal.md">Instalación de drupal</a></p>
 ]]></content>
         </item>
