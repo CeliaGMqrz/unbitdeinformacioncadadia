@@ -115,7 +115,8 @@ pkg-config
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dpkg -l | grep linux-image
 </code></pre></div><p>Desinstalar el kernel que <strong>no funciona</strong> cuando sea necesario:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get remove --purge linux-image-X.X.X-X
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dpkg -i linux-image-4.19.152_4.19.152-1_amd64.deb 
+</code></pre></div><p>Instalar el &lsquo;nuevo&rsquo; kernel</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dpkg -i linux-image-4.19.152_4.19.152-1_amd64.deb 
 </code></pre></div><p>Vemos que funciona correctamente.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ uname -r
 4.19.152

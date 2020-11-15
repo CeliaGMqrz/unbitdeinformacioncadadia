@@ -53,7 +53,7 @@ Al ser linux un kérnel libre, es posible descargar el código fuente, configura
 En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles.">
 <meta itemprop="datePublished" content="2020-11-15T20:07:29+01:00" />
 <meta itemprop="dateModified" content="2020-11-15T20:07:29+01:00" />
-<meta itemprop="wordCount" content="642">
+<meta itemprop="wordCount" content="646">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -262,7 +262,8 @@ pkg-config
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dpkg -l | grep linux-image
 </code></pre></div><p>Desinstalar el kernel que <strong>no funciona</strong> cuando sea necesario:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get remove --purge linux-image-X.X.X-X
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dpkg -i linux-image-4.19.152_4.19.152-1_amd64.deb 
+</code></pre></div><p>Instalar el &lsquo;nuevo&rsquo; kernel</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dpkg -i linux-image-4.19.152_4.19.152-1_amd64.deb 
 </code></pre></div><p>Vemos que funciona correctamente.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ uname -r
 4.19.152
@@ -315,7 +316,7 @@ Virtualization <span style="color:#f92672">(</span>VIRTUALIZATION<span style="co
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        642 Words
+        646 Words
       </p>
 
       <p>
