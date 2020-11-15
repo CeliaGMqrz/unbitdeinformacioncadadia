@@ -177,6 +177,38 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-1_amd64.deb 
 9,1M	linux-image-4.19.152_4.19.152-1_amd64.deb
 
+</code></pre></div><h4 id="2º-reducción">2º REDUCCIÓN</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">DMA memory allocation support <span style="color:#f92672">(</span>ZONE_DMA<span style="color:#f92672">)</span>
+Symmetric multi-processing support <span style="color:#f92672">(</span>SMP<span style="color:#f92672">)</span>
+Memtest <span style="color:#f92672">(</span>MEMTEST<span style="color:#f92672">)</span>
+Enable DMI scanning <span style="color:#f92672">(</span>DMI<span style="color:#f92672">)</span>
+Platform support <span style="color:#66d9ef">for</span> Chrome hardware <span style="color:#f92672">(</span>CHROME_PLATFORMS<span style="color:#f92672">)</span>
+IBM Calgary IOMMU support <span style="color:#f92672">(</span>CALGARY_IOMMU<span style="color:#f92672">)</span>
+Enable support <span style="color:#66d9ef">for</span> 16-bit segments <span style="color:#f92672">(</span>X86_16BIT<span style="color:#f92672">)</span>
+Allow <span style="color:#66d9ef">for</span> memory hot-add <span style="color:#f92672">(</span>MEMORY_HOTPLUG<span style="color:#f92672">)</span>
+Track memory changes <span style="color:#f92672">(</span>MEM_SOFT_DIRTY<span style="color:#f92672">)</span>
+x86 architectural random number generator
+Supervisor Mode Access Prevention <span style="color:#f92672">(</span>X86_SMAP<span style="color:#f92672">)</span>
+The IPv6 protocol <span style="color:#f92672">(</span>IPV6<span style="color:#f92672">)</span>
+Battery <span style="color:#f92672">(</span>ACPI_BATTERY<span style="color:#f92672">)</span>
+AMD MCE features <span style="color:#f92672">(</span>X86_MCE_AMD<span style="color:#f92672">)</span>
+IP: multicast routing <span style="color:#f92672">(</span>IP_MROUTE<span style="color:#f92672">)</span>
+LED Support <span style="color:#f92672">(</span>NEW_LEDS<span style="color:#f92672">)</span>
+Accessibility support <span style="color:#f92672">(</span>ACCESSIBILITY<span style="color:#f92672">)</span>
+Virtualization drivers <span style="color:#f92672">(</span>VIRT_DRIVERS<span style="color:#f92672">)</span>
+Staging drivers <span style="color:#f92672">(</span>STAGING<span style="color:#f92672">)</span>
+Network File Systems <span style="color:#f92672">(</span>NETWORK_FILESYSTEMS<span style="color:#f92672">)</span>
+
+</code></pre></div><p>Numero de elementos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
+<span style="color:#ae81ff">128</span>
+celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
+<span style="color:#ae81ff">1197</span>
+
+</code></pre></div><p>Tamaño conseguido:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-2_amd64.deb 
+8,1M	linux-image-4.19.152_4.19.152-2_amd64.deb
+
 </code></pre></div>]]></content>
         </item>
         
