@@ -74,7 +74,7 @@ certs  crypto   firmware       init     Kconfig  LICENSES  mm           samples 
 <li>Para ver la <strong>ayuda</strong> de make</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make help
-</code></pre></div><h2 id="3-copiar-la-configuración-del-kernel-que-tenemos-actualmente-en-nuestro-sistema-para-que-make-oldconfig-le-indique-esa-configuración-a-nuestro-kernel-nuevo">3. Copiar la configuración del kernel que tenemos actualmente en nuestro sistema para que &lsquo;make oldconfig&rsquo; le indique esa configuración a nuestro kernel nuevo.</h2>
+</code></pre></div><h2 id="3-copiar-la-configuración-del-kernel-que-tenemos-actualmente">3. Copiar la configuración del kernel que tenemos actualmente</h2>
 <ul>
 <li>Esta es la opción que nos muestra la ayuda</li>
 </ul>
@@ -98,7 +98,7 @@ certs  crypto   firmware       init     Kconfig  LICENSES  mm           samples 
 <span style="color:#ae81ff">3381</span>
 celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
 <span style="color:#ae81ff">2013</span>
-</code></pre></div><h2 id="4-selección-y-reducción-de-elementos-de-parte-de-localmodconfig-que-modifica-el-fichero-config">4. Selección y reducción de elementos de parte de <strong>localmodconfig</strong> que modifica el fichero .config</h2>
+</code></pre></div><h2 id="4-selección-y-reducción-de-elementos-loadmodconfig">4. Selección y reducción de elementos (loadmodconfig)</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make localmodconfig
 </code></pre></div><ul>
 <li>Vemos que se ha reducido sifgnificativamente.</li>
@@ -107,9 +107,14 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
 <span style="color:#ae81ff">182</span>
 celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
 <span style="color:#ae81ff">1449</span>
-</code></pre></div><h2 id="5-realizamos-la-primera-compilación-indicandole-el-numero-de-nucleos-que-vayamos-a-utilizar-para-agilizar-el-proceso">5. Realizamos la primera compilación (indicandole el numero de nucleos que vayamos a utilizar para agilizar el proceso)</h2>
+</code></pre></div><h2 id="5-primera-compilación">5. Primera compilación</h2>
 <ul>
-<li>Nos aseguramos que tenemos estos paquetes instalados antes de proceder con la compilación:</li>
+<li>
+<p>Realizamos la primera compilación (indicandole el numero de nucleos que vayamos a utilizar para agilizar el proceso)</p>
+</li>
+<li>
+<p>Nos aseguramos que tenemos estos paquetes instalados antes de proceder con la compilación:</p>
+</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">libelf-devel
 libssl-dev
@@ -118,7 +123,10 @@ pkg-config
 <li>Procedemos a la compilación. Con la opción <strong>-j</strong> le pasamos como parámetro el número de núcleos que queremos que utilice nuestro pc.</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make -j <span style="color:#ae81ff">4</span> bindeb-pkg
-</code></pre></div><h2 id="6-comprobar-el-peso-del-fichero-deb-en-el-directorio-padre-que-es-donde-se-han-generado-los-ficheros-deb">6. Comprobar el peso del fichero deb, en el directorio padre que es donde se han generado los ficheros deb</h2>
+</code></pre></div><h2 id="6-tamaño-del-fichero-deb">6. Tamaño del fichero deb</h2>
+<ul>
+<li>Comprobar el peso del fichero deb, en el directorio padre que es donde se han generado los ficheros deb</li>
+</ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-1_amd64.deb 
 11M	linux-image-4.19.152_4.19.152-1_amd64.deb
 
