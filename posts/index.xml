@@ -6,8 +6,145 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 11 Nov 2020 19:21:43 +0100</lastBuildDate>
+        <lastBuildDate>Sun, 15 Nov 2020 20:07:29 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Compilación de un kernel linux a medida</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</link>
+            <pubDate>Sun, 15 Nov 2020 20:07:29 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</guid>
+            <description>Ejercicio planteado:
+Al ser linux un kérnel libre, es posible descargar el código fuente, configurarlo y comprimirlo. Además, esta tarea a priori compleja, es más sencilla de lo que parece gracias a las herramientas disponibles.
+En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles.</description>
+            <content type="html"><![CDATA[<p>Ejercicio planteado:</p>
+<p>Al ser linux un kérnel libre, es posible descargar el código fuente, configurarlo y comprimirlo. Además, esta tarea a priori compleja, es más sencilla de lo que parece gracias a las herramientas disponibles.</p>
+<p>En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles. Para ello utiliza el método explicado en clase y entrega finalmente el fichero deb con el kérnel compilado por ti.</p>
+<p>El hardware básico incluye como mínimo el teclado, la interfaz de red y la consola gráfica (texto).</p>
+<hr>
+<ol>
+<li>Obtener el código fuente del kernel</li>
+</ol>
+<p>Buscamos las fuentes en la paqueteria de Debian</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt search linux-source
+</code></pre></div><p>Salida:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">linux-source/stable 4.19+105+deb10u7 all
+  Linux kernel source <span style="color:#f92672">(</span>meta-package<span style="color:#f92672">)</span>
+
+linux-source-4.19/stable 4.19.152-1 all
+  Linux kernel source <span style="color:#66d9ef">for</span> version 4.19 with Debian patches
+
+</code></pre></div><p>Segun la versión de kernel que tenemos instalado:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt policy linux-source
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">linux-source:
+  Instalados: <span style="color:#f92672">(</span>ninguno<span style="color:#f92672">)</span>
+  Candidato:  4.19+105+deb10u7
+  Tabla de versión:
+     4.19+105+deb10u7 <span style="color:#ae81ff">500</span>
+        <span style="color:#ae81ff">500</span> http://security.debian.org/debian-security buster/updates/main amd64 Packages
+     4.19+105+deb10u6 <span style="color:#ae81ff">500</span>
+        <span style="color:#ae81ff">500</span> http://deb.debian.org/debian buster/main amd64 Packages
+</code></pre></div><p>Entonces descargamos la versión del kernel que nos pertenece. Además del paquete build-essential y qtbase5-dev, que son esenciales para su compilación.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt install linux-source<span style="color:#f92672">=</span>4.19+105+deb10u7 build-essential qtbase5-dev
+</code></pre></div><ol start="2">
+<li>Descomprimir las fuentes en un directorio &lsquo;seguro&rsquo; como usuario.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir /home/celiagm/compilar_kernel
+sudo mv linux-source-4.19.tar.xz /home/celiagm/compilar_kernel/
+cd /home/celiagm/compilar_kernel/
+tar -xf linux-source-4.19.tar.xz 
+</code></pre></div><p>Vemos el tamaño</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-source-4.19
+910M	linux-source-4.19
+
+</code></pre></div><p>Vemos el contenido de nuestras fuentes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ cd linux-source-4.19/
+celiagm@debian:~/compilar_kernel/linux-source-4.19$ ls
+arch   COPYING  Documentation  fs       ipc      kernel    MAINTAINERS  net      scripts   tools
+block  CREDITS  drivers        include  Kbuild   lib       Makefile     README   security  usr
+certs  crypto   firmware       init     Kconfig  LICENSES  mm           samples  sound     virt
+</code></pre></div><p>Para ver la ayuda de make</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make help
+</code></pre></div><ol start="3">
+<li>Copiar la configuración del kernel que tenemos actualmente en nuestro sistema para que &lsquo;make oldconfig&rsquo; le indique esa configuración a nuestro kernel nuevo.</li>
+</ol>
+<p>Esta es la opción que nos muestra la ayuda</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> oldconfig	  - Update current config utilising a provided .config as base
+</code></pre></div><p>Ahora copiamos el fichero &lsquo;config&rsquo; a nuestro directorio</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cp /boot/config-4.19.0-12-amd64 .config
+</code></pre></div><p>Ejecutamos <strong>make oldconfig</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make oldconfig
+</code></pre></div><p>Miramos el número de elementos que se van a compilar como modulos y estaticamente.</p>
+<p>Modulos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
+</code></pre></div><p>Estatica:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
+<span style="color:#ae81ff">3381</span>
+celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
+<span style="color:#ae81ff">2013</span>
+</code></pre></div><ol start="4">
+<li>Selección y reducción de elementos de parte de <strong>localmodconfig</strong> que modifica el fichero .config</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make localmodconfig
+</code></pre></div><p>Vemos que se ha reducido sifgnificativamente.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
+<span style="color:#ae81ff">182</span>
+celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
+<span style="color:#ae81ff">1449</span>
+</code></pre></div><ol start="5">
+<li>Realizamos la primera compilación (indicandole el numero de nucleos que vayamos a utilizar para agilizar el proceso)</li>
+</ol>
+<p>Nos aseguramos que tenemos estos paquetes instalados:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">libelf-devel
+libssl-dev
+pkg-config
+</code></pre></div><p>Procedemos a la compilación</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make -j <span style="color:#ae81ff">4</span> bindeb-pkg
+</code></pre></div><ol start="6">
+<li>Comprobar el peso del fichero deb, en el directorio padre que es donde se han generado los ficheros deb</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-1_amd64.deb 
+11M	linux-image-4.19.152_4.19.152-1_amd64.deb
+
+</code></pre></div><ol start="7">
+<li>Instalarlo y comprobar funcionamiento</li>
+</ol>
+<p>Ver los kernels instalados</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dpkg -l | grep linux-image
+</code></pre></div><p>Desinstalar el kernel que <strong>no funciona</strong> cuando sea necesario:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get remove --purge linux-image-X.X.X-X
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dpkg -i linux-image-4.19.152_4.19.152-1_amd64.deb 
+</code></pre></div><p>Vemos que funciona correctamente.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ uname -r
+4.19.152
+
+</code></pre></div><ol start="8">
+<li>Reducir elementos. Con el siguiente comando se nos abre una ventana y podemos elegir los módulos o elementos que queremos quitar.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">make xconfig
+</code></pre></div><p>1º REDUCCIÓN</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">RF switch subsystem support <span style="color:#f92672">(</span>RFKILL<span style="color:#f92672">)</span>: soporte para interruptor de tarjetas wifi y bluetooh
+Bluetooth subsystem support <span style="color:#f92672">(</span>BT<span style="color:#f92672">)</span>: Bluetooth
+QoS and/or fair queueing <span style="color:#f92672">(</span>NET_SCHED<span style="color:#f92672">)</span>: elegir paquetes retraso primero o en cola
+Network packet filtering framework <span style="color:#f92672">(</span>Netfilter<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>NETFILTER<span style="color:#f92672">)</span>: filtrado de paquetes, cortafuegos
+Multimedia support <span style="color:#f92672">(</span>MEDIA_SUPPORT<span style="color:#f92672">)</span>: Soporte para multimedia
+Sound card support <span style="color:#f92672">(</span>SOUND<span style="color:#f92672">)</span>: Soporte para el sonido
+Linux guest support <span style="color:#f92672">(</span>HYPERVISOR_GUEST<span style="color:#f92672">)</span>: Soporte para maquinas virtuales
+Macintosh device drivers <span style="color:#f92672">(</span>MACINTOSH_DRIVERS<span style="color:#f92672">)</span>
+Macintosh device drivers <span style="color:#f92672">(</span>MACINTOSH_DRIVERS<span style="color:#f92672">)</span>
+Hardware Monitoring support <span style="color:#f92672">(</span>HWMON<span style="color:#f92672">)</span>: Monitoreo de hardware
+Hardware crypto devices <span style="color:#f92672">(</span>CRYPTO_HW<span style="color:#f92672">)</span>: Encriptación de hardware
+Virtualization <span style="color:#f92672">(</span>VIRTUALIZATION<span style="color:#f92672">)</span>
+
+</code></pre></div><p>Numero de elementos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"></code></pre></div><p>Tamaño conseguido:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-1_amd64.deb 
+9,1M	linux-image-4.19.152_4.19.152-1_amd64.deb
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Instalación de un entorno LAMP</title>

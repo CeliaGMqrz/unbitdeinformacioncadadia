@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 11 Nov 2020 19:21:43 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Nov 2020 20:07:29 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Compilación de un kernel linux a medida</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</link>
+      <pubDate>Sun, 15 Nov 2020 20:07:29 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</guid>
+      <description>Ejercicio planteado:
+Al ser linux un kérnel libre, es posible descargar el código fuente, configurarlo y comprimirlo. Además, esta tarea a priori compleja, es más sencilla de lo que parece gracias a las herramientas disponibles.
+En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles.</description>
+    </item>
+    
     <item>
       <title>Instalación de un entorno LAMP</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</link>

@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</loc>
+    <lastmod>2020-11-15T20:07:29+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/kernel-linux/</loc>
+    <lastmod>2020-11-15T20:07:29+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-11-15T20:07:29+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-11-15T20:07:29+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-11-15T20:07:29+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</loc>
     <lastmod>2020-11-11T19:21:43+01:00</lastmod>
   </url>
@@ -34,21 +59,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/mysql/</loc>
-    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-11-11T19:21:43+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-11-11T19:21:43+01:00</lastmod>
   </url>
   
