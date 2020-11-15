@@ -209,6 +209,24 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-2_amd64.deb 
 8,1M	linux-image-4.19.152_4.19.152-2_amd64.deb
 
+</code></pre></div><h4 id="3º-reducción">3º REDUCCIÓN</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Support <span style="color:#66d9ef">for</span> paging of anonymous memory <span style="color:#f92672">(</span>swap<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SWAP<span style="color:#f92672">)</span>
+Enable the block layer <span style="color:#f92672">(</span>BLOCK<span style="color:#f92672">)</span>
+Namespaces support <span style="color:#f92672">(</span>NAMESPACES<span style="color:#f92672">)</span>
+Extended Error Log support <span style="color:#f92672">(</span>ACPI_EXTLOG<span style="color:#f92672">)</span>
+Support <span style="color:#66d9ef">for</span> PCI Hotplug <span style="color:#f92672">(</span>HOTPLUG_PCI<span style="color:#f92672">)</span>
+ACPI Platform Error Interface <span style="color:#f92672">(</span>APEI<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>ACPI_APEI<span style="color:#f92672">)</span>
+/dev/agpgart <span style="color:#f92672">(</span>AGP Support<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>AGP<span style="color:#f92672">)</span>
+ACPI <span style="color:#f92672">(</span>Advanced Configuration and Power Interface<span style="color:#f92672">)</span> Support <span style="color:#f92672">(</span>ACPI<span style="color:#f92672">)</span>
+</code></pre></div><p>Numero de elementos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
+<span style="color:#ae81ff">102</span>
+celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
+<span style="color:#ae81ff">1016</span>
+</code></pre></div><p>Tamaño conseguido:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-3_amd64.deb 
+6,6M	linux-image-4.19.152_4.19.152-3_amd64.deb
+
 </code></pre></div>]]></content>
         </item>
         
