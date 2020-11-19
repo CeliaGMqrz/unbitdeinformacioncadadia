@@ -55,7 +55,7 @@ Conocimientos previos:
 OpenSSL permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.">
 <meta itemprop="datePublished" content="2020-11-19T18:51:45+01:00" />
 <meta itemprop="dateModified" content="2020-11-19T18:51:45+01:00" />
-<meta itemprop="wordCount" content="1977">
+<meta itemprop="wordCount" content="1976">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -581,14 +581,13 @@ organizationName_default
 <ul>
 <li><strong>Recibe como respuesta un certificado X.509 para el servidor firmado y el certificado de la autoridad certificadora.</strong></li>
 </ul>
-<p>Recibimos el certificado firmado por la autoridad certificador<!-- raw HTML omitted -->
-root@debian-https:~/ca/csr# ls
-celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr</p>
-<pre><code>
-* **Configura tu servidor web con https en el puerto 443, haciendo que las peticiones http se redireccionen a https (forzar https).**
-
-```powershell
-&lt;VirtualHost *:443&gt;
+<p>Recibimos el certificado firmado por la autoridad certificadora</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-https<span style="color:#960050;background-color:#1e0010">:</span>~/ca/csr<span style="color:#75715e"># ls</span>
+celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr
+</code></pre></div><ul>
+<li><strong>Configura tu servidor web con https en el puerto 443, haciendo que las peticiones http se redireccionen a https (forzar https).</strong></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">&lt;VirtualHost *<span style="color:#960050;background-color:#1e0010">:</span>443&gt;
         ServerName celiagarcia.iesgn.org
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/celia
@@ -600,17 +599,17 @@ celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr</p>
         SSLCertificateFile /root/ca/csr/celia.iesgn.org.csr.pem
         SSLCertificateKeyFile /root/ca/private/celia.iesgn.org.key.pem
 
-        &lt;FilesMatch &quot;\.(php|py)$&quot;&gt;
+        &lt;FilesMatch <span style="color:#e6db74">&#34;\.(php|py)$&#34;</span>&gt;
                 SSLOptions +StdEnvVars
         &lt;/FilesMatch&gt;
 
-        BrowserMatch &quot;MSIE [2-6]&quot; \
+        BrowserMatch <span style="color:#e6db74">&#34;MSIE [2-6]&#34;</span> \
                 nokeepalive ssl-unclean-shutdown \
                 downgrade-1.0 force-response-1.0
-        BrowserMatch &quot;MSIE [17-9]&quot; ssl-unclean-shutdown
+        BrowserMatch <span style="color:#e6db74">&#34;MSIE [17-9]&#34;</span> ssl-unclean-shutdown
 &lt;/VirtualHost&gt;
 
-</code></pre><p>Hay que habilitar el modulo de ssl</p>
+</code></pre></div><p>Hay que habilitar el <strong>modulo de ssl</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">a2enmod ssl
 </code></pre></div><p>Reiniciamos el servidor</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart apache2
@@ -647,7 +646,7 @@ celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr</p>
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1977 Words
+        1976 Words
       </p>
 
       <p>
