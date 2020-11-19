@@ -186,6 +186,7 @@ extendedKeyUsage = critical, OCSPSigning
 EOF
 sed -i <span style="color:#e6db74">&#39;s|xxxsubjectAltNamexxx =|subjectAltName = ${ENV::SAN}|g&#39;</span> openssl.conf
 </code></pre></div><h4 id="creamos-la-clave-y-certificado-de-la-autoridad-de-certificación">Creamos la clave y certificado de la autoridad de certificación</h4>
+<p>Crear clave:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openssl genrsa -aes256 -out private/ca.key.pem 4096
 chmod 400 private/ca.key.pem
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">URL=celiagarcia.iesgn.org
@@ -407,12 +408,13 @@ Data Base Updated
 </code></pre></div><p>Y el fichero generado se lo enviamos al compañero: <strong>joni.firmado.csr.pem</strong></p>
 <p><strong>¿Qué otra información debes aportar a tu compañero para que éste configure de forma adecuada su servidor web con el certificado generado?</strong></p>
 <p>Debemos aportar los datos requeridos que son:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Estos están configurados en el fichero openssl.conf con &lsquo;<strong>match</strong>&rsquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">countryName_default
+stateOrProvinceName_default
+organizationName_default
+</code></pre></div><p>Estos están configurados en el fichero openssl.conf con &lsquo;<strong>match</strong>&rsquo;</p>
 <hr>
 <h2 id="parte-2">PARTE 2</h2>
-<h3 id="el-alumno-que-hace-de-administrador-del-servidor-web-debe-entregar-una-documentación-que-describa-los-siguientes-puntos">El alumno que hace de administrador del servidor web, debe entregar una documentación que describa los siguientes puntos:</h3>
+<h3 id="el-alumno-que-hace-de-administrador-del-servidor-web-debe-entrepregar-una-documentación-que-describa-los-siguientes-puntos">El alumno que hace de administrador del servidor web, debe entre<!-- raw HTML omitted -->gar una documentación que describa los siguientes puntos:</h3>
 <p>Estos puntos que vienen a continuación los hemos realizado con la creación de la autoridad certificadora:</p>
 <ul>
 <li>
@@ -429,13 +431,14 @@ Data Base Updated
 <ul>
 <li><strong>Recibe como respuesta un certificado X.509 para el servidor firmado y el certificado de la autoridad certificadora.</strong></li>
 </ul>
-<p>Recibimos el certificado firmado por la autoridad certificadora de nuestro compañero <strong>celia.iesgn.org.csr.pem</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-https<span style="color:#960050;background-color:#1e0010">:</span>~/ca/csr<span style="color:#75715e"># ls</span>
-celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr
-</code></pre></div><ul>
-<li><strong>Configura tu servidor web con https en el puerto 443, haciendo que las peticiones http se redireccionen a https (forzar https).</strong></li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">&lt;VirtualHost *<span style="color:#960050;background-color:#1e0010">:</span>443&gt;
+<p>Recibimos el certificado firmado por la autoridad certificador<!-- raw HTML omitted -->
+root@debian-https:~/ca/csr# ls
+celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr</p>
+<pre><code>
+* **Configura tu servidor web con https en el puerto 443, haciendo que las peticiones http se redireccionen a https (forzar https).**
+
+```powershell
+&lt;VirtualHost *:443&gt;
         ServerName celiagarcia.iesgn.org
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/celia
@@ -447,17 +450,17 @@ celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr
         SSLCertificateFile /root/ca/csr/celia.iesgn.org.csr.pem
         SSLCertificateKeyFile /root/ca/private/celia.iesgn.org.key.pem
 
-        &lt;FilesMatch <span style="color:#e6db74">&#34;\.(php|py)$&#34;</span>&gt;
+        &lt;FilesMatch &quot;\.(php|py)$&quot;&gt;
                 SSLOptions +StdEnvVars
         &lt;/FilesMatch&gt;
 
-        BrowserMatch <span style="color:#e6db74">&#34;MSIE [2-6]&#34;</span> \
+        BrowserMatch &quot;MSIE [2-6]&quot; \
                 nokeepalive ssl-unclean-shutdown \
                 downgrade-1.0 force-response-1.0
-        BrowserMatch <span style="color:#e6db74">&#34;MSIE [17-9]&#34;</span> ssl-unclean-shutdown
+        BrowserMatch &quot;MSIE [17-9]&quot; ssl-unclean-shutdown
 &lt;/VirtualHost&gt;
 
-</code></pre></div><p>Hay que habilitar el modulo de ssl</p>
+</code></pre><p>Hay que habilitar el modulo de ssl</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">a2enmod ssl
 </code></pre></div><p>Reiniciamos el servidor</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart apache2
