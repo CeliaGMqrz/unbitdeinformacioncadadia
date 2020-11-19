@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openstackclient on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/openstackclient/</link>
+    <description>Recent content in openstackclient on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 19 Nov 2020 19:31:53 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/openstackclient/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalar Openstackclient y deshabilitar la seguridad de puertos</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/</link>
+      <pubDate>Thu, 19 Nov 2020 19:31:53 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/</guid>
+      <description>Necesitamos instalar Openstackclient, para ello lo vamos hacer desde un entorno virtual para no comprometer la paquetería de nuestro sistema, ya que no es necesario para nuestro sistema actualmente.
+ Recordamos como creamos un entorno virtual con venv
+ Instalamos el paquete necesario para instalar módulos:  apt-get install python3-venv  Desde el usuario sin privilegios podemos crear un entorno virtual con python3:  python3 -m venv entorno  Activar y desactivar el entorno  source entorno/bin/activate (entorno)$ deactivate  Usando el entorno virtual creado previamente, vamos a instalar el paquete Openstackclient (necesitaremos la libreria de python3).</description>
+    </item>
+    
+  </channel>
+</rss>

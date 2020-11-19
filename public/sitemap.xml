@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/</loc>
+    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/openstackclient/</loc>
+    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/autoridad-certificadora/</loc>
     <lastmod>2020-11-19T18:51:45+01:00</lastmod>
   </url>
@@ -14,21 +39,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</loc>
-    <lastmod>2020-11-19T18:51:45+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-11-19T18:51:45+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-11-19T18:51:45+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-11-19T18:51:45+01:00</lastmod>
   </url>
   
