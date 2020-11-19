@@ -7,7 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 15 Nov 2020 20:07:29 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Nov 2020 18:51:45 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crear Autoridad Certificadora y Certificado autofirmado</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</link>
+      <pubDate>Thu, 19 Nov 2020 18:51:45 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</guid>
+      <description>HTTPS / SSL Tarea 1: Certificado autofirmado PARTE 1 OBJETIVO:
+Crear su autoridad certificadora (generar el certificado digital de la CA). Mostrar el fichero de configuración de la AC.
+Conocimientos previos:
+OpenSSL permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.</description>
+    </item>
+    
+    <item>
+      <title>Instalación y configuración inicial de los servidores</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/</link>
+      <pubDate>Wed, 18 Nov 2020 18:22:12 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/</guid>
+      <description>En esta tarea se va a crear el escenario de trabajo que se va a usar durante todo el curso, que va a constar inicialmente de 3 instancias con nombres relacionados con el libro &amp;ldquo;Don Quijote de la Mancha&amp;rdquo;.
+Pasos a realizar:
+1. Creación de la red interna:  Nombre red interna de  10.0.1.0/24  2. Creación de las instancias   Dulcinea:
+ Debian Buster sobre volumen de 10GB con sabor m1.</description>
+    </item>
+    
     <item>
       <title>Compilación de un kernel linux a medida</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</link>
@@ -96,19 +120,6 @@ $ sudo apt-get install code </description>
 $ sudo nano /etc/apt/sources.list Añadimos el repositorio y guardamos el fichero.
 deb https://download.virtualbox.org/virtualbox/debian buster contrib Descargamos e importamos la clave pública de Oracle GPG en nuestro Debian 10.
 $ wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - Actualizamos los paquetes</description>
-    </item>
-    
-    <item>
-      <title>Contacto</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/about/</guid>
-      <description>Bienvenid@s. Me llamo Celia, soy estudiante de Administración de Sistemas Informáticos en Red en el instituto IES Gonzalo Nazareno, y en este sitio web voy a ir publicando posts sobre los diferentes conocimientos que estoy adquiriendo en mi ciclo.
-Espero que sea de ayuda y aprendamos juntos.
-Podeis contactar conmigo en:
- Linkedin Github  O si lo preferis podeis escribir un correo a: cg.marquez95@gmail.com
-Este sitio web ha sido generado con Hugo: Más info.</description>
     </item>
     
   </channel>

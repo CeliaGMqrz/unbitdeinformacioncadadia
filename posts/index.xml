@@ -6,8 +6,682 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 15 Nov 2020 20:07:29 +0100</lastBuildDate>
+        <lastBuildDate>Thu, 19 Nov 2020 18:51:45 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Crear Autoridad Certificadora y Certificado autofirmado</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</link>
+            <pubDate>Thu, 19 Nov 2020 18:51:45 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</guid>
+            <description>HTTPS / SSL Tarea 1: Certificado autofirmado PARTE 1 OBJETIVO:
+Crear su autoridad certificadora (generar el certificado digital de la CA). Mostrar el fichero de configuración de la AC.
+Conocimientos previos:
+OpenSSL permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.</description>
+            <content type="html"><![CDATA[<h1 id="https--ssl">HTTPS / SSL</h1>
+<h2 id="tarea-1-certificado-autofirmado">Tarea 1: Certificado autofirmado</h2>
+<h2 id="parte-1">PARTE 1</h2>
+<p><strong>OBJETIVO:</strong></p>
+<p>Crear su autoridad certificadora (generar el certificado digital de la CA). Mostrar el fichero de configuración de la AC.</p>
+<p>Conocimientos previos:</p>
+<p><strong>OpenSSL</strong> permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.</p>
+<p>Para usar el protocolo HTTPS en un servidor web es necesario al menos generar un certificado autofirmado que incluya el dominio del sitio web. Ese certificado proporciona comunicaciones seguras entre el servidor y el cliente pero los clientes no lo consideran de confianza de modo que han de omitir la validación del certificado, un entorno de desarrollo o pruebas es suficiente pero en un escenario de producción para añadir más seguridad donde hay varios servidores que además requieren y validan también el certificado del cliente es necesario utilizar certificados generados por una entidad en la que se confíe, esta es la autoridad de certificación.</p>
+<p>La autoridad de certificación o CA es una entidad en la que se confía, si una CA ha firmado digitalmente un certificado esta asegura que el certificado pertenece a quien dice pertenecer. Las funciones de una CA son firmar los certificados que se le envían, de revocar los certificados cuando han sido comprometidos o de renovarlos cuando su validez expira.</p>
+<h4 id="crear-el-directorio-donde-vamos-a-alojar-los-ficheros-de-la-ca-y-le-damos-los-permisos-necesarios">Crear el directorio donde vamos a alojar los ficheros de la CA y le damos los permisos necesarios</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">DIR_CA=<span style="color:#e6db74">&#34;/root/ca&#34;</span>
+mkdir /root/ca
+cd /root/ca
+mkdir certs csr crl newcerts private
+chmod 700 private
+touch index.txt
+touch index.txt.attr
+echo 1000 &gt; serial
+</code></pre></div><h4 id="crear-las-variables-de-entorno-que-definiran-nuestra-ca-para-el-fichero-de-configuración">Crear las variables de entorno que definiran nuestra CA para el fichero de configuración</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">countryName_default=<span style="color:#e6db74">&#34;ES&#34;</span>
+stateOrProvinceName_default=<span style="color:#e6db74">&#34;Sevilla&#34;</span>
+localityName_default=<span style="color:#e6db74">&#34;Los Palacios&#34;</span>
+organizationName_default=<span style="color:#e6db74">&#34;Celia&#34;</span>
+organizationalUnitName_default=<span style="color:#e6db74">&#34;cgm&#34;</span>
+emailAddress_default=<span style="color:#e6db74">&#34;cgarmai95@gmail.com&#34;</span>
+</code></pre></div><h4 id="creamos-el-fichero-de-configuración">Creamos el fichero de configuración</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">DIR_CA=<span style="color:#e6db74">&#34;./&#34;</span>
+cat &lt;&lt;EOF&gt;$DIR_CA/openssl.conf
+[ ca ]
+<span style="color:#75715e"># man ca</span>
+default_ca = CA_default
+
+[ CA_default ]
+<span style="color:#75715e"># Directory and file locations.</span>
+dir               = ${DIR_CA}
+certs             = ${DIR_CA}certs
+crl_dir           = ${DIR_CA}crl
+new_certs_dir     = ${DIR_CA}newcerts
+database          = ${DIR_CA}index.txt
+serial            = ${DIR_CA}serial
+RANDFILE          = ${DIR_CA}private/.rand
+
+<span style="color:#75715e"># The root key and root certificate.</span>
+private_key       = ${DIR_CA}private/ca.key.pem
+certificate       = ${DIR_CA}certs/ca.cert.pem
+
+<span style="color:#75715e"># For certificate revocation lists.</span>
+crlnumber         = ${DIR_CA}crlnumber
+crl               = ${DIR_CA}crl/ca.crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+
+<span style="color:#75715e"># SHA-1 is deprecated, so use SHA-2 instead.</span>
+default_md        = sha256
+
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 375
+preserve          = no
+policy            = policy_strict
+
+[ policy_strict ]
+<span style="color:#75715e"># The root CA should only sign intermediate certificates that match.</span>
+<span style="color:#75715e"># See the POLICY FORMAT section of man ca.</span>
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ policy_loose ]
+<span style="color:#75715e"># Allow the intermediate CA to sign a more diverse range of certificates.</span>
+<span style="color:#75715e"># See the POLICY FORMAT section of the ca man page.</span>
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+<span style="color:#75715e"># Options for the req tool (man req).</span>
+default_bits        = 2048
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+<span style="color:#75715e"># SHA-1 is deprecated, so use SHA-2 instead.</span>
+default_md          = sha256
+<span style="color:#75715e"># Extension to add when the -x509 option is used.</span>
+x509_extensions     = v3_ca
+<span style="color:#75715e"># Extension for SANs</span>
+req_extensions      = v3_req
+
+[ v3_req ]
+<span style="color:#75715e"># Extensions to add to a certificate request</span>
+<span style="color:#75715e"># Before invoke openssl use: export SAN=DNS:value1,DNS:value2</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+xxxsubjectAltNamexxx =
+
+[ req_distinguished_name ]
+<span style="color:#75715e"># See &lt;https://en.wikipedia.org/wiki/Certificate_signing_request&gt;.</span>
+countryName                     = Country Name (2 letter code)
+stateOrProvinceName             = State or Province Name
+localityName                    = Locality Name
+0.organizationName              = Organization Name
+organizationalUnitName          = Organizational Unit Name
+commonName                      = Common Name
+emailAddress                    = Email Address
+
+<span style="color:#75715e"># Optionally, specify some defaults.</span>
+countryName_default             = $countryName_default
+stateOrProvinceName_default     = $stateOrProvinceName_default
+localityName_default            = $localityName_default
+0.organizationName_default      = $organizationName_default
+organizationalUnitName_default  = $organizationalUnitName_default
+emailAddress_default            = $emailAddress_default
+
+[ v3_ca ]
+<span style="color:#75715e"># Extensions for a typical CA (man x509v3_config).</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid<span style="color:#960050;background-color:#1e0010">:</span>always,issuer
+basicConstraints = critical, CA<span style="color:#960050;background-color:#1e0010">:</span>true
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+[ v3_intermediate_ca ]
+<span style="color:#75715e"># Extensions for a typical intermediate CA (man x509v3_config).</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid<span style="color:#960050;background-color:#1e0010">:</span>always,issuer
+basicConstraints = critical, CA<span style="color:#960050;background-color:#1e0010">:</span>true, pathlen<span style="color:#960050;background-color:#1e0010">:</span>0
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+[ usr_cert ]
+<span style="color:#75715e"># Extensions for client certificates (man x509v3_config).</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+nsCertType = client, email
+nsComment = <span style="color:#e6db74">&#34;OpenSSL Generated Client Certificate&#34;</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, emailProtection
+
+[ server_cert ]
+<span style="color:#75715e"># Extensions for server certificates (man x509v3_config).</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+nsCertType = server
+nsComment = <span style="color:#e6db74">&#34;OpenSSL Generated Server Certificate&#34;</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer<span style="color:#960050;background-color:#1e0010">:</span>always
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+
+[ crl_ext ]
+<span style="color:#75715e"># Extension for CRLs (man x509v3_config).</span>
+authorityKeyIdentifier=keyid<span style="color:#960050;background-color:#1e0010">:</span>always
+
+[ ocsp ]
+<span style="color:#75715e"># Extension for OCSP signing certificates (man ocsp).</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, digitalSignature
+extendedKeyUsage = critical, OCSPSigning
+EOF
+sed -i <span style="color:#e6db74">&#39;s|xxxsubjectAltNamexxx =|subjectAltName = ${ENV::SAN}|g&#39;</span> openssl.conf
+</code></pre></div><h4 id="creamos-la-clave-y-certificado-de-la-autoridad-de-certificación">Creamos la clave y certificado de la autoridad de certificación</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openssl genrsa -aes256 -out private/ca.key.pem 4096
+chmod 400 private/ca.key.pem
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">URL=celiagarcia.iesgn.org
+export SAN=DNS<span style="color:#960050;background-color:#1e0010">:</span>$URL
+</code></pre></div><p>Crear certificado</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openssl req -config openssl.conf -key private/ca.key.pem -new -x509 -days 7300 -sha256 -extensions v3_ca -out certs/ca.cert.pem
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-https<span style="color:#960050;background-color:#1e0010">:</span>~/ca<span style="color:#75715e"># openssl req -config openssl.conf -key private/ca.key.pem -new -x509 -days 7300 -sha256 -extensions v3_ca -out certs/ca.cert.pem</span>
+Enter pass phrase <span style="color:#66d9ef">for</span> private/ca.key.pem<span style="color:#960050;background-color:#1e0010">:</span>
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+<span style="color:#66d9ef">For</span> some fields there will be a <span style="color:#66d9ef">default</span> value,
+<span style="color:#66d9ef">If</span> you enter <span style="color:#e6db74">&#39;.&#39;</span>, the field will be left blank.
+-----
+Country Name (2 letter code) <span style="color:#66d9ef">[ES]</span><span style="color:#960050;background-color:#1e0010">:</span>
+State or Province Name <span style="color:#66d9ef">[Sevilla]</span><span style="color:#960050;background-color:#1e0010">:</span>
+Locality Name <span style="color:#66d9ef">[Los Palacios]</span><span style="color:#960050;background-color:#1e0010">:</span>
+Organization Name <span style="color:#66d9ef">[Celia]</span><span style="color:#960050;background-color:#1e0010">:</span>
+Organizational Unit Name <span style="color:#66d9ef">[cgm]</span><span style="color:#960050;background-color:#1e0010">:</span>
+Common Name []<span style="color:#960050;background-color:#1e0010">:</span>
+Email Address [cgarmai95@gmail.com]<span style="color:#960050;background-color:#1e0010">:</span>
+
+</code></pre></div><p>Le damos los permisos necesarios.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">chmod 444 certs/ca.cert.pem
+</code></pre></div><h3 id="estructura-de-directorios">Estructura de directorios</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-https<span style="color:#960050;background-color:#1e0010">:</span>~/ca<span style="color:#75715e"># tree</span>
+.
+<span style="color:#960050;background-color:#1e0010">├──</span> certs
+<span style="color:#960050;background-color:#1e0010">│</span>   <span style="color:#960050;background-color:#1e0010">└──</span> ca.cert.pem
+<span style="color:#960050;background-color:#1e0010">├──</span> crl
+<span style="color:#960050;background-color:#1e0010">├──</span> csr
+<span style="color:#960050;background-color:#1e0010">│</span>   <span style="color:#960050;background-color:#1e0010">├──</span> celia.iesgn.org.csr
+<span style="color:#960050;background-color:#1e0010">│</span>   <span style="color:#960050;background-color:#1e0010">└──</span> jonathan.iesgn.org.csr
+<span style="color:#960050;background-color:#1e0010">├──</span> index.txt
+<span style="color:#960050;background-color:#1e0010">├──</span> index.txt.attr
+<span style="color:#960050;background-color:#1e0010">├──</span> newcerts
+<span style="color:#960050;background-color:#1e0010">├──</span> openssl.conf
+<span style="color:#960050;background-color:#1e0010">├──</span> private
+<span style="color:#960050;background-color:#1e0010">│</span>   <span style="color:#960050;background-color:#1e0010">├──</span> ca.key.pem
+<span style="color:#960050;background-color:#1e0010">│</span>   <span style="color:#960050;background-color:#1e0010">└──</span> celia.iesgn.org.key.pem
+<span style="color:#960050;background-color:#1e0010">└──</span> serial
+
+</code></pre></div><h3 id="fichero-de-configuración-opensslconf">Fichero de configuración (openssl.conf)</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[ ca ]
+<span style="color:#75715e"># man ca</span>
+default_ca = CA_default
+
+[ CA_default ]
+<span style="color:#75715e"># Directory and file locations.</span>
+dir               = ./
+certs             = ./certs
+crl_dir           = ./crl
+new_certs_dir     = ./newcerts
+database          = ./index.txt
+serial            = ./serial
+RANDFILE          = ./private/.rand
+
+<span style="color:#75715e"># The root key and root certificate.</span>
+private_key       = ./private/ca.key.pem
+certificate       = ./certs/ca.cert.pem
+
+<span style="color:#75715e"># For certificate revocation lists.</span>
+crlnumber         = ./crlnumber
+crl               = ./crl/ca.crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+
+<span style="color:#75715e"># SHA-1 is deprecated, so use SHA-2 instead.</span>
+default_md        = sha256
+
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 375
+preserve          = no
+policy            = policy_strict
+
+[ policy_strict ]
+<span style="color:#75715e"># The root CA should only sign intermediate certificates that match.</span>
+<span style="color:#75715e"># See the POLICY FORMAT section of man ca.</span>
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ policy_loose ]
+<span style="color:#75715e"># Allow the intermediate CA to sign a more diverse range of certificates.</span>
+<span style="color:#75715e"># See the POLICY FORMAT section of the ca man page.</span>
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+<span style="color:#75715e"># Options for the req tool (man req).</span>
+default_bits        = 2048
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+<span style="color:#75715e"># SHA-1 is deprecated, so use SHA-2 instead.</span>
+default_md          = sha256
+<span style="color:#75715e"># Extension to add when the -x509 option is used.</span>
+x509_extensions     = v3_ca
+<span style="color:#75715e"># Extension for SANs</span>
+req_extensions      = v3_req
+
+[ v3_req ]
+<span style="color:#75715e"># Extensions to add to a certificate request</span>
+<span style="color:#75715e"># Before invoke openssl use: export SAN=DNS:value1,DNS:value2</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = ${ENV::SAN}
+
+[ req_distinguished_name ]
+<span style="color:#75715e"># See &lt;https://en.wikipedia.org/wiki/Certificate_signing_request&gt;.</span>
+countryName                     = Country Name (2 letter code)
+stateOrProvinceName             = State or Province Name
+localityName                    = Locality Name
+0.organizationName              = Organization Name
+organizationalUnitName          = Organizational Unit Name
+commonName                      = Common Name
+emailAddress                    = Email Address
+
+<span style="color:#75715e"># Optionally, specify some defaults.</span>
+countryName_default             = ES
+stateOrProvinceName_default     = Sevilla
+localityName_default            = Los Palacios
+0.organizationName_default      = Celia
+organizationalUnitName_default  = cgm
+emailAddress_default            = cgarmai95@gmail.com
+
+[ v3_ca ]
+<span style="color:#75715e"># Extensions for a typical CA (man x509v3_config).</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid<span style="color:#960050;background-color:#1e0010">:</span>always,issuer
+basicConstraints = critical, CA<span style="color:#960050;background-color:#1e0010">:</span>true
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+[ v3_intermediate_ca ]
+<span style="color:#75715e"># Extensions for a typical intermediate CA (man x509v3_config).</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid<span style="color:#960050;background-color:#1e0010">:</span>always,issuer
+basicConstraints = critical, CA<span style="color:#960050;background-color:#1e0010">:</span>true, pathlen<span style="color:#960050;background-color:#1e0010">:</span>0
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+[ usr_cert ]
+<span style="color:#75715e"># Extensions for client certificates (man x509v3_config).</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+nsCertType = client, email
+nsComment = <span style="color:#e6db74">&#34;OpenSSL Generated Client Certificate&#34;</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, emailProtection
+
+[ server_cert ]
+<span style="color:#75715e"># Extensions for server certificates (man x509v3_config).</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+nsCertType = server
+nsComment = <span style="color:#e6db74">&#34;OpenSSL Generated Server Certificate&#34;</span>
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer<span style="color:#960050;background-color:#1e0010">:</span>always
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+
+[ crl_ext ]
+<span style="color:#75715e"># Extension for CRLs (man x509v3_config).</span>
+authorityKeyIdentifier=keyid<span style="color:#960050;background-color:#1e0010">:</span>always
+
+[ ocsp ]
+<span style="color:#75715e"># Extension for OCSP signing certificates (man ocsp).</span>
+basicConstraints = CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, digitalSignature
+extendedKeyUsage = critical, OCSPSigning
+
+</code></pre></div><hr>
+<h3 id="firmar-certificado">Firmar certificado</h3>
+<p><strong>Debe recibir el fichero CSR (Solicitud de Firmar un Certificado) de su compañero, debe firmarlo y enviar el certificado generado a su compañero.</strong></p>
+<ul>
+<li>Una vez recibido el csr del compañero tenemos que firmarlo y devolverle el certificado generado firmado por la autoridad certificadora que hemos creado anteriormente.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-https<span style="color:#960050;background-color:#1e0010">:</span>~/ca<span style="color:#75715e"># openssl ca -config ./openssl.conf -extensions v3_req -days 3650 -notext -md sha256 -in ./csr/jonathan.iesgn.org.csr -out ./certs/joni.firmado.csr.pem</span>
+Using configuration from ./openssl.conf
+Enter pass phrase <span style="color:#66d9ef">for</span> ./private/ca.key.pem<span style="color:#960050;background-color:#1e0010">:</span>
+Check that the request matches the signature
+Signature ok
+Certificate Details<span style="color:#960050;background-color:#1e0010">:</span>
+        Serial Number<span style="color:#960050;background-color:#1e0010">:</span> 4096 (0x1000)
+        Validity
+            Not Before<span style="color:#960050;background-color:#1e0010">:</span> Nov 19 16<span style="color:#960050;background-color:#1e0010">:</span>38<span style="color:#960050;background-color:#1e0010">:</span>06 2020 GMT
+            Not After <span style="color:#960050;background-color:#1e0010">:</span> Nov 17 16<span style="color:#960050;background-color:#1e0010">:</span>38<span style="color:#960050;background-color:#1e0010">:</span>06 2030 GMT
+        Subject<span style="color:#960050;background-color:#1e0010">:</span>
+            countryName               = ES
+            stateOrProvinceName       = Sevilla
+            organizationName          = Celia
+            commonName                = jonathan.iesgn.org
+            emailAddress              = jonathanmarquezj@gmail.com
+        X509v3 extensions<span style="color:#960050;background-color:#1e0010">:</span>
+            X509v3 Basic Constraints<span style="color:#960050;background-color:#1e0010">:</span> 
+                CA<span style="color:#960050;background-color:#1e0010">:</span>FALSE
+            X509v3 Key Usage<span style="color:#960050;background-color:#1e0010">:</span> 
+                Digital Signature, Non Repudiation, Key Encipherment
+            X509v3 Subject Alternative Name<span style="color:#960050;background-color:#1e0010">:</span> 
+                DNS<span style="color:#960050;background-color:#1e0010">:</span>celiagarcia.iesgn.org
+Certificate is to be certified <span style="color:#66d9ef">until</span> Nov 17 16<span style="color:#960050;background-color:#1e0010">:</span>38<span style="color:#960050;background-color:#1e0010">:</span>06 2030 GMT (3650 days)
+Sign the certificate? [y/n]<span style="color:#960050;background-color:#1e0010">:</span>y
+
+
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+
+</code></pre></div><p>Y el fichero generado se lo enviamos al compañero: <strong>joni.firmado.csr.pem</strong></p>
+<p><strong>¿Qué otra información debes aportar a tu compañero para que éste configure de forma adecuada su servidor web con el certificado generado?</strong></p>
+<p>Debemos aportar los datos requeridos que son:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Estos están configurados en el fichero openssl.conf con &lsquo;<strong>match</strong>&rsquo;</p>
+<hr>
+<h2 id="parte-2">PARTE 2</h2>
+<h3 id="el-alumno-que-hace-de-administrador-del-servidor-web-debe-entregar-una-documentación-que-describa-los-siguientes-puntos">El alumno que hace de administrador del servidor web, debe entregar una documentación que describa los siguientes puntos:</h3>
+<p>Estos puntos que vienen a continuación los hemos realizado con la creación de la autoridad certificadora:</p>
+<ul>
+<li>
+<p>Crea una clave privada RSA de 4096 bits para identificar el servidor</p>
+</li>
+<li>
+<p>Utiliza la clave anterior para generar un CSR, considerando que deseas acceder al servidor con el FQDN (tunombre.iesgn.org).</p>
+</li>
+<li>
+<p>Envía la solicitud de firma a la entidad certificadora (su compañero).</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>Recibe como respuesta un certificado X.509 para el servidor firmado y el certificado de la autoridad certificadora.</strong></li>
+</ul>
+<p>Recibimos el certificado firmado por la autoridad certificadora de nuestro compañero <strong>celia.iesgn.org.csr.pem</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-https<span style="color:#960050;background-color:#1e0010">:</span>~/ca/csr<span style="color:#75715e"># ls</span>
+celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr
+</code></pre></div><ul>
+<li><strong>Configura tu servidor web con https en el puerto 443, haciendo que las peticiones http se redireccionen a https (forzar https).</strong></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">&lt;VirtualHost *<span style="color:#960050;background-color:#1e0010">:</span>443&gt;
+        ServerName celiagarcia.iesgn.org
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/celia
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        SSLEngine on
+        SSLCertificateFile /root/ca/csr/celia.iesgn.org.csr.pem
+        SSLCertificateKeyFile /root/ca/private/celia.iesgn.org.key.pem
+
+        &lt;FilesMatch <span style="color:#e6db74">&#34;\.(php|py)$&#34;</span>&gt;
+                SSLOptions +StdEnvVars
+        &lt;/FilesMatch&gt;
+
+        BrowserMatch <span style="color:#e6db74">&#34;MSIE [2-6]&#34;</span> \
+                nokeepalive ssl-unclean-shutdown \
+                downgrade-1.0 force-response-1.0
+        BrowserMatch <span style="color:#e6db74">&#34;MSIE [17-9]&#34;</span> ssl-unclean-shutdown
+&lt;/VirtualHost&gt;
+
+</code></pre></div><p>Hay que habilitar el modulo de ssl</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">a2enmod ssl
+</code></pre></div><p>Reiniciamos el servidor</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart apache2
+</code></pre></div><p>Vamos a nuestro navegador y accedemos a <a href="https://celiagarcia.iesgn.org">https://celiagarcia.iesgn.org</a></p>
+<p>Comprobamos que podemos acceder, nos notificará que no es una conexión segura ya que no se conoce la entidad certificadora pero añadimos una excepción. Y vemos el certificado en el que aparece la firma de la entidad certificadora de nuestro compañero.</p>
+<ul>
+<li><img src="" alt="https1.png"></li>
+<li><img src="" alt="https2.png"></li>
+<li><img src="" alt="https3.png"></li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Instalación y configuración inicial de los servidores</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/</link>
+            <pubDate>Wed, 18 Nov 2020 18:22:12 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/</guid>
+            <description>En esta tarea se va a crear el escenario de trabajo que se va a usar durante todo el curso, que va a constar inicialmente de 3 instancias con nombres relacionados con el libro &amp;ldquo;Don Quijote de la Mancha&amp;rdquo;.
+Pasos a realizar:
+1. Creación de la red interna:  Nombre red interna de  10.0.1.0/24  2. Creación de las instancias   Dulcinea:
+ Debian Buster sobre volumen de 10GB con sabor m1.</description>
+            <content type="html"><![CDATA[<p>En esta tarea se va a crear el escenario de trabajo que se va a usar durante todo el curso, que va a constar inicialmente de 3 instancias con nombres relacionados con el libro &ldquo;Don Quijote de la Mancha&rdquo;.</p>
+<p>Pasos a realizar:</p>
+<h2 id="1-creación-de-la-red-interna">1. Creación de la red interna:</h2>
+<ul>
+<li>Nombre red interna de <!-- raw HTML omitted --></li>
+<li>10.0.1.0/24</li>
+</ul>
+<h2 id="2-creación-de-las-instancias">2. Creación de las instancias</h2>
+<ul>
+<li>
+<p><strong>Dulcinea</strong>:</p>
+<ul>
+<li><strong>Debian Buster</strong> sobre volumen de 10GB con sabor m1.mini</li>
+<li>Accesible directamente a través de la red externa y con una IP flotante</li>
+<li>Conectada a la red interna, de la que será la puerta de enlace</li>
+</ul>
+</li>
+<li>
+<p><strong>Sancho</strong>:</p>
+<ul>
+<li><strong>Ubuntu 20.04</strong> sobre volumen de 10GB con sabor m1.mini</li>
+<li>Conectada a la red interna</li>
+<li>Accesible indirectamente a través de dulcinea</li>
+</ul>
+</li>
+<li>
+<p><strong>Quijote</strong>:</p>
+<ul>
+<li><strong>CentOS 7</strong> sobre volumen de 10GB con sabor m1.mini</li>
+<li>Conectada a la red interna</li>
+<li>Accesible indirectamente a través de dulcinea</li>
+</ul>
+</li>
+</ul>
+<p>Escenario gráfico:</p>
+<p><img src="../../static/images/escenario/escenario.png" alt="escenario.png"></p>
+<h2 id="3-configuración-de-nat-en-dulcinea">3. Configuración de NAT en Dulcinea</h2>
+<p>(Es necesario deshabilitar la seguridad en todos los puertos de dulcinea) [[https://youtu.be/jqfILWzHrS0]]</p>
+<p><strong>Instalar Openstackclient</strong></p>
+<p>Necesitamos instalar <em>Openstackclient</em>, para ello lo vamos hacer desde un entorno virtual para no comprometer la paquetería de nuestro sistema, ya que no es necesario para nuestro sistema actualmente.</p>
+<hr>
+<p>Recordamos como creamos un <strong>entorno virtual</strong> con <em>venv</em></p>
+<ul>
+<li>Instalamos el paquete necesario para instalar módulos:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">apt-get install python3-venv
+</code></pre></div><ul>
+<li>Desde el usuario sin privilegios podemos crear un entorno virtual con python3:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">python3 -m venv entorno
+</code></pre></div><ul>
+<li>Activar y desactivar el entorno</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">source entorno/bin/activate
+<span style="color:#f92672">(</span>entorno<span style="color:#f92672">)</span>$ deactivate
+</code></pre></div><hr>
+<p>Usando el entorno virtual creado previamente, vamos a instalar el paquete Openstackclient (<em>necesitaremos la libreria de python3</em>).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install python3-dev
+pip install python-openstackclient
+</code></pre></div><p>Nos vamos al &lsquo;<em>Acceso y Seguridad</em>&rsquo; del cloud y descargamos el fichero con las variables de entorno de nuestro proyecto. Este fichero tiene una extensión sh. Este script se ejecuta desde nuestro entorno virtual en el directorio del mismo. Pero antes deberemos de editar el fichero proporcionando la ruta del certificado del IES, añadiendo las siguiente línea (la ruta puede variar dependiendo de donde tengamos el certificado).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">export OS_CACERT=/usr/local/share/ca-certificates/gonzalonazareno.crt
+</code></pre></div><p>A tener en cuenta:</p>
+<ul>
+<li>Deberemos de tener en nuestro fichero /etc/hosts bien configurada la ip con el nombre del cloud, siendo este:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ sudo nano /etc/hosts
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">172.22.222.1    jupiter.gonzalonazareno.org
+</code></pre></div><ul>
+<li>Como hemos dicho anteriormente el script debe estar ubicado dentro de nuestro entorno virtual. Lo ejecutamos con <strong>source</strong> y le pasamos la contraseña</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
+(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ source Proyecto\ de\ celia.garcia-openrc.sh
+Please enter your OpenStack Password <span style="color:#66d9ef">for</span> project Proyecto de celia.garcia as user celia.garcia<span style="color:#960050;background-color:#1e0010">:</span> 
+</code></pre></div><ul>
+<li>Ahora listamos los servidores que tenemos en nuestro proyecto</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ openstack server list
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
++--------------------------------------+----------------+--------+-----------------------------------------------------------------------+--------------------------------+---------+
+| ID                                   | Name           | Status | Networks                                                              | Image                          | Flavor  |
++--------------------------------------+----------------+--------+-----------------------------------------------------------------------+--------------------------------+---------+
+| be4e0478-8b93-4346-a4ab-64edfe3bfb37 | Dulcinea       | ACTIVE | celia.garcia=10.0.1.14; red de celia.garcia=10.0.0.11, 172.22.200.150 | Debian Buster 10.6             | m1.mini |
+| e23fc109-de1b-4bdf-8b88-cf7b2721350c | Quijote        | ACTIVE | celia.garcia=10.0.1.13                                                | CentOS 7                       | m1.mini |
+| 26e2f672-2408-40d8-bcec-752059db35fa | Sancho         | ACTIVE | celia.garcia=10.0.1.10                                                | Ubuntu 20.04 LTS (focal fossa) | m1.mini |
+| a460fd00-f4d7-4999-bc05-a42f54e3dd56 | cliente_nginx  | ACTIVE | red de celia.garcia=10.0.0.6, 172.22.200.148                          | Debian Buster 10.6             | m1.mini |
+| d88962ae-4617-4fe3-be33-c1bbfe686c69 | servidor_nginx | ACTIVE | red de celia.garcia=10.0.0.5, 172.22.200.152                          | Debian Buster 10.6             | m1.mini |
++--------------------------------------+----------------+--------+-----------------------------------------------------------------------+--------------------------------+---------+
+
+</code></pre></div><ul>
+<li>Listamos las redes que tenemos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ openstack network list
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">+--------------------------------------+---------------------+----------------------------------------------------------------------------+
+| ID                                   | Name                | Subnets                                                                    |
++--------------------------------------+---------------------+----------------------------------------------------------------------------+
+| 21124241-dddf-4c06-b646-eb15ed5cd84a | celia.garcia        | 46e30aa0-10de-4883-a8c7-707b5a884eec                                       |
+| 49812d85-8e7a-4c31-baa2-d427692f6568 | ext-net             | 158bbe3e-3c98-485e-8042-ba6402111ea6, 6218710b-aa05-46f7-b198-7639efe3da95 |
+| 90c37b05-bd26-49a3-b797-c6038b49a169 | red de celia.garcia | 029d2907-1315-41f3-af12-c1285ceb43d2                                       |
++--------------------------------------+----
+</code></pre></div><ul>
+<li>Listar los puertos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ openstack port list
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ openstack port list
++--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+| ID                                   | Name | MAC Address       | Fixed IP Addresses                                                       | Status |
++--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+| 4046288e-9357-4539-b66a-b4ccc7476747 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">💿</span>4d<span style="color:#960050;background-color:#1e0010">:</span>70 | ip_address=<span style="color:#e6db74">&#39;10.0.1.10&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
+| 575c3cc4-eb49-4b6f-af62-e9e5b81fa2f4 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f0<span style="color:#960050;background-color:#1e0010">:</span>82<span style="color:#960050;background-color:#1e0010">:</span>5d | ip_address=<span style="color:#e6db74">&#39;10.0.0.11&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span> | ACTIVE |
+| 73876736-71bc-4bfc-b240-e2bb0f1ca505 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f7<span style="color:#960050;background-color:#1e0010">:</span>be<span style="color:#960050;background-color:#1e0010">:</span>35 | ip_address=<span style="color:#e6db74">&#39;10.0.1.13&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
+| a9bdd25d-cd44-44e1-96f3-fb5228872245 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>04<span style="color:#960050;background-color:#1e0010">:</span>0d<span style="color:#960050;background-color:#1e0010">:</span>c4 | ip_address=<span style="color:#e6db74">&#39;10.0.0.1&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
+| b20a13b0-107c-44e1-91ad-b05c4c4ab6fb |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>eb<span style="color:#960050;background-color:#1e0010">:</span>33<span style="color:#960050;background-color:#1e0010">:</span>51 | ip_address=<span style="color:#e6db74">&#39;10.0.0.2&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
+| d6d4a998-73e9-4bc0-9ad1-57b481c146c5 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>08<span style="color:#960050;background-color:#1e0010">:</span>7a<span style="color:#960050;background-color:#1e0010">:</span>18 | ip_address=<span style="color:#e6db74">&#39;10.0.0.6&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
+| d87620fe-c4e4-47e1-9381-ee47211795e3 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>e8<span style="color:#960050;background-color:#1e0010">:</span>a3<span style="color:#960050;background-color:#1e0010">:</span>f7 | ip_address=<span style="color:#e6db74">&#39;10.0.1.2&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span>  | ACTIVE |
+| dac3549b-9fb3-488d-b399-ed7ee94ea724 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>9a<span style="color:#960050;background-color:#1e0010">:</span>c0<span style="color:#960050;background-color:#1e0010">:</span>6a | ip_address=<span style="color:#e6db74">&#39;10.0.0.5&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
+| fe24ece0-28d6-450a-9ff9-bdcea107a58f |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>25<span style="color:#960050;background-color:#1e0010">:</span>93<span style="color:#960050;background-color:#1e0010">:</span>49 | ip_address=<span style="color:#e6db74">&#39;10.0.1.14&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
++--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+
+</code></pre></div><hr>
+<h3 id="deshabilitar-seguridad-de-un-puerto">Deshabilitar seguridad de un puerto</h3>
+<ul>
+<li>Vemos las caracteristicas de Dulcinea</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ openstack server show Dulcinea
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ openstack server show Dulcinea
++-----------------------------+-----------------------------------------------------------------------+
+| Field                       | Value                                                                 |
++-----------------------------+-----------------------------------------------------------------------+
+| OS-DCF<span style="color:#960050;background-color:#1e0010">:</span>diskConfig           | AUTO                                                                  |
+| OS-EXT-AZ<span style="color:#960050;background-color:#1e0010">:</span>availability_zone | nova                                                                  |
+| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>power_state      | Running                                                               |
+| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>task_state       | None                                                                  |
+| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>vm_state         | active                                                                |
+| OS-SRV-USG<span style="color:#960050;background-color:#1e0010">:</span>launched_at      | 2020-11-18T20<span style="color:#960050;background-color:#1e0010">:</span>41<span style="color:#960050;background-color:#1e0010">:</span>11.000000                                            |
+| OS-SRV-USG<span style="color:#960050;background-color:#1e0010">:</span>terminated_at    | None                                                                  |
+| accessIPv4                  |                                                                       |
+| accessIPv6                  |                                                                       |
+| addresses                   | celia.garcia=10.0.1.14; red de celia.garcia=10.0.0.11, 172.22.200.150 |
+| config_drive                |                                                                       |
+| created                     | 2020-11-18T20<span style="color:#960050;background-color:#1e0010">:</span>40<span style="color:#960050;background-color:#1e0010">:</span>50Z                                                  |
+| flavor                      | m1.mini (12)                                                          |
+| hostId                      | 829ef6cbc520f728c22007cd80702af381d72417f6ce13fbdcbf53e5              |
+| id                          | be4e0478-8b93-4346-a4ab-64edfe3bfb37                                  |
+| image                       | Debian Buster 10.6 (51b38ecf-99e1-46a3-a497-9e1cc9c3c2d4)             |
+| key_name                    | msi                                                                   |
+| name                        | Dulcinea                                                              |
+| progress                    | 0                                                                     |
+| project_id                  | bf33696e5463476b95e310dd1e17f5f3                                      |
+| properties                  |                                                                       |
+| status                      | ACTIVE                                                                |
+| updated                     | 2020-11-18T20<span style="color:#960050;background-color:#1e0010">:</span>41<span style="color:#960050;background-color:#1e0010">:</span>12Z                                                  |
+| user_id                     | bdfca7c57468ff40b7445535735bf867c444239818b740f4f59474b105c27dec      |
+| volumes_attached            |                                                                       |
++-----------------------------+-----------------------------------------------------------------------+
+
+
+</code></pre></div><ul>
+<li>Le quitamos el grupo de seguridad</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openstack server remove security group Dulcinea <span style="color:#66d9ef">default</span>
+</code></pre></div><ul>
+<li>
+<p>Miramos la ip fija que tiene , en este caso es la 10.0.0.11</p>
+</li>
+<li>
+<p>Listamos los puertos y obtenemos el identificador de la máquina según la ip</p>
+</li>
+<li>
+<p>Le quitamos la seguridad</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openstack port set --disable-port-security 575c3cc4-eb49-4b6f-af62-e9e5b81fa2f4
+</code></pre></div><ul>
+<li>Ahora comprobamos la conexión y vemos que es correcta:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ ping 172.22.200.150
+PING 172.22.200.150 (172.22.200.150) 56(84) bytes of data.
+64 bytes from 172.22.200.150<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=61 time=236 ms
+64 bytes from 172.22.200.150<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=61 time=80.0 ms
+64 bytes from 172.22.200.150<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=61 time=135 ms
+^C
+--- 172.22.200.150 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 4ms
+rtt min/avg/max/mdev = 80.015/150.447/235.918/64.529 ms
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ ssh -i .ssh/id_rsa debian@172.22.200.150
+Warning<span style="color:#960050;background-color:#1e0010">:</span> Identity file .ssh/id_rsa not accessible<span style="color:#960050;background-color:#1e0010">:</span> No such file or directory.
+Linux dulcinea 4.19.0-11-cloud-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.146-1 (2020-09-17) x86_64</span>
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms <span style="color:#66d9ef">for</span> each program are described <span style="color:#66d9ef">in</span> the
+individual files <span style="color:#66d9ef">in</span> /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login<span style="color:#960050;background-color:#1e0010">:</span> Wed Nov 18 20<span style="color:#960050;background-color:#1e0010">:</span>42<span style="color:#960050;background-color:#1e0010">:</span>15 2020 from 172.23.0.70
+debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ exit
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Compilación de un kernel linux a medida</title>
@@ -213,19 +887,25 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Support <span style="color:#66d9ef">for</span> paging of anonymous memory <span style="color:#f92672">(</span>swap<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SWAP<span style="color:#f92672">)</span>
 Enable the block layer <span style="color:#f92672">(</span>BLOCK<span style="color:#f92672">)</span>
 Namespaces support <span style="color:#f92672">(</span>NAMESPACES<span style="color:#f92672">)</span>
+
+
+esenciales???
 Extended Error Log support <span style="color:#f92672">(</span>ACPI_EXTLOG<span style="color:#f92672">)</span>
-Support <span style="color:#66d9ef">for</span> PCI Hotplug <span style="color:#f92672">(</span>HOTPLUG_PCI<span style="color:#f92672">)</span>
 ACPI Platform Error Interface <span style="color:#f92672">(</span>APEI<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>ACPI_APEI<span style="color:#f92672">)</span>
 /dev/agpgart <span style="color:#f92672">(</span>AGP Support<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>AGP<span style="color:#f92672">)</span>
-ACPI <span style="color:#f92672">(</span>Advanced Configuration and Power Interface<span style="color:#f92672">)</span> Support <span style="color:#f92672">(</span>ACPI<span style="color:#f92672">)</span>
+Support <span style="color:#66d9ef">for</span> PCI Hotplug <span style="color:#f92672">(</span>HOTPLUG_PCI<span style="color:#f92672">)</span>
+ACPI <span style="color:#f92672">(</span>Advanced Configuration and Power Interface<span style="color:#f92672">)</span> Support <span style="color:#f92672">(</span>ACPI<span style="color:#f92672">)</span> 
 </code></pre></div><p>Numero de elementos:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
-<span style="color:#ae81ff">102</span>
+<span style="color:#ae81ff">108</span>
 celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
-<span style="color:#ae81ff">1016</span>
+<span style="color:#ae81ff">1052</span>
+
+
 </code></pre></div><p>Tamaño conseguido:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-3_amd64.deb 
-6,6M	linux-image-4.19.152_4.19.152-3_amd64.deb
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-4_amd64.deb 
+7,0M	linux-image-4.19.152_4.19.152-4_amd64.deb
+
 
 </code></pre></div>]]></content>
         </item>

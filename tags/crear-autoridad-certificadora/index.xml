@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>crear autoridad certificadora on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/crear-autoridad-certificadora/</link>
+    <description>Recent content in crear autoridad certificadora on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 19 Nov 2020 18:51:45 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/crear-autoridad-certificadora/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crear Autoridad Certificadora y Certificado autofirmado</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</link>
+      <pubDate>Thu, 19 Nov 2020 18:51:45 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</guid>
+      <description>HTTPS / SSL Tarea 1: Certificado autofirmado PARTE 1 OBJETIVO:
+Crear su autoridad certificadora (generar el certificado digital de la CA). Mostrar el fichero de configuración de la AC.
+Conocimientos previos:
+OpenSSL permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.</description>
+    </item>
+    
+  </channel>
+</rss>

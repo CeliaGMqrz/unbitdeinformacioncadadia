@@ -53,7 +53,7 @@ Al ser linux un kérnel libre, es posible descargar el código fuente, configura
 En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles.">
 <meta itemprop="datePublished" content="2020-11-15T20:07:29+01:00" />
 <meta itemprop="dateModified" content="2020-11-15T20:07:29+01:00" />
-<meta itemprop="wordCount" content="855">
+<meta itemprop="wordCount" content="856">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -360,19 +360,25 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Support <span style="color:#66d9ef">for</span> paging of anonymous memory <span style="color:#f92672">(</span>swap<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SWAP<span style="color:#f92672">)</span>
 Enable the block layer <span style="color:#f92672">(</span>BLOCK<span style="color:#f92672">)</span>
 Namespaces support <span style="color:#f92672">(</span>NAMESPACES<span style="color:#f92672">)</span>
+
+
+esenciales???
 Extended Error Log support <span style="color:#f92672">(</span>ACPI_EXTLOG<span style="color:#f92672">)</span>
-Support <span style="color:#66d9ef">for</span> PCI Hotplug <span style="color:#f92672">(</span>HOTPLUG_PCI<span style="color:#f92672">)</span>
 ACPI Platform Error Interface <span style="color:#f92672">(</span>APEI<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>ACPI_APEI<span style="color:#f92672">)</span>
 /dev/agpgart <span style="color:#f92672">(</span>AGP Support<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>AGP<span style="color:#f92672">)</span>
-ACPI <span style="color:#f92672">(</span>Advanced Configuration and Power Interface<span style="color:#f92672">)</span> Support <span style="color:#f92672">(</span>ACPI<span style="color:#f92672">)</span>
+Support <span style="color:#66d9ef">for</span> PCI Hotplug <span style="color:#f92672">(</span>HOTPLUG_PCI<span style="color:#f92672">)</span>
+ACPI <span style="color:#f92672">(</span>Advanced Configuration and Power Interface<span style="color:#f92672">)</span> Support <span style="color:#f92672">(</span>ACPI<span style="color:#f92672">)</span> 
 </code></pre></div><p>Numero de elementos:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=m&#34;</span> .config|wc -l
-<span style="color:#ae81ff">102</span>
+<span style="color:#ae81ff">108</span>
 celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6db74">&#34;=y&#34;</span> .config|wc -l
-<span style="color:#ae81ff">1016</span>
+<span style="color:#ae81ff">1052</span>
+
+
 </code></pre></div><p>Tamaño conseguido:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-3_amd64.deb 
-6,6M	linux-image-4.19.152_4.19.152-3_amd64.deb
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~/compilar_kernel$ du -hs linux-image-4.19.152_4.19.152-4_amd64.deb 
+7,0M	linux-image-4.19.152_4.19.152-4_amd64.deb
+
 
 </code></pre></div>
       </div>
@@ -399,7 +405,7 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        855 Words
+        856 Words
       </p>
 
       <p>
@@ -520,6 +526,13 @@ celiagm@debian:~/compilar_kernel/linux-source-4.19$ grep <span style="color:#e6d
         </div>
 
         <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Instalación y configuración inicial de los servidores</span>
+              </a>
+            </span>
           
 
           
