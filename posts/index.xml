@@ -464,9 +464,9 @@ celia.iesgn.org.csr  celia.iesgn.org.csr.pem  jonathan.iesgn.org.csr
 </code></pre></div><p>Vamos a nuestro navegador y accedemos a <a href="https://celiagarcia.iesgn.org">https://celiagarcia.iesgn.org</a></p>
 <p>Comprobamos que podemos acceder, nos notificará que no es una conexión segura ya que no se conoce la entidad certificadora pero añadimos una excepción. Y vemos el certificado en el que aparece la firma de la entidad certificadora de nuestro compañero.</p>
 <ul>
-<li><img src="" alt="https1.png"></li>
-<li><img src="" alt="https2.png"></li>
-<li><img src="" alt="https3.png"></li>
+<li><img src="/images/ca/https1.png" alt="https1.png"></li>
+<li><img src="/images/ca/https2.png" alt="https2.png"></li>
+<li><img src="/images/ca/https3.png" alt="https3.png"></li>
 </ul>
 ]]></content>
         </item>
