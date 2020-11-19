@@ -690,10 +690,10 @@ Pasos a realizar:
 </li>
 </ul>
 <p>Escenario gráfico:</p>
-<p><img src="../../static/images/escenario/escenario.png" alt="escenario.png"></p>
+<p><img src="/images/escenario/escenario.png" alt="escenario.png"></p>
 <h2 id="3-configuración-de-nat-en-dulcinea">3. Configuración de NAT en Dulcinea</h2>
 <p>(Es necesario deshabilitar la seguridad en todos los puertos de dulcinea) [[https://youtu.be/jqfILWzHrS0]]</p>
-<p><a href="">Instalar Openstackclient y deshabilitar la seguridad de puertos</a></p>
+<p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/">Instalar Openstackclient y deshabilitar la seguridad de puertos</a></p>
 ]]></content>
         </item>
         
