@@ -55,7 +55,7 @@ Pasos a realizar:
  Debian Buster sobre volumen de 10GB con sabor m1.">
 <meta itemprop="datePublished" content="2020-11-18T18:22:12+01:00" />
 <meta itemprop="dateModified" content="2020-11-18T18:22:12+01:00" />
-<meta itemprop="wordCount" content="164">
+<meta itemprop="wordCount" content="564">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -155,7 +155,7 @@ Pasos a realizar:
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        One minute
+        3 minutes
 
         
       </p>
@@ -207,8 +207,74 @@ Pasos a realizar:
 <p><img src="https://unbitdeinformacioncadadia.netlify.app/images/escenario/escenario.png" alt="escenario.png"></p>
 <h2 id="3-configuración-de-nat-en-dulcinea">3. Configuración de NAT en Dulcinea</h2>
 <p>(Es necesario deshabilitar la seguridad en todos los puertos de dulcinea) [[https://youtu.be/jqfILWzHrS0]]</p>
-<p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/">Instalar Openstackclient y deshabilitar la seguridad de puertos</a></p>
+<p>Guía para: <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/">Instalar Openstackclient y deshabilitar la seguridad de puertos</a></p>
+<h3 id="31-activar-el-bit-de-fordward">3.1. Activar el bit de fordward</h3>
+<p>Para que nuestra máquina actúe como router tenemos que activar el <strong>bit de fordward.</strong> Podemos hacerlo temporal o permanente. En este caso lo haremos permanente. Para ello editamos el fichero <em>/etc/sysctl.conf</em> , buscamos la línea ‘<strong>net.ipv4.ip_fordward=1</strong>' y la descomentamos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/sysctl.conf 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Uncomment the next line to enable packet forwarding for IPv4</span>
+net.ipv4.ip_forward=1
+</code></pre></div><h3 id="32-configurar-las-interfaces-de-red">3.2. Configurar las interfaces de red</h3>
+<p>En segundo lugar vamos a configurar el fichero <em>/etc/network/interfaces</em> agregando dos reglas de <strong>‘iptable’</strong> para que nuestros clientes puedan acceder desde una interfaz a otra obteniendo acceso a internet. Añadiremos las siguientes líneas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/network/interfaces
+</code></pre></div><h4 id="reglas-de-iptable">Reglas de iptable</h4>
+<p>Las añadimos de forma permanente en el fichero interfaces, de forma que:</p>
+<ul>
+<li>
+<p>-A POSTROUTING (Añade una regla a la cadena POSTROUTING)</p>
+</li>
+<li>
+<p>-s ‘dirección’ : Se aplica a los paquetes que vengan de origen de la dirección especificada. En nuestro caso hemos añadido las direccion ip de nuestro cliente</p>
+</li>
+<li>
+<p>-o eth0: Se aplica a los paquetes que salgan por eth0 (la que sale al exterior)</p>
+</li>
+<li>
+<p>-j MASQUERADE: Cambia la dirección de origen (eth1) por la dirección de salida (eth0)</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># This file describes the network interfaces available on your system</span>
+<span style="color:#75715e"># and how to activate them. For more information, see interfaces(5).</span>
 
+<span style="color:#75715e"># The loopback network interface</span>
+auto lo
+iface lo inet loopback
+
+<span style="color:#75715e"># The normal eth0 (red externa)</span>
+allow-hotplug eth0
+iface eth0 inet dhcp
+        post-up ip route del <span style="color:#66d9ef">default</span> dev $IFACE || true
+
+<span style="color:#75715e"># Reglas de iptable</span>
+up iptables -t nat -A POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE
+down iptables -t nat -D POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE
+
+<span style="color:#75715e"># Additional interfaces, just in case we&#39;re using</span>
+<span style="color:#75715e"># multiple networks</span>
+
+<span style="color:#75715e">#Red interna </span>
+allow-hotplug eth1
+iface eth1 inet dhcp
+
+<span style="color:#75715e"># Set this one last, so that cloud-init or user can</span>
+<span style="color:#75715e"># override defaults.</span>
+source /etc/network/interfaces.d/*
+
+</code></pre></div><p>Comprobamos que las reglas de iptable estan funcionando</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e">#  iptables -t nat -L -nv</span>
+Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination         
+
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination         
+
+Chain POSTROUTING (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination         
+   49  4396 MASQUERADE  all  --  *      eth1    10.0.1.0/24          0.0.0.0/0           
+    1   356 MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0           
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination    
+</code></pre></div>
       </div>
     </article>
 
@@ -233,7 +299,7 @@ Pasos a realizar:
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        164 Words
+        564 Words
       </p>
 
       <p>
