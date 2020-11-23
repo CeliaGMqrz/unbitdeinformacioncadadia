@@ -55,7 +55,7 @@ Pasos a realizar:
  Debian Buster sobre volumen de 10GB con sabor m1.">
 <meta itemprop="datePublished" content="2020-11-18T18:22:12+01:00" />
 <meta itemprop="dateModified" content="2020-11-18T18:22:12+01:00" />
-<meta itemprop="wordCount" content="922">
+<meta itemprop="wordCount" content="1614">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -155,7 +155,7 @@ Pasos a realizar:
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        5 minutes
+        8 minutes
 
         
       </p>
@@ -299,11 +299,11 @@ network<span style="color:#960050;background-color:#1e0010">:</span>
         ens3<span style="color:#960050;background-color:#1e0010">:</span>
              addresses<span style="color:#960050;background-color:#1e0010">:</span> [10.0.1.11/24]
              gateway4<span style="color:#960050;background-color:#1e0010">:</span> 10.0.1.6
-             dhcp4<span style="color:#960050;background-color:#1e0010">:</span> false
-             match<span style="color:#960050;background-color:#1e0010">:</span>
-                macaddress<span style="color:#960050;background-color:#1e0010">:</span> fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">💿</span>4d<span style="color:#960050;background-color:#1e0010">:</span>70
-             mtu<span style="color:#960050;background-color:#1e0010">:</span> 8950
-             set-name<span style="color:#960050;background-color:#1e0010">:</span> ens3
+<span style="color:#75715e">#             dhcp4: false</span>
+<span style="color:#75715e">#             match:</span>
+<span style="color:#75715e">#                macaddress: fa:16:3e💿4d:70</span>
+<span style="color:#75715e">#             mtu: 8950</span>
+<span style="color:#75715e">#             set-name: ens3  </span>
 
 </code></pre></div><p>Aplicamos los cambios</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">netplan apply
@@ -335,19 +335,16 @@ rtt min/avg/max/mdev = 1.467/1.670/1.874/0.203 ms
 BOOTPROTO=<span style="color:#e6db74">&#34;static&#34;</span>
 IPADDR=<span style="color:#e6db74">&#34;10.0.1.13&#34;</span>
 GATEWAY=<span style="color:#e6db74">&#34;10.0.1.6&#34;</span>
+NETMASK=<span style="color:#e6db74">&#34;255.255.255.0&#34;</span>
 DEVICE=eth0
 HWADDR=fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f7<span style="color:#960050;background-color:#1e0010">:</span>be<span style="color:#960050;background-color:#1e0010">:</span>35
 MTU=8950
 ONBOOT=yes
 TYPE=Ethernet
 USERCTL=no
-~                                                                                                        
-~                                                                                                        
-~                                                                                                        
-~                                                                                                        
-~                                                                                                        
-~                                                                                                        
-<span style="color:#e6db74">&#34;/etc/sysconfig/network-scripts/ifcfg-eth0&#34;</span> 11L, 210C
+~                                                                                                                                                                                      
+<span style="color:#e6db74">&#34;/etc/sysconfig/network-scripts/ifcfg-eth0&#34;</span> 12L, 234C
+
 
 </code></pre></div><p>Reiniamos el servicio</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart network.service
@@ -366,7 +363,135 @@ PING 172.22.0.1 (172.22.0.1) 56(84) bytes of data.
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
 rtt min/avg/max/mdev = 1.364/1.432/1.500/0.068 ms
 
-</code></pre></div>
+</code></pre></div><h2 id="6-modificación-de-la-subred-de-la-red-interna-deshabilitando-el-servidor-dhcp">6. Modificación de la subred de la red interna, deshabilitando el servidor DHCP</h2>
+<p>Vamos a la pataforma del cloud, en Networks &raquo; (Seleccionamos la interfaz interna) celia.garcia &raquo; Subnets &raquo; Edit Subnet &raquo; Next &raquo; (Deshabilitamos el DCHP) Enable DCHP</p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/escenario/disable_dhcp.jpeg" alt="disable_dhcp.jpeg"></p>
+<p>Una vez deshabilitado vamos a <strong>Sancho</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">ip a del 10.0.1.11/24 dev ens3
+</code></pre></div><p>Intentamos hacer una petición al DCHP</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dhclient ens3
+</code></pre></div><p>No obtenemos respuesta por lo que está correctamente deshabilitado.</p>
+<p>Ahora vamos a reiniciar el servicio de red</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">netplan apply
+</code></pre></div><p>Comprobamos que tenemos de nuevo nuestra configuración estática:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@sancho<span style="color:#960050;background-color:#1e0010">:</span>/home/ubuntu<span style="color:#75715e"># ip a</span>
+1<span style="color:#960050;background-color:#1e0010">:</span> lo<span style="color:#960050;background-color:#1e0010">:</span> &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group <span style="color:#66d9ef">default</span> qlen 1000
+    link/loopback 00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00 brd 00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+3<span style="color:#960050;background-color:#1e0010">:</span> ens3<span style="color:#960050;background-color:#1e0010">:</span> &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 8950 qdisc fq_codel state UP group <span style="color:#66d9ef">default</span> qlen 1000
+    link/ether fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f2<span style="color:#960050;background-color:#1e0010">:</span>65<span style="color:#960050;background-color:#1e0010">:</span>68 brd ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff
+    inet 10.0.1.11/24 brd 10.0.1.255 scope global ens3
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816<span style="color:#960050;background-color:#1e0010">:</span>3eff<span style="color:#960050;background-color:#1e0010">:</span>fef2<span style="color:#960050;background-color:#1e0010">:</span>6568/64 scope link 
+       valid_lft forever preferred_lft forever
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@sancho<span style="color:#960050;background-color:#1e0010">:</span>/home/ubuntu<span style="color:#75715e"># ip r</span>
+<span style="color:#66d9ef">default</span> via 10.0.1.6 dev ens3 proto static 
+10.0.1.0/24 dev ens3 proto kernel scope link src 10.0.1.11 
+
+</code></pre></div><p>Hacemos el mismo procedimiento con <strong>Quijote</strong></p>
+<p>Comprobamos que no tenemos respuesta por DHCP ya que lo hemos deshabilitado</p>
+<p>Comprobamos que al reiniciar nuestro servicio de red configurado estaticamente tenemos acceso al exterior</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># ping 172.22.0.1</span>
+PING 172.22.0.1 (172.22.0.1) 56(84) bytes of data.
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=62 time=1.44 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=62 time=1.99 ms
+^C
+--- 172.22.0.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.440/1.718/1.996/0.278 ms
+
+</code></pre></div><h2 id="7-utilización-de-ssh-agent-para-acceder-a-las-instancias">7. Utilización de ssh-agent para acceder a las instancias</h2>
+<h4 id="70-conceptos-previos">7.0. Conceptos previos</h4>
+<p>El <strong>agente ssh</strong>, es un programa auxiliar que realiza un seguimiento de las claves de identidad del usuario y sus contraseñas. Permite usar las claves para iniciar sesión en otros servidores sin que el usuario escriba una contraseña o frase de contraseña. Esto implementa una forma de inicio de sesión único.</p>
+<h4 id="71-iniciar-ssh-agent">7.1. Iniciar ssh-agent</h4>
+<p>Normalmente no se inicia automáticamente al inciar el servidor por lo que tenemos que ejecutarlo manualmente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">ssh-agent
+</code></pre></div><p>Salida:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">SSH_AUTH_SOCK=/tmp/ssh-wMUFa5ft1Ae2/agent.13399; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=13400; export SSH_AGENT_PID;
+echo Agent pid 13400;
+</code></pre></div><p>Verificamos el valor de la variable que esté configurada</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ echo $SSH_AUTH_SOCK
+/tmp/ssh-P9bFFkcDoMSo/agent.13396
+</code></pre></div><h4 id="72-agregar-las-claves-y-comprobar-funcionamiento">7.2. Agregar las claves y comprobar funcionamiento</h4>
+<p>Agregamos las claves que tenemos en el fichero .ssh, si no le indicamos ruta agregará todas las que se encuentren dentro de .ssh</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">ssh-add
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ ssh-add
+Identity added<span style="color:#960050;background-color:#1e0010">:</span> /home/debian/.ssh/id_rsa (celiagm@debian)
+</code></pre></div><p>Otras opciones de utilidad</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Listar las claves privadas</span>
+ssh-add -l
+<span style="color:#75715e"># Listar las claves públicas</span>
+ssh-add -L
+<span style="color:#75715e"># Eliminar las claves utilizadas por el agente</span>
+ssh-add -D
+</code></pre></div><p>Ahora ya podemos entrar directamente a Sancho y a Quijote sin especificar la clave</p>
+<p><strong>SANCHO:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ ssh ubuntu@10.0.1.11
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-48-generic x86_64)
+
+ * Documentation<span style="color:#960050;background-color:#1e0010">:</span>  https<span style="color:#960050;background-color:#1e0010">:</span>//help.ubuntu.com
+ * Management<span style="color:#960050;background-color:#1e0010">:</span>     https<span style="color:#960050;background-color:#1e0010">:</span>//landscape.canonical.com
+ * Support<span style="color:#960050;background-color:#1e0010">:</span>        https<span style="color:#960050;background-color:#1e0010">:</span>//ubuntu.com/advantage
+
+  System information as of Mon Nov 23 19<span style="color:#960050;background-color:#1e0010">:</span>45<span style="color:#960050;background-color:#1e0010">:</span>13 UTC 2020
+
+  System load<span style="color:#960050;background-color:#1e0010">:</span>  0.01              Processes<span style="color:#960050;background-color:#1e0010">:</span>             103
+  Usage of /<span style="color:#960050;background-color:#1e0010">:</span>   13.1% of 9.52GB   Users logged <span style="color:#66d9ef">in</span><span style="color:#960050;background-color:#1e0010">:</span>       2
+  Memory usage<span style="color:#960050;background-color:#1e0010">:</span> 40%               IPv4 address <span style="color:#66d9ef">for</span> ens3<span style="color:#960050;background-color:#1e0010">:</span> 10.0.1.11
+  Swap usage<span style="color:#960050;background-color:#1e0010">:</span>   0%
+
+
+1 update can be installed immediately.
+0 of these updates are security updates.
+To see these additional updates run<span style="color:#960050;background-color:#1e0010">:</span> apt list --upgradable
+
+
+The list of available updates is more than a week old.
+To check <span style="color:#66d9ef">for</span> new updates run<span style="color:#960050;background-color:#1e0010">:</span> sudo apt update
+Failed to connect to https<span style="color:#960050;background-color:#1e0010">:</span>//changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login<span style="color:#960050;background-color:#1e0010">:</span> Mon Nov 23 15<span style="color:#960050;background-color:#1e0010">:</span>59<span style="color:#960050;background-color:#1e0010">:</span>15 2020 from 10.0.1.6
+ubuntu@sancho<span style="color:#960050;background-color:#1e0010">:</span>~$ 
+
+</code></pre></div><p><strong>CENTOS:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ ssh centos@10.0.1.13
+Last login<span style="color:#960050;background-color:#1e0010">:</span> Mon Nov 23 15<span style="color:#960050;background-color:#1e0010">:</span>59<span style="color:#960050;background-color:#1e0010">:</span>55 2020 from host-10-0-1-6.openstacklocal
+[centos@quijote ~]$ 
+
+</code></pre></div><h2 id="8-creación-del-usuario-profesor-en-todas-las-instancias-usuario-que-puede-utilizar-sudo-sin-contraseña">8. Creación del usuario profesor en todas las instancias. Usuario que puede utilizar sudo sin contraseña.</h2>
+<ul>
+<li>Dulcinea</li>
+</ul>
+<p>Creamos el usuario profesor y lo añadimos al grupo sudo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">adduser profesor
+adduser profesor sudo
+
+</code></pre></div><p>Editamos el fichero &lsquo;sudoers&rsquo; e indicamos que el usuario no precise de contraseña al usar sudo</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/sudoers
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">profesor ALL=(ALL) NOPASSWD<span style="color:#960050;background-color:#1e0010">:</span>ALL
+</code></pre></div><ul>
+<li>Sancho (Ponemos la misma configuración en <em>sudoers</em>)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">useradd profesor
+usermod profesor -g sudo
+passwd profesor
+nano /etc/sudoers
+</code></pre></div><ul>
+<li>Quijote</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">adduser profesor
+passwd profesor
+usermod -aG wheel profesor
+</code></pre></div><h2 id="9-copia-de-las-claves-públicas-de-todos-los-profesores-en-las-instancias-para-que-puedan-acceder-con-el-usuario-profesor">9. Copia de las claves públicas de todos los profesores en las instancias para que puedan acceder con el usuario profesor</h2>
+<p>hecho.</p>
+<h2 id="10-realiza-una-actualización-completa-de-todos-los-servidores">10. Realiza una actualización completa de todos los servidores</h2>
+
       </div>
     </article>
 
@@ -391,7 +516,7 @@ rtt min/avg/max/mdev = 1.364/1.432/1.500/0.068 ms
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        922 Words
+        1614 Words
       </p>
 
       <p>
