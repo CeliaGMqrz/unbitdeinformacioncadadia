@@ -53,7 +53,7 @@
  Instalamos el paquete necesario para instalar módulos:  apt-get install python3-venv  Desde el usuario sin privilegios podemos crear un entorno virtual con python3:  python3 -m venv entorno  Activar y desactivar el entorno  source entorno/bin/activate (entorno)$ deactivate  Usando el entorno virtual creado previamente, vamos a instalar el paquete Openstackclient (necesitaremos la libreria de python3).">
 <meta itemprop="datePublished" content="2020-11-19T19:31:53+01:00" />
 <meta itemprop="dateModified" content="2020-11-19T19:31:53+01:00" />
-<meta itemprop="wordCount" content="869">
+<meta itemprop="wordCount" content="876">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -205,15 +205,16 @@ Please enter your OpenStack Password <span style="color:#66d9ef">for</span> proj
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ openstack server list
 
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
-+--------------------------------------+----------------+--------+-----------------------------------------------------------------------+--------------------------------+---------+
-| ID                                   | Name           | Status | Networks                                                              | Image                          | Flavor  |
-+--------------------------------------+----------------+--------+-----------------------------------------------------------------------+--------------------------------+---------+
-| be4e0478-8b93-4346-a4ab-64edfe3bfb37 | Dulcinea       | ACTIVE | celia.garcia=10.0.1.14; red de celia.garcia=10.0.0.11, 172.22.200.150 | Debian Buster 10.6             | m1.mini |
-| e23fc109-de1b-4bdf-8b88-cf7b2721350c | Quijote        | ACTIVE | celia.garcia=10.0.1.13                                                | CentOS 7                       | m1.mini |
-| 26e2f672-2408-40d8-bcec-752059db35fa | Sancho         | ACTIVE | celia.garcia=10.0.1.10                                                | Ubuntu 20.04 LTS (focal fossa) | m1.mini |
-| a460fd00-f4d7-4999-bc05-a42f54e3dd56 | cliente_nginx  | ACTIVE | red de celia.garcia=10.0.0.6, 172.22.200.148                          | Debian Buster 10.6             | m1.mini |
-| d88962ae-4617-4fe3-be33-c1bbfe686c69 | servidor_nginx | ACTIVE | red de celia.garcia=10.0.0.5, 172.22.200.152                          | Debian Buster 10.6             | m1.mini |
-+--------------------------------------+----------------+--------+-----------------------------------------------------------------------+--------------------------------+---------+
+(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ openstack server list
++--------------------------------------+----------------+--------+---------------------------------------------------------------------+--------------------------------+---------+
+| ID                                   | Name           | Status | Networks                                                            | Image                          | Flavor  |
++--------------------------------------+----------------+--------+---------------------------------------------------------------------+--------------------------------+---------+
+| c39a7cc7-f485-4617-a62f-acdd39a19682 | Dulcinea       | ACTIVE | celia.garcia=10.0.1.6; red de celia.garcia=10.0.0.3, 172.22.200.222 | Debian Buster 10.6             | m1.mini |
+| e23fc109-de1b-4bdf-8b88-cf7b2721350c | Quijote        | ACTIVE | celia.garcia=10.0.1.13                                              | CentOS 7                       | m1.mini |
+| 26e2f672-2408-40d8-bcec-752059db35fa | Sancho         | ACTIVE | celia.garcia=10.0.1.11                                              | Ubuntu 20.04 LTS (focal fossa) | m1.mini |
+| a460fd00-f4d7-4999-bc05-a42f54e3dd56 | cliente_nginx  | ACTIVE | red de celia.garcia=10.0.0.6, 172.22.200.148                        | Debian Buster 10.6             | m1.mini |
+| d88962ae-4617-4fe3-be33-c1bbfe686c69 | servidor_nginx | ACTIVE | red de celia.garcia=10.0.0.5, 172.22.200.152                        | Debian Buster 10.6             | m1.mini |
++--------------------------------------+----------------+--------+---------------------------------------------------------------------+--------------------------------+---------+
 
 </code></pre></div><ul>
 <li>Listamos las redes que tenemos</li>
@@ -225,7 +226,7 @@ Please enter your OpenStack Password <span style="color:#66d9ef">for</span> proj
 | 21124241-dddf-4c06-b646-eb15ed5cd84a | celia.garcia        | 46e30aa0-10de-4883-a8c7-707b5a884eec                                       |
 | 49812d85-8e7a-4c31-baa2-d427692f6568 | ext-net             | 158bbe3e-3c98-485e-8042-ba6402111ea6, 6218710b-aa05-46f7-b198-7639efe3da95 |
 | 90c37b05-bd26-49a3-b797-c6038b49a169 | red de celia.garcia | 029d2907-1315-41f3-af12-c1285ceb43d2                                       |
-+--------------------------------------+----
+
 </code></pre></div><ul>
 <li>Listar los puertos</li>
 </ul>
@@ -234,16 +235,17 @@ Please enter your OpenStack Password <span style="color:#66d9ef">for</span> proj
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
 | ID                                   | Name | MAC Address       | Fixed IP Addresses                                                       | Status |
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
-| 4046288e-9357-4539-b66a-b4ccc7476747 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">💿</span>4d<span style="color:#960050;background-color:#1e0010">:</span>70 | ip_address=<span style="color:#e6db74">&#39;10.0.1.10&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
-| 575c3cc4-eb49-4b6f-af62-e9e5b81fa2f4 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f0<span style="color:#960050;background-color:#1e0010">:</span>82<span style="color:#960050;background-color:#1e0010">:</span>5d | ip_address=<span style="color:#e6db74">&#39;10.0.0.11&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span> | ACTIVE |
 | 73876736-71bc-4bfc-b240-e2bb0f1ca505 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f7<span style="color:#960050;background-color:#1e0010">:</span>be<span style="color:#960050;background-color:#1e0010">:</span>35 | ip_address=<span style="color:#e6db74">&#39;10.0.1.13&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
+| 85b0d349-4240-4ea5-b277-fbd2bef00928 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>77<span style="color:#960050;background-color:#1e0010">:</span>40<span style="color:#960050;background-color:#1e0010">:</span>7a | ip_address=<span style="color:#e6db74">&#39;10.0.0.3&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
 | a9bdd25d-cd44-44e1-96f3-fb5228872245 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>04<span style="color:#960050;background-color:#1e0010">:</span>0d<span style="color:#960050;background-color:#1e0010">:</span>c4 | ip_address=<span style="color:#e6db74">&#39;10.0.0.1&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
 | b20a13b0-107c-44e1-91ad-b05c4c4ab6fb |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>eb<span style="color:#960050;background-color:#1e0010">:</span>33<span style="color:#960050;background-color:#1e0010">:</span>51 | ip_address=<span style="color:#e6db74">&#39;10.0.0.2&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
 | d6d4a998-73e9-4bc0-9ad1-57b481c146c5 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>08<span style="color:#960050;background-color:#1e0010">:</span>7a<span style="color:#960050;background-color:#1e0010">:</span>18 | ip_address=<span style="color:#e6db74">&#39;10.0.0.6&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
 | d87620fe-c4e4-47e1-9381-ee47211795e3 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>e8<span style="color:#960050;background-color:#1e0010">:</span>a3<span style="color:#960050;background-color:#1e0010">:</span>f7 | ip_address=<span style="color:#e6db74">&#39;10.0.1.2&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span>  | ACTIVE |
 | dac3549b-9fb3-488d-b399-ed7ee94ea724 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>9a<span style="color:#960050;background-color:#1e0010">:</span>c0<span style="color:#960050;background-color:#1e0010">:</span>6a | ip_address=<span style="color:#e6db74">&#39;10.0.0.5&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;029d2907-1315-41f3-af12-c1285ceb43d2&#39;</span>  | ACTIVE |
-| fe24ece0-28d6-450a-9ff9-bdcea107a58f |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>25<span style="color:#960050;background-color:#1e0010">:</span>93<span style="color:#960050;background-color:#1e0010">:</span>49 | ip_address=<span style="color:#e6db74">&#39;10.0.1.14&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
+| e99aaf3f-c607-4d1d-9e05-fec50b132296 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f2<span style="color:#960050;background-color:#1e0010">:</span>65<span style="color:#960050;background-color:#1e0010">:</span>68 | ip_address=<span style="color:#e6db74">&#39;10.0.1.11&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span> | ACTIVE |
+| fa58e181-e88f-4453-8f20-c4bd7d190179 |      | fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>e0<span style="color:#960050;background-color:#1e0010">:</span>bc<span style="color:#960050;background-color:#1e0010">:</span>db | ip_address=<span style="color:#e6db74">&#39;10.0.1.6&#39;</span>, subnet_id=<span style="color:#e6db74">&#39;46e30aa0-10de-4883-a8c7-707b5a884eec&#39;</span>  | ACTIVE |
 +--------------------------------------+------+-------------------+--------------------------------------------------------------------------+--------+
+
 
 </code></pre></div><hr>
 <h3 id="deshabilitar-seguridad-de-un-puerto">Deshabilitar seguridad de un puerto</h3>
@@ -252,36 +254,35 @@ Please enter your OpenStack Password <span style="color:#66d9ef">for</span> proj
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ openstack server show Dulcinea
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ openstack server show Dulcinea
-+-----------------------------+-----------------------------------------------------------------------+
-| Field                       | Value                                                                 |
-+-----------------------------+-----------------------------------------------------------------------+
-| OS-DCF<span style="color:#960050;background-color:#1e0010">:</span>diskConfig           | AUTO                                                                  |
-| OS-EXT-AZ<span style="color:#960050;background-color:#1e0010">:</span>availability_zone | nova                                                                  |
-| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>power_state      | Running                                                               |
-| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>task_state       | None                                                                  |
-| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>vm_state         | active                                                                |
-| OS-SRV-USG<span style="color:#960050;background-color:#1e0010">:</span>launched_at      | 2020-11-18T20<span style="color:#960050;background-color:#1e0010">:</span>41<span style="color:#960050;background-color:#1e0010">:</span>11.000000                                            |
-| OS-SRV-USG<span style="color:#960050;background-color:#1e0010">:</span>terminated_at    | None                                                                  |
-| accessIPv4                  |                                                                       |
-| accessIPv6                  |                                                                       |
-| addresses                   | celia.garcia=10.0.1.14; red de celia.garcia=10.0.0.11, 172.22.200.150 |
-| config_drive                |                                                                       |
-| created                     | 2020-11-18T20<span style="color:#960050;background-color:#1e0010">:</span>40<span style="color:#960050;background-color:#1e0010">:</span>50Z                                                  |
-| flavor                      | m1.mini (12)                                                          |
-| hostId                      | 829ef6cbc520f728c22007cd80702af381d72417f6ce13fbdcbf53e5              |
-| id                          | be4e0478-8b93-4346-a4ab-64edfe3bfb37                                  |
-| image                       | Debian Buster 10.6 (51b38ecf-99e1-46a3-a497-9e1cc9c3c2d4)             |
-| key_name                    | msi                                                                   |
-| name                        | Dulcinea                                                              |
-| progress                    | 0                                                                     |
-| project_id                  | bf33696e5463476b95e310dd1e17f5f3                                      |
-| properties                  |                                                                       |
-| status                      | ACTIVE                                                                |
-| updated                     | 2020-11-18T20<span style="color:#960050;background-color:#1e0010">:</span>41<span style="color:#960050;background-color:#1e0010">:</span>12Z                                                  |
-| user_id                     | bdfca7c57468ff40b7445535735bf867c444239818b740f4f59474b105c27dec      |
-| volumes_attached            |                                                                       |
-+-----------------------------+-----------------------------------------------------------------------+
-
++-----------------------------+---------------------------------------------------------------------+
+| Field                       | Value                                                               |
++-----------------------------+---------------------------------------------------------------------+
+| OS-DCF<span style="color:#960050;background-color:#1e0010">:</span>diskConfig           | AUTO                                                                |
+| OS-EXT-AZ<span style="color:#960050;background-color:#1e0010">:</span>availability_zone | nova                                                                |
+| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>power_state      | Running                                                             |
+| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>task_state       | None                                                                |
+| OS-EXT-STS<span style="color:#960050;background-color:#1e0010">:</span>vm_state         | active                                                              |
+| OS-SRV-USG<span style="color:#960050;background-color:#1e0010">:</span>launched_at      | 2020-11-19T20<span style="color:#960050;background-color:#1e0010">:</span>28<span style="color:#960050;background-color:#1e0010">:</span>18.000000                                          |
+| OS-SRV-USG<span style="color:#960050;background-color:#1e0010">:</span>terminated_at    | None                                                                |
+| accessIPv4                  |                                                                     |
+| accessIPv6                  |                                                                     |
+| addresses                   | celia.garcia=10.0.1.6; red de celia.garcia=10.0.0.3, 172.22.200.222 |
+| config_drive                |                                                                     |
+| created                     | 2020-11-19T20<span style="color:#960050;background-color:#1e0010">:</span>27<span style="color:#960050;background-color:#1e0010">:</span>57Z                                                |
+| flavor                      | m1.mini (12)                                                        |
+| hostId                      | 829ef6cbc520f728c22007cd80702af381d72417f6ce13fbdcbf53e5            |
+| id                          | c39a7cc7-f485-4617-a62f-acdd39a19682                                |
+| image                       | Debian Buster 10.6 (51b38ecf-99e1-46a3-a497-9e1cc9c3c2d4)           |
+| key_name                    | msi                                                                 |
+| name                        | Dulcinea                                                            |
+| progress                    | 0                                                                   |
+| project_id                  | bf33696e5463476b95e310dd1e17f5f3                                    |
+| properties                  |                                                                     |
+| status                      | ACTIVE                                                              |
+| updated                     | 2020-11-23T12<span style="color:#960050;background-color:#1e0010">:</span>04<span style="color:#960050;background-color:#1e0010">:</span>44Z                                                |
+| user_id                     | bdfca7c57468ff40b7445535735bf867c444239818b740f4f59474b105c27dec    |
+| volumes_attached            |                                                                     |
++-----------------------------+---------------------------------------------------------------------+
 
 </code></pre></div><ul>
 <li>Le quitamos el grupo de seguridad</li>
@@ -295,26 +296,25 @@ Please enter your OpenStack Password <span style="color:#66d9ef">for</span> proj
 <p>Listamos los puertos y obtenemos el identificador de la máquina según la ip</p>
 </li>
 <li>
-<p>Le quitamos la seguridad</p>
+<p>Le quitamos la seguridad de puertos tanto de la red interna como de la red externa.</p>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openstack port set --disable-port-security 575c3cc4-eb49-4b6f-af62-e9e5b81fa2f4
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">openstack port set --disable-port-security fa58e181-e88f-4453-8f20-c4bd7d190179
+openstack port set --disable-port-security 85b0d349-4240-4ea5-b277-fbd2bef00928
 </code></pre></div><ul>
 <li>Ahora comprobamos la conexión y vemos que es correcta:</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ ping 172.22.200.150
-PING 172.22.200.150 (172.22.200.150) 56(84) bytes of data.
-64 bytes from 172.22.200.150<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=61 time=236 ms
-64 bytes from 172.22.200.150<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=61 time=80.0 ms
-64 bytes from 172.22.200.150<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=61 time=135 ms
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ ping 172.22.200.222
+PING 172.22.200.222 (172.22.200.222) 56(84) bytes of data.
+64 bytes from 172.22.200.222<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=61 time=71.1 ms
+64 bytes from 172.22.200.222<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=61 time=70.1 ms
+64 bytes from 172.22.200.222<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=61 time=95.5 ms
 ^C
---- 172.22.200.150 ping statistics ---
+--- 172.22.200.222 ping statistics ---
 3 packets transmitted, 3 received, 0% packet loss, time 4ms
-rtt min/avg/max/mdev = 80.015/150.447/235.918/64.529 ms
-
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ ssh -i .ssh/id_rsa debian@172.22.200.150
-Warning<span style="color:#960050;background-color:#1e0010">:</span> Identity file .ssh/id_rsa not accessible<span style="color:#960050;background-color:#1e0010">:</span> No such file or directory.
-Linux dulcinea 4.19.0-11-cloud-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.146-1 (2020-09-17) x86_64</span>
+rtt min/avg/max/mdev = 70.115/78.910/95.549/11.771 ms
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">(entorno) celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/venv/entorno$ ssh debian@172.22.200.222
+Linux dulcinea 4.19.0-12-cloud-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.152-1 (2020-10-18) x86_64</span>
 
 The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms <span style="color:#66d9ef">for</span> each program are described <span style="color:#66d9ef">in</span> the
@@ -322,8 +322,8 @@ individual files <span style="color:#66d9ef">in</span> /usr/share/doc/*/copyrigh
 
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
-Last login<span style="color:#960050;background-color:#1e0010">:</span> Wed Nov 18 20<span style="color:#960050;background-color:#1e0010">:</span>42<span style="color:#960050;background-color:#1e0010">:</span>15 2020 from 172.23.0.70
-debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ exit
+Last login<span style="color:#960050;background-color:#1e0010">:</span> Mon Nov 23 15<span style="color:#960050;background-color:#1e0010">:</span>59<span style="color:#960050;background-color:#1e0010">:</span>42 2020 from 172.23.0.70
+debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ 
 
 </code></pre></div>
       </div>
@@ -350,7 +350,7 @@ debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ e
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        869 Words
+        876 Words
       </p>
 
       <p>

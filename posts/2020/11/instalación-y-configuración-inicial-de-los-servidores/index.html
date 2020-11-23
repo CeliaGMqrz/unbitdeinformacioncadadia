@@ -55,7 +55,7 @@ Pasos a realizar:
  Debian Buster sobre volumen de 10GB con sabor m1.">
 <meta itemprop="datePublished" content="2020-11-18T18:22:12+01:00" />
 <meta itemprop="dateModified" content="2020-11-18T18:22:12+01:00" />
-<meta itemprop="wordCount" content="558">
+<meta itemprop="wordCount" content="922">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -155,7 +155,7 @@ Pasos a realizar:
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        3 minutes
+        5 minutes
 
         
       </p>
@@ -240,27 +240,31 @@ auto lo
 iface lo inet loopback
 
 <span style="color:#75715e"># The normal eth0 (red externa)</span>
-allow-hotplug eth0
+auto eth0
 iface eth0 inet dhcp
-        post-up ip route del <span style="color:#66d9ef">default</span> dev $IFACE || true
+<span style="color:#75715e">#       post-up ip route del default dev $IFACE || true</span>
 
 <span style="color:#75715e"># Reglas de iptable</span>
-up iptables -t nat -A POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE
-down iptables -t nat -D POSTROUTING -o eth0 -s 10.0.1.0/24 -j MASQUERADE
+up iptables -t nat -A POSTROUTING -s 10.0.1.0/24 -o eth0 -j MASQUERADE
+down iptables -t nat -D POSTROUTING -s 10.0.1.0/24 -o eth0 -j MASQUERADE
 
 <span style="color:#75715e"># Additional interfaces, just in case we&#39;re using</span>
 <span style="color:#75715e"># multiple networks</span>
 
-<span style="color:#75715e">#Red interna </span>
-allow-hotplug eth1
-iface eth1 inet dhcp
+<span style="color:#75715e">#Red interna</span>
+auto eth1
+iface eth1 inet static
+        address 10.0.1.6
+        netmask 255.255.255.0
 
 <span style="color:#75715e"># Set this one last, so that cloud-init or user can</span>
 <span style="color:#75715e"># override defaults.</span>
 source /etc/network/interfaces.d/*
 
+
 </code></pre></div><p>Comprobamos que las reglas de iptable estan funcionando</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e">#  iptables -t nat -L -nv</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sudo iptables -t nat -L -nv
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>~$ sudo iptables -t nat -L -nv
 Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes)
  pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination         
 
@@ -269,11 +273,99 @@ Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
 
 Chain POSTROUTING (policy ACCEPT 0 packets, 0 bytes)
  pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination         
-   49  4396 MASQUERADE  all  --  *      eth1    10.0.1.0/24          0.0.0.0/0           
-    1   356 MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0           
+    7   588 MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0           
 
 Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
  pkts bytes target     prot opt <span style="color:#66d9ef">in</span>     out     source               destination    
+</code></pre></div><h2 id="4-definición-de-contraseña-en-todas-las-instancias">4. Definición de contraseña en todas las instancias</h2>
+<ul>
+<li>Accedemos a Sancho y a Quijote por ssh desde Ducinea.</li>
+<li>Le cambiamos la contraseña a todas las instancias.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">passwd root
+passwd nombre_de_usuario ({debian},{ubuntu},{sancho})
+</code></pre></div><h2 id="5-modificación-de-las-instancias-sancho-y-quijote-para-que-usen-direccionamiento-estático-y-dulcinea-como-puerta-de-enlace">5. Modificación de las instancias sancho y quijote para que usen direccionamiento estático y dulcinea como puerta de enlace</h2>
+<h3 id="configuración-sancho-ubuntu">Configuración Sancho (Ubuntu)</h3>
+<p>Editamos el fichero de configuración de interfaces</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano -c /etc/netplan/50-cloud-init.yaml
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># This file is generated from information provided by the datasource.  Changes</span>
+<span style="color:#75715e"># to it will not persist across an instance reboot.  To disable cloud-init&#39;s</span>
+<span style="color:#75715e"># network configuration capabilities, write a file</span>
+<span style="color:#75715e"># /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:</span>
+<span style="color:#75715e"># network: {config: disabled}</span>
+network<span style="color:#960050;background-color:#1e0010">:</span>
+    version<span style="color:#960050;background-color:#1e0010">:</span> 2
+    ethernets<span style="color:#960050;background-color:#1e0010">:</span>
+        ens3<span style="color:#960050;background-color:#1e0010">:</span>
+             addresses<span style="color:#960050;background-color:#1e0010">:</span> [10.0.1.11/24]
+             gateway4<span style="color:#960050;background-color:#1e0010">:</span> 10.0.1.6
+             dhcp4<span style="color:#960050;background-color:#1e0010">:</span> false
+             match<span style="color:#960050;background-color:#1e0010">:</span>
+                macaddress<span style="color:#960050;background-color:#1e0010">:</span> fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">💿</span>4d<span style="color:#960050;background-color:#1e0010">:</span>70
+             mtu<span style="color:#960050;background-color:#1e0010">:</span> 8950
+             set-name<span style="color:#960050;background-color:#1e0010">:</span> ens3
+
+</code></pre></div><p>Aplicamos los cambios</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">netplan apply
+</code></pre></div><p>Comprobamos que la* puerta de enlace* apunte a Dulcinea</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@sancho<span style="color:#960050;background-color:#1e0010">:</span>/home/ubuntu<span style="color:#75715e"># ip r</span>
+<span style="color:#66d9ef">default</span> via 10.0.1.6 dev ens3 
+10.0.1.0/24 dev ens3 proto kernel scope link src 10.0.1.11 
+169.254.169.254 via 10.0.1.2 dev ens3 
+</code></pre></div><p>Comprobamos que tenemos <em>acceso al exterior</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@sancho<span style="color:#960050;background-color:#1e0010">:</span>/home/ubuntu<span style="color:#75715e"># ping 172.22.0.1</span>
+PING 172.22.0.1 (172.22.0.1) 56(84) bytes of data.
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=62 time=1.47 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=62 time=1.87 ms
+^C
+--- 172.22.0.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.467/1.670/1.874/0.203 ms
+
+</code></pre></div><h3 id="configuración-quijote-centos">Configuración Quijote (CentOS)</h3>
+<p>Buscamos el fichero de configuración de interfaces</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[centos@quijote ~]$ ls -l /etc/sysconfig/network-scripts/ifcfg-*
+-rw-r--r--. 1 root root 168 Nov 18 16<span style="color:#960050;background-color:#1e0010">:</span>58 /etc/sysconfig/network-scripts/ifcfg-eth0
+-rw-r--r--. 1 root root 254 Aug 19  2019 /etc/sysconfig/network-scripts/ifcfg-lo
+
+</code></pre></div><p>Editamos el fichero:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">vi /etc/sysconfig/network-scripts/ifcfg-eth0 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Created by cloud-init on instance boot automatically, do not edit.</span>
+<span style="color:#75715e">#</span>
+BOOTPROTO=<span style="color:#e6db74">&#34;static&#34;</span>
+IPADDR=<span style="color:#e6db74">&#34;10.0.1.13&#34;</span>
+GATEWAY=<span style="color:#e6db74">&#34;10.0.1.6&#34;</span>
+DEVICE=eth0
+HWADDR=fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f7<span style="color:#960050;background-color:#1e0010">:</span>be<span style="color:#960050;background-color:#1e0010">:</span>35
+MTU=8950
+ONBOOT=yes
+TYPE=Ethernet
+USERCTL=no
+~                                                                                                        
+~                                                                                                        
+~                                                                                                        
+~                                                                                                        
+~                                                                                                        
+~                                                                                                        
+<span style="color:#e6db74">&#34;/etc/sysconfig/network-scripts/ifcfg-eth0&#34;</span> 11L, 210C
+
+</code></pre></div><p>Reiniamos el servicio</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart network.service
+</code></pre></div><p>Comprobamos la <strong>puerta de enlace</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># ip r</span>
+<span style="color:#66d9ef">default</span> via 10.0.1.6 dev eth0 
+10.0.0.0/8 dev eth0 proto kernel scope link src 10.0.1.13 
+
+</code></pre></div><p>Comprobamos el <strong>acceso al exterior</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># ping 172.22.0.1</span>
+PING 172.22.0.1 (172.22.0.1) 56(84) bytes of data.
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=62 time=1.36 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=62 time=1.50 ms
+^C
+--- 172.22.0.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.364/1.432/1.500/0.068 ms
+
 </code></pre></div>
       </div>
     </article>
@@ -299,7 +391,7 @@ Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        558 Words
+        922 Words
       </p>
 
       <p>
