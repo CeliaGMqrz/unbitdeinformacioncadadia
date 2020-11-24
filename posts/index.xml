@@ -991,10 +991,7 @@ deb http<span style="color:#960050;background-color:#1e0010">:</span>//security.
 apt list --upgradable
 apt upgrade
 </code></pre></div><p><strong>Sancho (Ubuntu 20)</strong></p>
-<p>Repositorios de Sancho</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
-
-</code></pre></div><p>Debemos asegurarnos que tenemos resolución de nombres</p>
+<p>Debemos asegurarnos que tenemos resolución de nombres</p>
 <p>Fichero /etc/resolv</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nameserver 192.168.202.2
 </code></pre></div><p>Actualizamos</p>
