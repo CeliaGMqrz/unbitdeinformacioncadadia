@@ -55,7 +55,7 @@ Pasos a realizar:
  Debian Buster sobre volumen de 10GB con sabor m1.">
 <meta itemprop="datePublished" content="2020-11-18T18:22:12+01:00" />
 <meta itemprop="dateModified" content="2020-11-18T18:22:12+01:00" />
-<meta itemprop="wordCount" content="1614">
+<meta itemprop="wordCount" content="1907">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -155,7 +155,7 @@ Pasos a realizar:
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        8 minutes
+        9 minutes
 
         
       </p>
@@ -491,7 +491,80 @@ usermod -aG wheel profesor
 </code></pre></div><h2 id="9-copia-de-las-claves-públicas-de-todos-los-profesores-en-las-instancias-para-que-puedan-acceder-con-el-usuario-profesor">9. Copia de las claves públicas de todos los profesores en las instancias para que puedan acceder con el usuario profesor</h2>
 <p>hecho.</p>
 <h2 id="10-realiza-una-actualización-completa-de-todos-los-servidores">10. Realiza una actualización completa de todos los servidores</h2>
+<p><strong>Dulcinea(Debian 10)</strong></p>
+<p>Repositorios de Dulcinea</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">deb http<span style="color:#960050;background-color:#1e0010">:</span>//deb.debian.org/debian/ buster main
+<span style="color:#75715e">#deb-src http://deb.debian.org/debian/ buster main</span>
+deb http<span style="color:#960050;background-color:#1e0010">:</span>//deb.debian.org/debian/ buster-updates main
+<span style="color:#75715e">#deb-src http://deb.debian.org/debian/ buster-updates main</span>
+deb http<span style="color:#960050;background-color:#1e0010">:</span>//security.debian.org/ buster/updates main
+<span style="color:#75715e">#deb-src http://security.debian.org/debian-security buster/updates main</span>
 
+</code></pre></div><p>Actualizamos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">apt update
+apt list --upgradable
+apt upgrade
+</code></pre></div><p><strong>Sancho (Ubuntu 20)</strong></p>
+<p>Repositorios de Sancho</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
+
+</code></pre></div><p>Debemos asegurarnos que tenemos resolución de nombres</p>
+<p>Fichero /etc/resolv</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nameserver 192.168.202.2
+</code></pre></div><p>Actualizamos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">apt update
+apt upgrade
+</code></pre></div><p><strong>Quijote (Centos7)</strong></p>
+<p>Los repositorios de centos se ubican en :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[centos@quijote ~]$ ls -l /etc/yum.repos.d/
+total 36
+-rw-r--r--. 1 root root 1664 Apr  7  2020 CentOS-Base.repo
+-rw-r--r--. 1 root root 1309 Apr  7  2020 CentOS-CR.repo
+-rw-r--r--. 1 root root  649 Apr  7  2020 CentOS-Debuginfo.repo
+-rw-r--r--. 1 root root  314 Apr  7  2020 CentOS-fasttrack.repo
+-rw-r--r--. 1 root root  630 Apr  7  2020 CentOS-Media.repo
+-rw-r--r--. 1 root root 1331 Apr  7  2020 CentOS-Sources.repo
+-rw-r--r--. 1 root root 7577 Apr  7  2020 CentOS-Vault.repo
+-rw-r--r--. 1 root root  616 Apr  7  2020 CentOS-x86_64-kernel.repo
+
+</code></pre></div><p>Actualizamos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum update
+</code></pre></div><h2 id="12-hasta-que-no-esté-configurado-el-servidor-dns-incluye-resolución-estática-en-las-tres-instancias-tanto-usando-nombre-completo-como-hostname">12. Hasta que no esté configurado el servidor DNS, incluye resolución estática en las tres instancias tanto usando nombre completo como hostname</h2>
+<p><strong>Dulcinea</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.1.1 dulcinea.novalocal dulcinea
+127.0.0.1 localhost
+10.0.1.13 quijote.novalocal quijote
+10.0.1.11 sancho.novalocal sancho
+</code></pre></div><p><strong>Sancho</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.0.1 localhost
+127.0.1.1 sancho.novalocal sancho
+10.0.1.6 dulcinea.novalocal dulcinea
+10.0.1.13 quijote.novalocal quijote
+</code></pre></div><p><strong>Quijote</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+127.0.0.1   localhost quijote.novalocal quijote
+10.0.1.6    dulcinea.novalocal dulcinea
+10.0.1.11   sancho.novalocal sancho
+</code></pre></div><h2 id="13-asegúrate-que-el-servidor-tiene-sincronizado-su-reloj-utilizando-un-servidor-ntp-externo">13. Asegúrate que el servidor tiene sincronizado su reloj utilizando un servidor NTP externo</h2>
+<p><strong>Dulcinea</strong></p>
+<p>Listamos las zonas</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">timedatectl list-timezones
+</code></pre></div><p>Cambiamos la zona</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">timedatectl set-timezone Europe/Madrid
+</code></pre></div><p>Comprobamos la hora</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@dulcinea<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e"># date</span>
+Tue 24 Nov 2020 01<span style="color:#960050;background-color:#1e0010">:</span>42<span style="color:#960050;background-color:#1e0010">:</span>16 PM CET
+</code></pre></div><p>Se sigue el mismo procedimiento con Sancho y Quijote.</p>
+<p><strong>Sancho</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@sancho<span style="color:#960050;background-color:#1e0010">:</span>/home/ubuntu<span style="color:#75715e"># timedatectl set-timezone Europe/Madrid</span>
+root@sancho<span style="color:#960050;background-color:#1e0010">:</span>/home/ubuntu<span style="color:#75715e"># date</span>
+Tue Nov 24 13<span style="color:#960050;background-color:#1e0010">:</span>46<span style="color:#960050;background-color:#1e0010">:</span>08 CET 2020
+</code></pre></div><p><strong>Quijote</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># timedatectl set-timezone Europe/Madrid</span>
+[root@quijote centos]<span style="color:#75715e"># date</span>
+Tue Nov 24 13<span style="color:#960050;background-color:#1e0010">:</span>46<span style="color:#960050;background-color:#1e0010">:</span>49 CET 2020
+</code></pre></div>
       </div>
     </article>
 
@@ -516,7 +589,7 @@ usermod -aG wheel profesor
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1614 Words
+        1907 Words
       </p>
 
       <p>
