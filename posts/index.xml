@@ -272,7 +272,7 @@ MariaDB <span style="color:#66d9ef">[bd_drupal]</span>&gt; show tables;
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart mariadb
 systemctl restart nginx
 </code></pre></div><h3 id="5-asegurate-que-las-url-limpias-de-drupal-siguen-funcionando-en-nginx">5. Asegurate que las URL limpias de drupal siguen funcionando en nginx.</h3>
-<p>Siguiendo esta <a href="/images/ovh_php/http://www.kreanto.com/es/blog/configurando-las-url-limpias-drupal-un-servidor-web-nginx">guía</a>:</p>
+<p>Siguiendo esta <a href="http://www.kreanto.com/es/blog/configurando-las-url-limpias-drupal-un-servidor-web-nginx">guía</a>:</p>
 <p>Añadimos el sistema de url limipas en Drupal.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Default server configuration</span>
 <span style="color:#75715e">#</span>
