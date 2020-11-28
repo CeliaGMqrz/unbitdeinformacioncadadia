@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>nginx on Un bit de informacion cada día</title>
-    <link>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</link>
-    <description>Recent content in nginx on Un bit de informacion cada día</description>
+    <title>php on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/php/</link>
+    <description>Recent content in php on Un bit de informacion cada día</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 28 Nov 2020 20:44:54 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Nov 2020 20:44:54 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Instalación/migración de aplicaciones web PHP</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/</link>
@@ -17,16 +17,6 @@
       <description>OBJETIVO:
 Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
  1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal.</description>
-    </item>
-    
-    <item>
-      <title>Servidor Nginx</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/servidor-nginx/</link>
-      <pubDate>Wed, 11 Nov 2020 17:51:13 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/servidor-nginx/</guid>
-      <description>Servidor Web Nginxx NGINX es un servidor web open source de alta performance que ofrece el contenido estático de un sitio web de forma rápida y fácil de configurar. Ofrece recursos de equilibrio de carga, proxy inverso y streaming, además de gestionar miles de conexiones simultáneas. El resultado de sus aportes es una mayor velocidad y escalabilidad.
-Además de otras tareas, los servidores web son los encargados de la entrega de aplicaciones web, respondiendo a peticiones HTTPS realizadas por usuarios, normalmente desde un navegador web.</description>
     </item>
     
   </channel>

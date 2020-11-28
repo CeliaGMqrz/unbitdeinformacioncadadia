@@ -3,27 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nextcloud/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/php/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-11-28T20:44:54+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/</loc>
     <lastmod>2020-11-19T19:31:53+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/openstackclient/</loc>
-    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-11-19T19:31:53+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-11-19T19:31:53+01:00</lastmod>
   </url>
   
@@ -95,11 +115,6 @@
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/mysql/</loc>
     <lastmod>2020-11-11T19:21:43+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</loc>
-    <lastmod>2020-11-11T17:51:13+01:00</lastmod>
   </url>
   
   <url>

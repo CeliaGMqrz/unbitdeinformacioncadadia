@@ -7,7 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 19 Nov 2020 19:31:53 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Nov 2020 20:44:54 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nextcloud</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/nextcloud/</link>
+      <pubDate>Sat, 28 Nov 2020 20:44:54 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/nextcloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</link>
+      <pubDate>Sat, 28 Nov 2020 20:44:54 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>php</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/php/</link>
+      <pubDate>Sat, 28 Nov 2020 20:44:54 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/php/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>openstackclient</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/openstackclient/</link>
@@ -68,33 +95,6 @@
       <pubDate>Wed, 11 Nov 2020 19:21:43 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/entorno-lamp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>instalar lamp</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-lamp/</link>
-      <pubDate>Wed, 11 Nov 2020 19:21:43 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/instalar-lamp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>lamp</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/lamp/</link>
-      <pubDate>Wed, 11 Nov 2020 19:21:43 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/lamp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/linux/</link>
-      <pubDate>Wed, 11 Nov 2020 19:21:43 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/linux/</guid>
       <description></description>
     </item>
     

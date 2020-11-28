@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Celia García Márquez ">
+<meta name="description" content="OBJETIVO:
+Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
+ 1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal." />
+<meta name="keywords" content=", nextcloud, nginx, php" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/" />
+
+
+    <title>
+        
+            Instalación/migración de aplicaciones web PHP :: Un bit de informacion cada día  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://unbitdeinformacioncadadia.netlify.app/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+    
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://unbitdeinformacioncadadia.netlify.app/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://unbitdeinformacioncadadia.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://unbitdeinformacioncadadia.netlify.app/favicon-16x16.png">
+    <link rel="manifest" href="https://unbitdeinformacioncadadia.netlify.app/site.webmanifest">
+    <link rel="mask-icon" href="https://unbitdeinformacioncadadia.netlify.app/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://unbitdeinformacioncadadia.netlify.app/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Instalación/migración de aplicaciones web PHP">
+<meta itemprop="description" content="OBJETIVO:
+Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
+ 1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal.">
+<meta itemprop="datePublished" content="2020-11-28T20:44:54+01:00" />
+<meta itemprop="dateModified" content="2020-11-28T20:44:54+01:00" />
+<meta itemprop="wordCount" content="2238">
+<meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+
+
+
+<meta itemprop="keywords" content="nextcloud,nginx,php," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+
+<meta name="twitter:title" content="Instalación/migración de aplicaciones web PHP"/>
+<meta name="twitter:description" content="OBJETIVO:
+Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
+ 1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal."/>
+
+
+
+    <meta property="og:title" content="Instalación/migración de aplicaciones web PHP" />
+<meta property="og:description" content="OBJETIVO:
+Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
+ 1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/" />
+<meta property="og:image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+<meta property="article:published_time" content="2020-11-28T20:44:54+01:00" />
+<meta property="article:modified_time" content="2020-11-28T20:44:54+01:00" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-11-28 20:44:54 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://unbitdeinformacioncadadia.netlify.app/posts/">Blog</a></li><li><a href="https://unbitdeinformacioncadadia.netlify.app/about/">Contacto</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        11 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/">Instalación/migración de aplicaciones web PHP</a>
+      </h1>
+
+      
+
+      <div class="post-content">
+        <p>OBJETIVO:</p>
+<p>Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:</p>
+<hr>
+<h3 id="1-la-aplicación-se-tendrá-que-migrar-a-un-nuevo-virtualhost-al-que-se-accederá-con-el-nombre-portaliesgnxxes">1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.</h3>
+<ul>
+<li>Crear el nuevo virtualhost portal.iesgn05.es</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es
+nano /etc/nginx/sites-available/portal.iesgn05.es
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Default server configuration</span>
+<span style="color:#75715e">#</span>
+server {
+        listen 80;
+        listen [::]<span style="color:#960050;background-color:#1e0010">:</span>80;
+
+        root /var/www/portal.iesgn05.es;
+
+        <span style="color:#75715e"># Add index.php to the list if you are using PHP</span>
+        index index.html index.htm index.nginx-debian.html index.php;
+
+        server_name portal.iesgn05.es;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+
+        location ~\.php$ {
+               include snippets/fastcgi-php.conf;
+               <span style="color:#75715e"># With php-fpm (or other unix sockets):</span>
+               fastcgi_pass unix<span style="color:#960050;background-color:#1e0010">:</span>/run/php/php7.3-fpm.sock;
+               <span style="color:#75715e"># With php-cgi (or other tcp sockets):</span>
+               <span style="color:#75715e">#fastcgi_pass 127.0.0.1:9000;</span>
+        }
+
+}
+
+</code></pre></div><p>Creamos el directorio y el html</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mkdir /var/www/portal.iesgn05.es
+nano /var/www/portal.iesgn05.es/index.html
+</code></pre></div><ul>
+<li>Necesitaremos otra zona DNS</li>
+</ul>
+<p><img src="migracion/capturas/cname.png" alt="/images/ovh_php/cname.png"></p>
+<ul>
+<li>Comprobamos que podemos acceder al sitio</li>
+</ul>
+<p><img src="migracion/capturas/portal.png" alt="/images/ovh_php/portal.png"></p>
+<h3 id="2-vamos-a-nombrar-el-servicio-de-base-de-datos-que-tenemos-en-producción-como-es-un-servicio-interno-no-la-vamos-a-nombrar-en-la-zona-dns-la-vamos-a-nombrar-usando-resolución-estática-el-nombre-del-servicio-de-base-de-datos-se-debe-llamar-bdiesgnxxes">2. Vamos a nombrar el servicio de base de datos que tenemos en producción. Como es un servicio interno no la vamos a nombrar en la zona DNS, la vamos a nombrar usando resolución estática. El nombre del servicio de base de datos se debe llamar: bd.iesgnXX.es.</h3>
+<ul>
+<li>Utilizamos la resolución estática</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.0.1       bd.iesgn05.es
+</code></pre></div><h3 id="3-por-lo-tanto-los-recursos-que-deberás-crear-en-la-base-de-datos-serán-respeta-los-nombres">3. Por lo tanto los recursos que deberás crear en la base de datos serán (respeta los nombres):</h3>
+<p>Dirección de la base de datos: bd.iesgnXX.es
+Base de datos: bd_drupal
+Usuario: user_drupal
+Password: pass_drupal</p>
+<ul>
+<li>Comprobamos que mariadb esta en funcionamiento</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www<span style="color:#75715e"># systemctl status mariadb</span>
+<span style="color:#960050;background-color:#1e0010">●</span> mariadb.service - MariaDB 10.3.25 database server
+   Loaded<span style="color:#960050;background-color:#1e0010">:</span> loaded (/lib/systemd/system/mariadb.service; enabled; vendor preset<span style="color:#960050;background-color:#1e0010">:</span> enabled)
+   Active<span style="color:#960050;background-color:#1e0010">:</span> active (running) since Mon 2020-11-23 08<span style="color:#960050;background-color:#1e0010">:</span>57<span style="color:#960050;background-color:#1e0010">:</span>32 UTC; 4 days ago
+     Docs<span style="color:#960050;background-color:#1e0010">:</span> man<span style="color:#960050;background-color:#1e0010">:</span>mysqld(8)
+           https<span style="color:#960050;background-color:#1e0010">:</span>//mariadb.com/kb/en/library/systemd/
+  <span style="color:#66d9ef">Process</span><span style="color:#960050;background-color:#1e0010">:</span> 488 ExecStartPre=/usr/bin/install -m 755 -o mysql -g root -d /var/run/mysqld (code=exited, sta
+  <span style="color:#66d9ef">Process</span><span style="color:#960050;background-color:#1e0010">:</span> 517 ExecStartPre=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, st
+  <span style="color:#66d9ef">Process</span><span style="color:#960050;background-color:#1e0010">:</span> 524 ExecStartPre=/bin/sh -c [ ! -e /usr/bin/galera_recovery ] &amp;&amp; VAR= ||   VAR=`cd /usr/bin/..
+  <span style="color:#66d9ef">Process</span><span style="color:#960050;background-color:#1e0010">:</span> 608 ExecStartPost=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, s
+  <span style="color:#66d9ef">Process</span><span style="color:#960050;background-color:#1e0010">:</span> 611 ExecStartPost=/etc/mysql/debian-start (code=exited, status=0/SUCCESS)
+ Main PID<span style="color:#960050;background-color:#1e0010">:</span> 577 (mysqld)
+   Status<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;Taking your SQL requests now...&#34;</span>
+    Tasks<span style="color:#960050;background-color:#1e0010">:</span> 30 (limit<span style="color:#960050;background-color:#1e0010">:</span> 2318)
+   Memory<span style="color:#960050;background-color:#1e0010">:</span> 101.3M
+   CGroup<span style="color:#960050;background-color:#1e0010">:</span> /system.slice/mariadb.service
+           <span style="color:#960050;background-color:#1e0010">└─</span>577 /usr/sbin/mysqld
+
+Warning<span style="color:#960050;background-color:#1e0010">:</span> Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+
+</code></pre></div><ul>
+<li>Creamos la base de datos, y el usuario y le damos privilegios.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">MariaDB [(none)]&gt; create database bd_drupal
+    -&gt; ;
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [(none)]&gt; create user <span style="color:#e6db74">&#39;user_drupal&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span>;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [(none)]&gt; grant all privileges on bd_drupal.* to <span style="color:#e6db74">&#39;user_drupal&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span> identified by <span style="color:#e6db74">&#39;pass_drupal&#39;</span>;
+Query OK, 0 rows affected (0.000 sec)
+
+</code></pre></div><h3 id="4-realiza-la-migración-de-la-aplicación">4. Realiza la migración de la aplicación.</h3>
+<ul>
+<li>Hacemos una copia de seguridad de la base de datos de local, y la mandamos a nuestro servidor. La base de datos se encuentra alojada en el cliente ya que creamos la opción multinodo que usaba la base de datos en otro nodo. Entonces entramos en el cliente y hacemos la copia de seguridad de la base de datos. Después la mandamos a nuestro servidor.</li>
+</ul>
+<p>Copia de seguridad:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mysqldump -v --opt --events --routines --triggers --default-character-set=utf8 -u user -p test &gt; db_backup_db_test`date +<span style="color:#66d9ef">%</span>Y<span style="color:#66d9ef">%</span>m<span style="color:#66d9ef">%</span>d_<span style="color:#66d9ef">%</span>H<span style="color:#66d9ef">%</span>M<span style="color:#66d9ef">%</span>S`.sql
+</code></pre></div><p>Enviar al servidor de ovh:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~$ scp db_backup_db_test20201127_130410.sql debian@kiara.iesgn05.es<span style="color:#960050;background-color:#1e0010">:</span>/home/debian
+db_backup_db_test20201127_130410.sql                       100%   11MB  20.3MB/s   00<span style="color:#960050;background-color:#1e0010">:</span>00  
+</code></pre></div><ul>
+<li>Pasamos el sitio web celia-drupal al servidor de ovh</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-cms<span style="color:#960050;background-color:#1e0010">:</span>/var/www<span style="color:#75715e"># scp celia-drupal.zip celiagm@192.168.100.11:/home/celiagm</span>
+
+celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~$ scp celia-drupal.zip debian@kiara.iesgn05.es<span style="color:#960050;background-color:#1e0010">:</span>/home/debian
+
+</code></pre></div><ul>
+<li>Lo descomprimimos en el lugar adecuado, copiamos el contenido de nuestro sitio web a</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www<span style="color:#75715e"># unzip celia-drupal.zip </span>
+root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/celia-drupal<span style="color:#75715e"># cp -r * ../portal.iesgn05.es/</span>
+</code></pre></div><ul>
+<li>Restauramos la base de datos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e"># mysql -u user_drupal --password=pass_drupal bd_drupal &lt; db_backup_db_test20201127_130410.sql</span>
+</code></pre></div><ul>
+<li>Entramos como user_drupal y comprobamos que se ha restaurado correctamente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">MariaDB [(none)]&gt; use bd_drupal;
+Reading table information <span style="color:#66d9ef">for</span> completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB <span style="color:#66d9ef">[bd_drupal]</span>&gt; show tables;
++-------------------------------------------------+
+| Tables_in_bd_drupal                             |
++-------------------------------------------------+
+| batch                                           |
+| block_content                                   |
+| block_content__body                             |
+| block_content__field_clean_blog_header_backgrou |
+| block_content__field_clean_blog_header_image    |
+| block_content_field_data                        |
+| block_content_field_revision                    |
+| block_content_r__846f9b8ab9                     |
+| block_content_r__93aa615698                     |
+| block_content_revision                          |
+| block_content_revision__body                    |
+| cache_bootstrap                                 |
+| cache_config                                    |
+| cache_container                                 |
+| cache_data                                      |
+| cache_default                                   |
+| cache_discovery                                 |
+| cache_dynamic_page_cache                        |
+| cache_entity                                    |
+| cache_menu                                      |
+| cache_page                                      |
+| cache_render                                    |
+| cache_toolbar                                   |
+| cachetags                                       |
+| comment                                         |
+| comment__comment_body                           |
+| comment_entity_statistics                       |
+| comment_field_data                              |
+| config                                          |
+| file_managed                                    |
+| file_usage                                      |
+| flood                                           |
+| history                                         |
+| key_value                                       |
+| key_value_expire                                |
+| locale_file                                     |
+| locales_location                                |
+| locales_source                                  |
+| locales_target                                  |
+| menu_link_content                               |
+| menu_link_content_data                          |
+| menu_link_content_field_revision                |
+| menu_link_content_revision                      |
+| menu_tree                                       |
+| node                                            |
+| node__body                                      |
+| node__comment                                   |
+| node__field_image                               |
+| node__field_tags                                |
+| node_access                                     |
+| node_field_data                                 |
+| node_field_revision                             |
+| node_revision                                   |
+| node_revision__body                             |
+| node_revision__comment                          |
+| node_revision__field_image                      |
+| node_revision__field_tags                       |
+| path_alias                                      |
+| path_alias_revision                             |
+| queue                                           |
+| router                                          |
+| search_dataset                                  |
+| search_index                                    |
+| search_total                                    |
+| semaphore                                       |
+| sequences                                       |
+| sessions                                        |
+| shortcut                                        |
+| shortcut_field_data                             |
+| shortcut_set_users                              |
+| taxonomy_index                                  |
+| taxonomy_term__parent                           |
+| taxonomy_term_data                              |
+| taxonomy_term_field_data                        |
+| taxonomy_term_field_revision                    |
+| taxonomy_term_revision                          |
+| taxonomy_term_revision__parent                  |
+| user__roles                                     |
+| user__user_picture                              |
+| users                                           |
+| users_data                                      |
+| users_field_data                                |
+| votingapi_result                                |
+| votingapi_vote                                  |
+| watchdog                                        |
++-------------------------------------------------+
+85 rows <span style="color:#66d9ef">in</span> set (0.001 sec)
+
+</code></pre></div><ul>
+<li>Tenemos que modificar un fichero de configuración que es settings.php que se encuentra en nuestro virtualhosting del servidor. Nos vamos al final del fichero y vemos la configuración de las bases de datos que vamos a modificar, actualmente tiene este aspecto que apuntaba a nuestra anterior base de datos que hemos eliminado.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /var/www/portal.iesgn05.es/drupal-9.0.7/sites/<span style="color:#66d9ef">default</span>/settings.php 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$databases[<span style="color:#e6db74">&#39;default&#39;</span>][<span style="color:#e6db74">&#39;default&#39;</span>] = array (
+  <span style="color:#e6db74">&#39;database&#39;</span> =&gt; <span style="color:#e6db74">&#39;bd_drupal&#39;</span>,
+  <span style="color:#e6db74">&#39;username&#39;</span> =&gt; <span style="color:#e6db74">&#39;user_drupal&#39;</span>,
+  <span style="color:#e6db74">&#39;password&#39;</span> =&gt; <span style="color:#e6db74">&#39;pass_drupal&#39;</span>,
+  <span style="color:#e6db74">&#39;prefix&#39;</span> =&gt; <span style="color:#e6db74">&#39;&#39;</span>,
+  <span style="color:#e6db74">&#39;host&#39;</span> =&gt; <span style="color:#e6db74">&#39;bd.iesgn05.es&#39;</span>,
+  <span style="color:#e6db74">&#39;port&#39;</span> =&gt; <span style="color:#e6db74">&#39;3306&#39;</span>,
+  <span style="color:#e6db74">&#39;namespace&#39;</span> =&gt; <span style="color:#e6db74">&#39;Drupal\\Core\\Database\\Driver\\mysql&#39;</span>,
+  <span style="color:#e6db74">&#39;driver&#39;</span> =&gt; <span style="color:#e6db74">&#39;mysql&#39;</span>,
+);
+
+</code></pre></div><ul>
+<li>Nos aseguramos que tenemos instalado php y los módulos necesarios</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">apt-get install php php-mysql php-xml
+</code></pre></div><ul>
+<li>Reiniciamos el servicio de mariadb y nginx</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart mariadb
+systemctl restart nginx
+</code></pre></div><h3 id="5-asegurate-que-las-url-limpias-de-drupal-siguen-funcionando-en-nginx">5. Asegurate que las URL limpias de drupal siguen funcionando en nginx.</h3>
+<p>Siguiendo esta <a href="http://www.kreanto.com/es/blog/configurando-las-url-limpias-drupal-un-servidor-web-nginx">guía</a>:</p>
+<p>Añadimos el sistema de url limipas en Drupal.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Default server configuration</span>
+<span style="color:#75715e">#</span>
+server {
+        listen 80;
+        listen [::]<span style="color:#960050;background-color:#1e0010">:</span>80;
+
+        root /var/www/portal.iesgn05.es;
+
+        <span style="color:#75715e"># Add index.php to the list if you are using PHP</span>
+
+        index index.html index.htm index.php;
+        server_name portal.iesgn05.es;
+
+        location / {
+                try_files $uri $uri/ =404 @rewrite;
+        }
+
+
+        location ~\.php$ {
+               include snippets/fastcgi-php.conf;
+               <span style="color:#75715e"># With php-fpm (or other unix sockets):</span>
+               fastcgi_pass unix<span style="color:#960050;background-color:#1e0010">:</span>/run/php/php7.3-fpm.sock;
+               <span style="color:#75715e"># With php-cgi (or other tcp sockets):</span>
+               <span style="color:#75715e">#fastcgi_pass 127.0.0.1:9000;</span>
+        }
+
+
+         location @rewrite {
+
+         <span style="color:#75715e"># Some modules enforce no slash (/) at the end of the URL</span>
+         <span style="color:#75715e"># Else this rewrite block wouldnt be needed (GlobalRedirect)</span>
+
+         rewrite ^/(.*)$ /index.php<span style="color:#66d9ef">?</span>q=$1;
+
+         }
+
+}
+
+</code></pre></div><p>Comprobamos el funcionamiento</p>
+<p><img src="funcionamiento1.png" alt="/images/ovh_php/funcionamiento1.png"></p>
+<h3 id="6-la-aplicación-debe-estar-disponible-en-la-url-portaliesgnxxes-sin-ningún-directorio">6. La aplicación debe estar disponible en la URL: portal.iesgnXX.es (Sin ningún directorio).</h3>
+<p>Copiamos el contenido al directorio de nuestro virtualhost</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/portal.iesgn05.es<span style="color:#75715e"># cp -r /home/debian/drupal-9.0.7/ .</span>
+root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/portal.iesgn05.es<span style="color:#75715e"># rm index.html </span>
+root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/portal.iesgn05.es<span style="color:#75715e"># ls -a</span>
+.	       composer.lock  drupal-9.0.7    example.gitignore  index.php    profiles	  themes
+..	       core	      .editorconfig   .gitattributes	 INSTALL.txt  README.txt  update.php
+autoload.php   .csslintrc     .eslintignore   .htaccess		 LICENSE.txt  robots.txt  vendor
+composer.json  drupal	      .eslintrc.json  .ht.router.php	 modules      sites	  web.config
+
+root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/portal.iesgn05.es<span style="color:#75715e"># systemctl restart nginx</span>
+
+</code></pre></div><p>Comprobamos que funciona</p>
+<ul>
+<li>
+<p><img src="funcionamiento2.png" alt="/images/ovh_php/funcionamiento2.png"></p>
+</li>
+<li>
+<p><img src="func3.png" alt="/images/ovh_php/func3.png"></p>
+</li>
+</ul>
+<h2 id="instalación--migración-de-la-aplicación-nextcloud">Instalación / migración de la aplicación Nextcloud</h2>
+<h3 id="1-instala-la-aplicación-web-nextcloud-en-tu-entorno-de-desarrollo">1. Instala la aplicación web Nextcloud en tu entorno de desarrollo.</h3>
+<ul>
+<li>Descargamos <a href="https://download.nextcloud.com/server/releases/nextcloud-20.0.2.zip">Nextcloud</a> para servidores. Lo podemos descargar y pasar al sevidor o directamente descargar con wget copiando el enlace.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">wget https<span style="color:#960050;background-color:#1e0010">:</span>//download.nextcloud.com/server/releases/nextcloud-20.0.2.zip
+</code></pre></div><ul>
+<li>Vamos a crear un virtualhosting para nextcloud, para ello creamos el directorio del documentroot:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mkdir /var/www/nextcloud
+mv nextcloud-20.0.2.zip /var/www/nextcloud/
+unzip /var/www/nextcloud-20.0.2.zip 
+chown -R www-data<span style="color:#960050;background-color:#1e0010">:</span>www-data /var/www/nextcloud/
+</code></pre></div><ul>
+<li>Creamos la base de datos necesaria para nextcloud y el usuario que la va administrar, le damos los privilegios</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-cms<span style="color:#960050;background-color:#1e0010">:</span>~<span style="color:#75715e"># mysql -u root -p</span>
+Enter password<span style="color:#960050;background-color:#1e0010">:</span> 
+Welcome to the MariaDB monitor.  Commands <span style="color:#66d9ef">end</span> with ; or \g.
+Your MariaDB connection id is 36
+Server version<span style="color:#960050;background-color:#1e0010">:</span> 10.3.25-MariaDB-0+deb10u1 Debian 10
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type <span style="color:#e6db74">&#39;help;&#39;</span> or <span style="color:#e6db74">&#39;\h&#39;</span> <span style="color:#66d9ef">for</span> help. Type <span style="color:#e6db74">&#39;\c&#39;</span> to clear the current input statement.
+
+MariaDB [(none)]&gt; create database nextcloud;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]&gt; create user <span style="color:#e6db74">&#39;user_next&#39;</span>@<span style="color:#e6db74">&#39;localhost&#39;</span>;
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [(none)]&gt; grant all privileges on nextcloud.* to <span style="color:#e6db74">&#39;user_next&#39;</span>@<span style="color:#e6db74">&#39;localhost&#39;</span> identified by <span style="color:#e6db74">&#39;pass_next&#39;</span>;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [(none)]&gt; flush privileges;
+Query OK, 0 rows affected (0.002 sec)
+
+
+</code></pre></div><ul>
+<li>Ahora creamos el virtualhosting para nextcloud</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">cp /etc/apache2/sites-available/celia-drupal.conf /etc/apache2/sites-available/nextcloud.conf
+nano /etc/apache2/sites-available/nextcloud.conf
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">&lt;VirtualHost *<span style="color:#960050;background-color:#1e0010">:</span>80&gt;
+        ServerName www.celia.nextcloud.org
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/nextcloud
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">a2ensite nexcloud.conf
+systemctl restart apache2
+systemctl restart mariadb
+</code></pre></div><ul>
+<li>Nos salen ciertos errores porque necesitamos instalar varios módulos</li>
+</ul>
+<p><img src="error1.png" alt="/images/ovh_php/error1.png"></p>
+<ul>
+<li>Los instalamos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">apt-get install php-zip php-curl php-intl php-imagick php-xml
+</code></pre></div><ul>
+<li>Comprobamos que funciona</li>
+</ul>
+<p><img src="inst_next.png" alt="/images/ovh_php/inst_next.png"></p>
+<h3 id="instalación-de-nextcloud">Instalación de NextCloud</h3>
+<p>Nos pide que pongamos un usuario y una contraseña. Ademas vamos a indicar el nombre de la base de datos, el nombre del usuario y contraseña que administra la base de datos y el host, en este caso sera localhost.</p>
+<p><img src="datos.png" alt="/images/ovh_php/datos.png"></p>
+<p>Y le damos a &lsquo;Finish Setup&rsquo;, así comenzará la instalación</p>
+<p><img src="apps.png" alt="/images/ovh_php/apps.png"></p>
+<p>Comprobamos que ya tenemos nextcloud operativo</p>
+<p><img src="funcionamiento10.png" alt="/images/ovh_php/funcionamiento10.png"></p>
+<h3 id="2-realiza-la-migración-al-servidor-en-producción-para-que-la-aplicación-sea-accesible-en-la-url-wwwiesgnxxescloud">2. Realiza la migración al servidor en producción, para que la aplicación sea accesible en la URL: <a href="http://www.iesgnXX.es/cloud">www.iesgnXX.es/cloud</a></h3>
+<ul>
+<li>Hacemos una copia de la base de datos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mysqldump -v --opt --events --routines --triggers --default-character-set=utf8 -u user_next -p nextcloud &gt; db_backup_nextcloud`date +<span style="color:#66d9ef">%</span>Y<span style="color:#66d9ef">%</span>m<span style="color:#66d9ef">%</span>d_<span style="color:#66d9ef">%</span>H<span style="color:#66d9ef">%</span>M<span style="color:#66d9ef">%</span>S`.sql
+</code></pre></div><ul>
+<li>Comprimimos el directorio &lsquo;nextcloud&rsquo;</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">zip -r nextcloud nextcloud
+</code></pre></div><ul>
+<li>Los enviamos a nuestro servidor en producción por scp</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@debian-cms<span style="color:#960050;background-color:#1e0010">:</span>/var/www<span style="color:#75715e"># scp nextcloud.zip debian@kiara.iesgn05.es:/home/debian</span>
+The authenticity of host <span style="color:#e6db74">&#39;kiara.iesgn05.es (146.59.196.84)&#39;</span> can<span style="color:#e6db74">&#39;t be established.
+</span><span style="color:#e6db74">ECDSA key fingerprint is SHA256:/9MCxCfHcwtoje2tVFGYmtJ1kWZj5fqlDbRBYzOXzJg.
+</span><span style="color:#e6db74">Are you sure you want to continue connecting (yes/no)? yes
+</span><span style="color:#e6db74">Warning: Permanently added &#39;</span>kiara.iesgn05.es,146.59.196.84<span style="color:#e6db74">&#39; (ECDSA) to the list of known hosts.
+</span><span style="color:#e6db74">debian@kiara.iesgn05.es&#39;</span>s password<span style="color:#960050;background-color:#1e0010">:</span> 
+nextcloud.zip                                                          100%  199MB  28.4MB/s   00<span style="color:#960050;background-color:#1e0010">:</span>07    
+root@debian-cms<span style="color:#960050;background-color:#1e0010">:</span>/var/www<span style="color:#75715e"># cd </span>
+root@debian-cms<span style="color:#960050;background-color:#1e0010">:</span>~<span style="color:#75715e"># ls</span>
+db_backup_nextcloud20201128_143440.sql	drupal.tar.gz
+root@debian-cms<span style="color:#960050;background-color:#1e0010">:</span>~<span style="color:#75715e"># scp db_backup_nextcloud20201128_143440.sql debian@kiara.iesgn05.es:/home/debian</span>
+debian@kiara.iesgn05.es<span style="color:#960050;background-color:#1e0010">&#39;</span>s password<span style="color:#960050;background-color:#1e0010">:</span> 
+db_backup_nextcloud20201128_143440.sql    
+</code></pre></div><ul>
+<li>Creamos la base de datos y el usuario en nuestro servidor en producción</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e"># mysql -u root -p</span>
+Enter password<span style="color:#960050;background-color:#1e0010">:</span> 
+Welcome to the MariaDB monitor.  Commands <span style="color:#66d9ef">end</span> with ; or \g.
+Your MariaDB connection id is 1403
+Server version<span style="color:#960050;background-color:#1e0010">:</span> 10.3.25-MariaDB-0+deb10u1 Debian 10
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type <span style="color:#e6db74">&#39;help;&#39;</span> or <span style="color:#e6db74">&#39;\h&#39;</span> <span style="color:#66d9ef">for</span> help. Type <span style="color:#e6db74">&#39;\c&#39;</span> to clear the current input statement.
+
+MariaDB [(none)]&gt; create database nextcloud;
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [(none)]&gt; create user <span style="color:#e6db74">&#39;user_next&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span>;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [(none)]&gt; grant all privileges on nextcloud.* to <span style="color:#e6db74">&#39;user_next&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span> identified by <span style="color:#e6db74">&#39;pass_next&#39;</span>;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]&gt; flush privileges;
+Query OK, 0 rows affected (0.000 sec)
+
+</code></pre></div><ul>
+<li>Restauramos la base de datos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mysql -u user_next --password=pass_next nextcloud &lt; db_backup_nextcloud20201128_143440.sql 
+</code></pre></div><ul>
+<li>Descomprimimos el directorio en /var/www/iesgn05/cloud</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mv nextcloud.zip /var/www/
+unzip nextcloud.zip 
+chown -R www-data<span style="color:#960050;background-color:#1e0010">:</span>www-data cloud
+</code></pre></div><ul>
+<li>Configuramos nuestro virtualhost iesgn05 para que al acceder a <a href="http://www.iesgn05.es/cloud">www.iesgn05.es/cloud</a> nos muestre el servicio</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Default server configuration</span>
+<span style="color:#75715e">#</span>
+server {
+        listen 80;
+        listen [::]<span style="color:#960050;background-color:#1e0010">:</span>80;
+
+        server_name www.iesgn05.es;
+
+        root /var/www/iesgn05;
+
+
+        <span style="color:#75715e"># Add index.php to the list if you are using PHP</span>
+        index index.html index.htm index.php;
+
+        location =/ {
+                <span style="color:#66d9ef">return</span> 301 $scheme<span style="color:#960050;background-color:#1e0010">:</span>//www.iesgn05.es/principal;
+
+                try_files $uri $uri/ =404;
+        }
+
+
+
+
+        location @rewrite {
+                <span style="color:#75715e"># Some modules enforce no slash (/) at the end of the URL</span>
+                <span style="color:#75715e"># Else this rewrite block wouldnt be needed (GlobalRedirect)</span>
+
+                rewrite ^/(.*)$ /index.php<span style="color:#66d9ef">?</span>q=$1;
+        }
+
+        <span style="color:#75715e"># pass PHP scripts to FastCGI server</span>
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+
+                <span style="color:#75715e"># With php-fpm (or other unix sockets):</span>
+                fastcgi_pass unix<span style="color:#960050;background-color:#1e0010">:</span>/run/php/php7.3-fpm.sock;
+                <span style="color:#75715e"># With php-cgi (or other tcp sockets):</span>
+                <span style="color:#75715e">#fastcgi_pass 127.0.0.1:9000;</span>
+        }
+
+location = /robots.txt {
+                allow all;
+                log_not_found off;
+                access_log off;
+        }
+
+        location /.well-known {
+                rewrite ^/\.well-known/host-meta\.json  /cloud/public.php<span style="color:#66d9ef">?</span>service=host-meta-json    last;
+                rewrite ^/\.well-known/host-meta        /cloud/public.php<span style="color:#66d9ef">?</span>service=host-meta         last;
+                rewrite ^/\.well-known/webfinger        /cloud/public.php<span style="color:#66d9ef">?</span>service=webfinger         last;
+                rewrite ^/\.well-known/nodeinfo         /cloud/public.php<span style="color:#66d9ef">?</span>service=nodeinfo          last;
+
+                location = /.well-known/carddav   { <span style="color:#66d9ef">return</span> 301 /cloud/remote.php/dav/; }
+                location = /.well-known/caldav    { <span style="color:#66d9ef">return</span> 301 /cloud/remote.php/dav/; }
+
+                try_files $uri $uri/ =404;
+        }
+
+        location ^~ /cloud {
+                client_max_body_size 512M;
+                fastcgi_buffers 64 4K;
+
+                gzip on;
+                gzip_vary on;
+                gzip_comp_level 4;
+                gzip_min_length 256;
+                gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+                gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject a$
+
+                add_header Referrer-Policy                      <span style="color:#e6db74">&#34;no-referrer&#34;</span>   always;
+                add_header X-Content-Type-Options               <span style="color:#e6db74">&#34;nosniff&#34;</span>       always;
+                add_header X-Download-Options                   <span style="color:#e6db74">&#34;noopen&#34;</span>        always;
+                add_header X-Frame-Options                      <span style="color:#e6db74">&#34;SAMEORIGIN&#34;</span>    always;
+                add_header X-Permitted-Cross-Domain-Policies    <span style="color:#e6db74">&#34;none&#34;</span>          always;
+                add_header X-Robots-Tag                         <span style="color:#e6db74">&#34;none&#34;</span>          always;
+                add_header X-XSS-Protection                     <span style="color:#e6db74">&#34;1; mode=block&#34;</span> always;
+
+                fastcgi_hide_header X-Powered-By;
+                index index.php index.html /cloud/index.php$request_uri;
+
+                expires 1m;
+
+        location = /cloud {
+            <span style="color:#66d9ef">if</span> ( $http_user_agent ~ ^DavClnt ) {
+                <span style="color:#66d9ef">return</span> 302 /cloud/remote.php/webdav/$is_args$args;
+            }
+        }
+
+        location ~ ^/cloud/(?<span style="color:#960050;background-color:#1e0010">:</span>build|tests|config|lib|3rdparty|templates|data)(?<span style="color:#960050;background-color:#1e0010">:</span>$|/)    { <span style="color:#66d9ef">return</span> 404; }
+        location ~ ^/cloud/(?<span style="color:#960050;background-color:#1e0010">:</span>\.|autotest|occ|issue|indie|db_|console)                { <span style="color:#66d9ef">return</span> 404; }
+
+        location ~ \.php(?<span style="color:#960050;background-color:#1e0010">:</span>$|/) {
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            set $path_info $fastcgi_path_info;
+
+            try_files $fastcgi_script_name =404;
+
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $path_info;
+
+            fastcgi_param modHeadersAvailable true;
+            fastcgi_param front_controller_active true;
+            fastcgi_pass unix<span style="color:#960050;background-color:#1e0010">:</span>/run/php/php7.3-fpm.sock;
+
+            fastcgi_intercept_errors on;
+            fastcgi_request_buffering off;
+        }
+
+        location ~ \.(?<span style="color:#960050;background-color:#1e0010">:</span>css|js|svg|gif)$ {
+            try_files $uri /cloud/index.php$request_uri;
+            expires 6M;
+            access_log off;
+        }
+
+        location ~ \.woff2?$ {
+            try_files $uri /cloud/index.php$request_uri;
+            expires 7d;
+            access_log off;
+        }
+
+        location /cloud {
+            try_files $uri $uri/ /cloud/index.php$request_uri;
+        }
+}
+
+
+}
+
+</code></pre></div><p>Comprobamos que funciona</p>
+<ul>
+<li>
+<p><img src="next7.png" alt="/images/ovh_php/next7.png"></p>
+</li>
+<li>
+<p><img src="next8.png" alt="/images/ovh_php/next8.png"></p>
+</li>
+</ul>
+<h3 id="3-instala-en-un-ordenador-el-cliente-de-nextcloud-y-realiza-la-configuración-adecuada-para-acceder-a-tu-nube">3. Instala en un ordenador el cliente de nextcloud y realiza la configuración adecuada para acceder a &ldquo;tu nube&rdquo;.</h3>
+<p>Instalar paquete</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ sudo apt install nextcloud-desktop
+</code></pre></div><p>Ejecutamos el software, en este caso como hemos elegido nuestra máquina fisica hemos escogido el entorno gráfico</p>
+<ul>
+<li><img src="cliente1.png" alt="/images/ovh_php/cliente1.png"></li>
+</ul>
+<p>Ponemos la dirección del servidor. Nos mostraŕa un mensaje de advertencia porque no es un sitio seguro y le damos a continuar.</p>
+<p>Nos pide el usuario y la contraseña, le pasamos las credenciales y continuamos.</p>
+<p>Nos pide configurar las opciones de la carpeta local. Si desea sincronizar carpetas. Y elegir que carpeta vamos a elegir en para la subida y bajada de datos</p>
+<ul>
+<li><img src="cliente3.png" alt="/images/ovh_php/cliente3.png"></li>
+</ul>
+<p>Vemos que se sincroniza correctamente</p>
+<ul>
+<li><img src="cliente4.png" alt="/images/ovh_php/cliente4.png"></li>
+</ul>
+<p>Podemos comprobar que se ha sincronizado correctamente.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/Nextcloud$ ls
+ Documents               Nextcloud.png                   Talk
+<span style="color:#e6db74">&#39;Nextcloud intro.mp4&#39;</span>    Photos
+<span style="color:#e6db74">&#39;Nextcloud Manual.pdf&#39;</span>  <span style="color:#e6db74">&#39;Reasons to use Nextcloud.pdf&#39;</span>
+
+</code></pre></div><p>Vamos a probar el funcionamiento:</p>
+<p>Creamos un fichero de texto en la carpeta Nextcloud</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">touch fichero.txt
+</code></pre></div><p>Vamos a la dirección de nuestro cloud en el navegador y comprobamos que se ha subido correctamente</p>
+<ul>
+<li>
+<p><img src="fichero.png" alt="/images/ovh_php/fichero.png"></p>
+</li>
+<li>
+<p><img src="fichero1.png" alt="/images/ovh_php/fichero1.png"></p>
+</li>
+</ul>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/nextcloud/">nextcloud</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/nginx/">nginx</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/php/">php</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        2238 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          28/11/2020 20:44
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP&amp;caption=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP&amp;canonicalUrl=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP&amp;body=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f&amp;media=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f;description=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f&amp;title=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP&amp;summary=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP&amp;source=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f&amp;resubmit=true&amp;title=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f;title=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP%20https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f&amp;t=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Instalaci%c3%b3n%2fmigraci%c3%b3n%20de%20aplicaciones%20web%20PHP&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f11%2finstalaci%25C3%25B3n%2fmigraci%25C3%25B3n-de-aplicaciones-web-php%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h"></span>
+          <hr />
+        </div>
+
+        <div class="pagination__buttons">
+          
+
+          
+            <span class="button next">
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/">
+                <span class="button__text">Instalar Openstackclient y deshabilitar la seguridad de puertos</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://unbitdeinformacioncadadia.netlify.app/">Celia García Márquez</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://unbitdeinformacioncadadia.netlify.app/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
