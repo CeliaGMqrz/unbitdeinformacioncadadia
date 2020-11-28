@@ -61,11 +61,11 @@ nano /var/www/portal.iesgn05.es/index.html
 </code></pre></div><ul>
 <li>Necesitaremos otra zona DNS</li>
 </ul>
-<p><img src="migracion/capturas/cname.png" alt="/images/ovh_php/cname.png"></p>
+<p><img src="/images/ovh_php/migracion/capturas/cname.png" alt="cname.png"></p>
 <ul>
 <li>Comprobamos que podemos acceder al sitio</li>
 </ul>
-<p><img src="migracion/capturas/portal.png" alt="/images/ovh_php/portal.png"></p>
+<p><img src="/images/ovh_php/migracion/capturas/portal.png" alt="portal.png"></p>
 <h3 id="2-vamos-a-nombrar-el-servicio-de-base-de-datos-que-tenemos-en-producción-como-es-un-servicio-interno-no-la-vamos-a-nombrar-en-la-zona-dns-la-vamos-a-nombrar-usando-resolución-estática-el-nombre-del-servicio-de-base-de-datos-se-debe-llamar-bdiesgnxxes">2. Vamos a nombrar el servicio de base de datos que tenemos en producción. Como es un servicio interno no la vamos a nombrar en la zona DNS, la vamos a nombrar usando resolución estática. El nombre del servicio de base de datos se debe llamar: bd.iesgnXX.es.</h3>
 <ul>
 <li>Utilizamos la resolución estática</li>
@@ -262,7 +262,7 @@ MariaDB <span style="color:#66d9ef">[bd_drupal]</span>&gt; show tables;
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart mariadb
 systemctl restart nginx
 </code></pre></div><h3 id="5-asegurate-que-las-url-limpias-de-drupal-siguen-funcionando-en-nginx">5. Asegurate que las URL limpias de drupal siguen funcionando en nginx.</h3>
-<p>Siguiendo esta <a href="http://www.kreanto.com/es/blog/configurando-las-url-limpias-drupal-un-servidor-web-nginx">guía</a>:</p>
+<p>Siguiendo esta <a href="/images/ovh_php/http://www.kreanto.com/es/blog/configurando-las-url-limpias-drupal-un-servidor-web-nginx">guía</a>:</p>
 <p>Añadimos el sistema de url limipas en Drupal.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Default server configuration</span>
 <span style="color:#75715e">#</span>
@@ -303,7 +303,7 @@ server {
 }
 
 </code></pre></div><p>Comprobamos el funcionamiento</p>
-<p><img src="funcionamiento1.png" alt="/images/ovh_php/funcionamiento1.png"></p>
+<p><img src="/images/ovh_php/funcionamiento1.png" alt="funcionamiento1.png"></p>
 <h3 id="6-la-aplicación-debe-estar-disponible-en-la-url-portaliesgnxxes-sin-ningún-directorio">6. La aplicación debe estar disponible en la URL: portal.iesgnXX.es (Sin ningún directorio).</h3>
 <p>Copiamos el contenido al directorio de nuestro virtualhost</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/portal.iesgn05.es<span style="color:#75715e"># cp -r /home/debian/drupal-9.0.7/ .</span>
@@ -319,10 +319,10 @@ root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/var/www/
 </code></pre></div><p>Comprobamos que funciona</p>
 <ul>
 <li>
-<p><img src="funcionamiento2.png" alt="/images/ovh_php/funcionamiento2.png"></p>
+<p><img src="/images/ovh_php/funcionamiento2.png" alt="funcionamiento2.png"></p>
 </li>
 <li>
-<p><img src="func3.png" alt="/images/ovh_php/func3.png"></p>
+<p><img src="/images/ovh_php/func3.png" alt="func3.png"></p>
 </li>
 </ul>
 <h2 id="instalación--migración-de-la-aplicación-nextcloud">Instalación / migración de la aplicación Nextcloud</h2>
@@ -384,7 +384,7 @@ systemctl restart mariadb
 </code></pre></div><ul>
 <li>Nos salen ciertos errores porque necesitamos instalar varios módulos</li>
 </ul>
-<p><img src="error1.png" alt="/images/ovh_php/error1.png"></p>
+<p><img src="/images/ovh_php/error1.png" alt="error1.png"></p>
 <ul>
 <li>Los instalamos</li>
 </ul>
@@ -392,14 +392,14 @@ systemctl restart mariadb
 </code></pre></div><ul>
 <li>Comprobamos que funciona</li>
 </ul>
-<p><img src="inst_next.png" alt="/images/ovh_php/inst_next.png"></p>
+<p><img src="/images/ovh_php/inst_next.png" alt="inst_next.png"></p>
 <h3 id="instalación-de-nextcloud">Instalación de NextCloud</h3>
 <p>Nos pide que pongamos un usuario y una contraseña. Ademas vamos a indicar el nombre de la base de datos, el nombre del usuario y contraseña que administra la base de datos y el host, en este caso sera localhost.</p>
-<p><img src="datos.png" alt="/images/ovh_php/datos.png"></p>
+<p><img src="/images/ovh_php/datos.png" alt="datos.png"></p>
 <p>Y le damos a &lsquo;Finish Setup&rsquo;, así comenzará la instalación</p>
-<p><img src="apps.png" alt="/images/ovh_php/apps.png"></p>
+<p><img src="/images/ovh_php/apps.png" alt="apps.png"></p>
 <p>Comprobamos que ya tenemos nextcloud operativo</p>
-<p><img src="funcionamiento10.png" alt="/images/ovh_php/funcionamiento10.png"></p>
+<p><img src="/images/ovh_php/funcionamiento10.png" alt="funcionamiento10.png"></p>
 <h3 id="2-realiza-la-migración-al-servidor-en-producción-para-que-la-aplicación-sea-accesible-en-la-url-wwwiesgnxxescloud">2. Realiza la migración al servidor en producción, para que la aplicación sea accesible en la URL: <a href="http://www.iesgnXX.es/cloud">www.iesgnXX.es/cloud</a></h3>
 <ul>
 <li>Hacemos una copia de la base de datos</li>
@@ -595,10 +595,10 @@ location = /robots.txt {
 </code></pre></div><p>Comprobamos que funciona</p>
 <ul>
 <li>
-<p><img src="next7.png" alt="/images/ovh_php/next7.png"></p>
+<p><img src="/images/ovh_php/next7.png" alt="next7.png"></p>
 </li>
 <li>
-<p><img src="next8.png" alt="/images/ovh_php/next8.png"></p>
+<p><img src="/images/ovh_php/next8.png" alt="next8.png"></p>
 </li>
 </ul>
 <h3 id="3-instala-en-un-ordenador-el-cliente-de-nextcloud-y-realiza-la-configuración-adecuada-para-acceder-a-tu-nube">3. Instala en un ordenador el cliente de nextcloud y realiza la configuración adecuada para acceder a &ldquo;tu nube&rdquo;.</h3>
@@ -606,17 +606,17 @@ location = /robots.txt {
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$ sudo apt install nextcloud-desktop
 </code></pre></div><p>Ejecutamos el software, en este caso como hemos elegido nuestra máquina fisica hemos escogido el entorno gráfico</p>
 <ul>
-<li><img src="cliente1.png" alt="/images/ovh_php/cliente1.png"></li>
+<li><img src="/images/ovh_php/cliente1.png" alt="cliente1.png"></li>
 </ul>
 <p>Ponemos la dirección del servidor. Nos mostraŕa un mensaje de advertencia porque no es un sitio seguro y le damos a continuar.</p>
 <p>Nos pide el usuario y la contraseña, le pasamos las credenciales y continuamos.</p>
 <p>Nos pide configurar las opciones de la carpeta local. Si desea sincronizar carpetas. Y elegir que carpeta vamos a elegir en para la subida y bajada de datos</p>
 <ul>
-<li><img src="cliente3.png" alt="/images/ovh_php/cliente3.png"></li>
+<li><img src="/images/ovh_php/cliente3.png" alt="cliente3.png"></li>
 </ul>
 <p>Vemos que se sincroniza correctamente</p>
 <ul>
-<li><img src="cliente4.png" alt="/images/ovh_php/cliente4.png"></li>
+<li><img src="/images/ovh_php/cliente4.png" alt="cliente4.png"></li>
 </ul>
 <p>Podemos comprobar que se ha sincronizado correctamente.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~/Nextcloud$ ls
@@ -630,10 +630,10 @@ location = /robots.txt {
 </code></pre></div><p>Vamos a la dirección de nuestro cloud en el navegador y comprobamos que se ha subido correctamente</p>
 <ul>
 <li>
-<p><img src="fichero.png" alt="/images/ovh_php/fichero.png"></p>
+<p><img src="/images/ovh_php/fichero.png" alt="fichero.png"></p>
 </li>
 <li>
-<p><img src="fichero1.png" alt="/images/ovh_php/fichero1.png"></p>
+<p><img src="/images/ovh_php/fichero1.png" alt="fichero1.png"></p>
 </li>
 </ul>
 ]]></content>
