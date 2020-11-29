@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 29 Nov 2020 21:00:27 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Nov 2020 21:09:40 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</link>
+      <pubDate>Sun, 29 Nov 2020 21:09:40 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</guid>
+      <description>HTTPS (Seguridad) Objetivo: Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.
+1. Vamos a utilizar el servicio https://letsencrypt.org para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
+    </item>
+    
     <item>
       <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</link>
@@ -102,20 +112,6 @@ Además de otras tareas, los servidores web son los encargados de la entrega de 
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</guid>
       <description>Compilación de un programa en C utilizando un Makefile Requisitos previos  Suponemos que tenemos una máquina virtual con Debian Buster, en este caso voy a usar Vagrant con qemu-kvm para crearla. Necesitaremos tener instalado los paquetes necesarios (vagrant, qemu-kvm, virt-manager&amp;hellip;).  Usaremos el siguiente fichero Vagrantfile:
 Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;buster&amp;#34; config.vm.synced_folder &amp;#34;.&amp;#34;, &amp;#34;/vagrant&amp;#34;, disabled: true config.vm.provider :libvirt do |libvirt| libvirt.uri = &amp;#39;qemu+unix:///system&amp;#39; libvirt.host = &amp;#34;debian&amp;#34; libvirt.</description>
-    </item>
-    
-    <item>
-      <title>Cifrado Asimétrico con GPG y OpenSSL</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asim%C3%A9trico-con-gpg-y-openssl/</link>
-      <pubDate>Sat, 24 Oct 2020 14:45:15 +0200</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/cifrado-asim%C3%A9trico-con-gpg-y-openssl/</guid>
-      <description>Práctica: Cifrado asimétrico con gpg y openssl En esta práctica vamos a cifrar ficheros utilizando cifrado asimétrico utilizando el programa gpg.
-Cifrado Asimétrico con GPG   Tarea 1: Generación de claves
-  Tarea 2: Importar / exportar clave pública
-  Tarea 3: Cifrado asimétrico con claves públicas
-  Tarea 4: Exportar clave a un servidor público de claves PGP
-  Cifrado asimétrico con OPENSSL  Tarea 5: Cifrado asimétrico con openssl  </description>
     </item>
     
   </channel>

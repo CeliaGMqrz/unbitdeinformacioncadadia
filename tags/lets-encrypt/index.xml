@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 29 Nov 2020 21:00:27 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/lets-encrypt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Nov 2020 21:09:40 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/lets-encrypt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</link>
+      <pubDate>Sun, 29 Nov 2020 21:09:40 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</guid>
+      <description>HTTPS (Seguridad) Objetivo: Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.
+1. Vamos a utilizar el servicio https://letsencrypt.org para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
+    </item>
+    
     <item>
       <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</link>
