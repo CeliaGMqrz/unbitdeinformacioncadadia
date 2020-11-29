@@ -16,11 +16,11 @@
             
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</guid>
             <description>HTTPS (Seguridad) Objetivo: Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.
-1. Vamos a utilizar el servicio https://letsencrypt.org para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
+1. Vamos a utilizar el servicio letsencrypt para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
             <content type="html"><![CDATA[<h2 id="https-seguridad">HTTPS (Seguridad)</h2>
 <h3 id="objetivo">Objetivo:</h3>
 <p>Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.</p>
-<h2 id="1-vamos-a-utilizar-el-servicio-httpsletsencryptorg-para-solicitar-los-certificados-de-nuestras-páginas">1. Vamos a utilizar el servicio <a href="https://letsencrypt.org">https://letsencrypt.org</a> para solicitar los certificados de nuestras páginas.</h2>
+<h2 id="1-vamos-a-utilizar-el-servicio-letsencrypt-para-solicitar-los-certificados-de-nuestras-páginas">1. Vamos a utilizar el servicio letsencrypt para solicitar los certificados de nuestras páginas.</h2>
 <p>Let&rsquo;s Encrypt se trata de una <strong>autoridad de certificación</strong>, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</p>
 <h2 id="2-explica-detenidamente-cómo-se-solicita-un-certificado-en-lets-encrypt-en-tu-explicación-deberás-responder-a-estas-preguntas">2. Explica detenidamente cómo se solicita un certificado en Let&rsquo;s Encrypt. En tu explicación deberás responder a estas preguntas:</h2>
 <p><strong>¿Qué función tiene el cliente ACME?</strong></p>
