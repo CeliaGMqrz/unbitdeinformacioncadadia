@@ -6,8 +6,290 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 28 Nov 2020 20:44:54 +0100</lastBuildDate>
+        <lastBuildDate>Sun, 29 Nov 2020 21:00:27 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</link>
+            <pubDate>Sun, 29 Nov 2020 21:00:27 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</guid>
+            <description>HTTPS (Seguridad) Objetivo: Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.
+1. Vamos a utilizar el servicio https://letsencrypt.org para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
+            <content type="html"><![CDATA[<h2 id="https-seguridad">HTTPS (Seguridad)</h2>
+<h3 id="objetivo">Objetivo:</h3>
+<p>Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.</p>
+<h2 id="1-vamos-a-utilizar-el-servicio-httpsletsencryptorg-para-solicitar-los-certificados-de-nuestras-páginas">1. Vamos a utilizar el servicio <a href="https://letsencrypt.org">https://letsencrypt.org</a> para solicitar los certificados de nuestras páginas.</h2>
+<p>Let&rsquo;s Encrypt se trata de una <strong>autoridad de certificación</strong>, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</p>
+<h2 id="2-explica-detenidamente-cómo-se-solicita-un-certificado-en-lets-encrypt-en-tu-explicación-deberás-responder-a-estas-preguntas">2. Explica detenidamente cómo se solicita un certificado en Let&rsquo;s Encrypt. En tu explicación deberás responder a estas preguntas:</h2>
+<p><strong>¿Qué función tiene el cliente ACME?</strong></p>
+<p>El cliente ACME permite automatizar la implementación de certificados SSL/TLS y eliminar el tiempo que pasa llevando a cabo las instalaciones de certificados manualmente.</p>
+<p><strong>¿Qué configuración se realiza en el servidor web?</strong></p>
+<p>Se toma una configuración para proteger el sitio web de tal manera que, autogenera un certificado y una clave para asegurar nuestro sitio y añade los puertos de escucha al 443 que son los necesarios para el sistema de seguridad ssl.</p>
+<p><strong>¿Qué pruebas realiza Let&rsquo;s Encrypt para asegurar que somos los administrados del sitio web?</strong></p>
+<p>Let&rsquo;s Encrypt identifica el administrador del servidor por la llave pública. La primera vez que el software del agente interactúa con este, genera un par de claves y demuestra a Let&rsquo;s Encrypt que el servidor controla uno o más dominios.</p>
+<p>Puede demostrar el control sobre el dominio de dos formas, aprovisionando de un recurso HTTP en un fichero (well-known URI) o aprovisionando un record DNS.</p>
+<p><strong>¿Se puede usar el DNS para verificar que somos administradores del sitio?</strong></p>
+<p>Sí. Crea un registro en el DNS con una determinada información que permite verificar que somos administradores del sitio.</p>
+<hr>
+<p>Para solicitar un certificado en Let&rsquo;s Encrypt necesitamos una herramienta (el agente cerbot): Cerbot que será el que permita su obtención. Para ello vamos a instalar esta herramienta, con el plugin para nginx.</p>
+<p><strong>Instalar cerbot</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/apt/sources.list
+<span style="color:#75715e"># Agregamos:</span>
+deb http<span style="color:#960050;background-color:#1e0010">:</span>//ftp.debian.org/debian buster-backports main
+<span style="color:#75715e"># Actualizamos:</span>
+apt-get update
+<span style="color:#75715e"># Instalamos:</span>
+apt install python-certbot-nginx -t buster-backports
+</code></pre></div><p><strong>Obtener Certificado</strong></p>
+<p>Ejecutamos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">cerbot --nginx -d www.iesgn05.es
+</code></pre></div><p>Como es la primera vez que iniciamos cerbot nos pedirá un correo electrónico y que aceptemos las condiciones y términos.</p>
+<p>Tendremos decirle que todas las peticiones las redirija a un https y ya tendremos nuestro certificado.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e"># certbot --nginx -d www.iesgn05.es</span>
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected<span style="color:#960050;background-color:#1e0010">:</span> Authenticator nginx, Installer nginx
+Enter email address (used <span style="color:#66d9ef">for</span> urgent renewal and security notices) (Enter <span style="color:#e6db74">&#39;c&#39;</span> to
+cancel)<span style="color:#960050;background-color:#1e0010">:</span> cg.marquez95@gmail.com
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https<span style="color:#960050;background-color:#1e0010">:</span>//letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree <span style="color:#66d9ef">in</span> order to register with the ACME server at
+https<span style="color:#960050;background-color:#1e0010">:</span>//acme-v02.api.letsencrypt.org/directory
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(A)gree/(C)ancel<span style="color:#960050;background-color:#1e0010">:</span> A
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let<span style="color:#e6db74">&#39;s Encrypt project and the non-profit
+</span><span style="color:#e6db74">organization that develops Certbot? We&#39;</span>d like to send you email about our work
+encrypting the web, EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: Y
+Obtaining a new certificate
+Performing the following challenges<span style="color:#960050;background-color:#1e0010">:</span>
+http-01 challenge <span style="color:#66d9ef">for</span> www.iesgn05.es
+Waiting <span style="color:#66d9ef">for</span> verification...
+Cleaning up challenges
+Deploying Certificate to VirtualHost /etc/nginx/sites-enabled/iesgn05
+
+Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1<span style="color:#960050;background-color:#1e0010">:</span> No redirect - Make no further changes to the webserver configuration.
+2<span style="color:#960050;background-color:#1e0010">:</span> Redirect - Make all requests redirect to secure HTTPS access. Choose this <span style="color:#66d9ef">for</span>
+new sites, or <span style="color:#66d9ef">if</span> you<span style="color:#e6db74">&#39;re confident your site works on HTTPS. You can undo this
+</span><span style="color:#e6db74">change by editing your web server&#39;</span>s configuration.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then <span style="color:#66d9ef">[enter]</span> (press <span style="color:#e6db74">&#39;c&#39;</span> to cancel)<span style="color:#960050;background-color:#1e0010">:</span> 2
+Redirecting all traffic on port 80 to ssl <span style="color:#66d9ef">in</span> /etc/nginx/sites-enabled/iesgn05
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations! You have successfully enabled https<span style="color:#960050;background-color:#1e0010">:</span>//www.iesgn05.es
+
+You should test your configuration at<span style="color:#960050;background-color:#1e0010">:</span>
+https<span style="color:#960050;background-color:#1e0010">:</span>//www.ssllabs.com/ssltest/analyze.html<span style="color:#66d9ef">?</span>d=www.iesgn05.es
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+IMPORTANT NOTES<span style="color:#960050;background-color:#1e0010">:</span>
+ - Congratulations! Your certificate and chain have been saved at<span style="color:#960050;background-color:#1e0010">:</span>
+   /etc/letsencrypt/live/www.iesgn05.es/fullchain.pem
+   Your key file has been saved at<span style="color:#960050;background-color:#1e0010">:</span>
+   /etc/letsencrypt/live/www.iesgn05.es/privkey.pem
+   Your cert will expire on 2021-02-27. To obtain a new or tweaked
+   version of this certificate <span style="color:#66d9ef">in</span> the future, simply run certbot again
+   with the <span style="color:#e6db74">&#34;certonly&#34;</span> option. To non-interactively renew *all* of
+   your certificates, run <span style="color:#e6db74">&#34;certbot renew&#34;</span>
+ - Your account credentials have been saved <span style="color:#66d9ef">in</span> your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - <span style="color:#66d9ef">If</span> you like Certbot, please consider supporting our work by<span style="color:#960050;background-color:#1e0010">:</span>
+
+   Donating to ISRG / Let<span style="color:#960050;background-color:#1e0010">&#39;</span>s Encrypt<span style="color:#960050;background-color:#1e0010">:</span>   https<span style="color:#960050;background-color:#1e0010">:</span>//letsencrypt.org/donate
+   Donating to EFF<span style="color:#960050;background-color:#1e0010">:</span>                    https<span style="color:#960050;background-color:#1e0010">:</span>//eff.org/donate<span style="color:#f92672">-le</span>
+
+</code></pre></div><p>Como nos dice el certificado se ha generado en la ruta <em>/etc/letsencrypt/live/www.iesgn05.es/fullchain.pem</em> y la clave está en  <em>/etc/letsencrypt/live/www.iesgn05.es/privkey.pem</em></p>
+<p>Ahora podemos comprobar que nuestro sitio es un sitio seguro:</p>
+<p><img src="/images/ovh_https/seguro1.jpeg" alt="seguro1.jpeg"></p>
+<p><img src="/images/ovh_https/certificado.png" alt="certificado.png"></p>
+<h2 id="3-utiliza-dos-ficheros-de-configuración-de-nginx-uno-para-la-configuración-del-virtualhost-http-y-otro-para-la-configuración-del-virtualhost-https">3. Utiliza dos ficheros de configuración de nginx: uno para la configuración del virtualhost HTTP y otro para la configuración del virtualhost HTTPS.</h2>
+<p>Para configurar nuestro dominio <a href="http://www.iesgn05.es">www.iesgn05.es</a>, hemos utilizado el plugin de certbox nginx por lo que no necesitamos un segundo fichero para hacer la redirección. En el mismo fichero de configuración está la redirección.</p>
+<p><strong><a href="http://www.iesgn05.es">www.iesgn05.es</a></strong></p>
+<p>Esto es lo que ha añadido cerbot en la configuración de nuestro fichero iesgn05</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">    listen [::]<span style="color:#960050;background-color:#1e0010">:</span>443 ssl ipv6only=on; <span style="color:#75715e"># managed by Certbot</span>
+    listen 443 ssl; <span style="color:#75715e"># managed by Certbot</span>
+    ssl_certificate /etc/letsencrypt/live/www.iesgn05.es/fullchain.pem; <span style="color:#75715e"># managed by Certbot</span>
+    ssl_certificate_key /etc/letsencrypt/live/www.iesgn05.es/privkey.pem; <span style="color:#75715e"># managed by Certbot</span>
+    include /etc/letsencrypt/options-ssl-nginx.conf; <span style="color:#75715e"># managed by Certbot</span>
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; <span style="color:#75715e"># managed by Certbot</span>
+
+}
+
+server {
+    <span style="color:#66d9ef">if</span> ($host = www.iesgn05.es) {
+        <span style="color:#66d9ef">return</span> 301 https<span style="color:#960050;background-color:#1e0010">:</span>//$host$request_uri;
+    } <span style="color:#75715e"># managed by Certbot</span>
+
+
+        listen 80;
+        listen [::]<span style="color:#960050;background-color:#1e0010">:</span>80;
+
+        server_name www.iesgn05.es;
+    <span style="color:#66d9ef">return</span> 404; <span style="color:#75715e"># managed by Certbot</span>
+}
+</code></pre></div><p><strong>portal.iesgn05.es</strong></p>
+<p>Sin embargo para configurar nuestro dominio portal.iesgn05.es vamos a configurar dos ficheros de configuración, uno para http y otro para https.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">certbot certonly --standalone --preferred-challenges http -d portal.iesgn05.es
+</code></pre></div><p>Vemos que se ha generado unas claves</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/home/debian<span style="color:#75715e"># ls /etc/letsencrypt/live/portal.iesgn05.es/</span>
+cert.pem  chain.pem  fullchain.pem  privkey.pem  README
+
+</code></pre></div><p>Ahora ponemos la configuración adecuada en el fichero https de portal.iesgn05.es</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/etc/nginx/sites-available<span style="color:#75715e"># cat /etc/nginx/sites-available/portal.iesgn05.es</span>
+<span style="color:#75715e"># Default server configuration</span>
+<span style="color:#75715e">#</span>
+server {
+
+<span style="color:#75715e">#        listen 80;</span>
+<span style="color:#75715e">#        listen [::]:80;</span>
+
+        root /var/www/portal.iesgn05.es;
+
+        <span style="color:#75715e"># Add index.php to the list if you are using PHP</span>
+	index index.html index.htm index.php;
+        server_name portal.iesgn05.es;
+
+  location / {
+
+    <span style="color:#75715e"># First attempt to serve request as file, then</span>
+    <span style="color:#75715e"># as directory, then fall back to displaying a 404.</span>
+
+    try_files $uri $uri/ =404 @rewrite;
+
+  }
+
+  location @rewrite {
+
+    <span style="color:#75715e"># Some modules enforce no slash (/) at the end of the URL</span>
+    <span style="color:#75715e"># Else this rewrite block wouldnt be needed (GlobalRedirect)</span>
+
+    rewrite ^/(.*)$ /index.php<span style="color:#66d9ef">?</span>q=$1;
+
+  }
+
+        location ~\.php$ {
+               include snippets/fastcgi-php.conf;
+               <span style="color:#75715e"># With php-fpm (or other unix sockets):</span>
+               fastcgi_pass unix<span style="color:#960050;background-color:#1e0010">:</span>/run/php/php7.3-fpm.sock;
+               <span style="color:#75715e"># With php-cgi (or other tcp sockets):</span>
+               <span style="color:#75715e">#fastcgi_pass 127.0.0.1:9000;</span>
+        }
+
+    listen [::]<span style="color:#960050;background-color:#1e0010">:</span>443 ssl;
+    listen 443 ssl;
+
+    ssl_certificate /etc/letsencrypt/live/portal.iesgn05.es/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/portal.iesgn05.es/privkey.pem;
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+}
+
+</code></pre></div><h2 id="4-realiza-una-redirección-o-una-reescritura-para-que-cuando-accedas-a-http-te-redirija-al-sitio-https">4. Realiza una redirección o una reescritura para que cuando accedas a HTTP te redirija al sitio HTTPS.</h2>
+<p>Fichero de configuración para http <strong>portal.iesgn05.es.http</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/etc/nginx/sites-available<span style="color:#75715e"># cat /etc/nginx/sites-available/portal.iesgn05.es.http </span>
+<span style="color:#75715e"># Default server configuration</span>
+<span style="color:#75715e">#</span>
+server {
+    listen 80;
+    listen [::]<span style="color:#960050;background-color:#1e0010">:</span>80;
+    server_name portal.iesgn05.es;
+    <span style="color:#66d9ef">return</span> 301 https<span style="color:#960050;background-color:#1e0010">:</span>//portal.iesgn05.es$request_uri;
+}
+
+</code></pre></div><h2 id="5-comprueba-que-se-ha-creado-una-tarea-cron-que-renueva-el-certificado-cada-3-meses">5. Comprueba que se ha creado una tarea cron que renueva el certificado cada 3 meses.</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">0 3 * * * certbot --nginx renew &gt;/dev/null 2&gt;&amp;1
+</code></pre></div><p>Lo comprobamos haceiendo una simulacion</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">root@kiara<span style="color:#960050;background-color:#1e0010">:</span>/etc/nginx/sites-available<span style="color:#75715e"># certbot renew --dry-run</span>
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/portal.iesgn05.es.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Cert not due <span style="color:#66d9ef">for</span> renewal, but simulating renewal <span style="color:#66d9ef">for</span> dry run
+Plugins selected<span style="color:#960050;background-color:#1e0010">:</span> Authenticator nginx, Installer nginx
+Renewing an existing certificate
+Performing the following challenges<span style="color:#960050;background-color:#1e0010">:</span>
+http-01 challenge <span style="color:#66d9ef">for</span> portal.iesgn05.es
+Waiting <span style="color:#66d9ef">for</span> verification...
+Cleaning up challenges
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+new certificate deployed with reload of nginx server; fullchain is
+/etc/letsencrypt/live/portal.iesgn05.es/fullchain.pem
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/www.iesgn05.es.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Cert not due <span style="color:#66d9ef">for</span> renewal, but simulating renewal <span style="color:#66d9ef">for</span> dry run
+Plugins selected<span style="color:#960050;background-color:#1e0010">:</span> Authenticator nginx, Installer nginx
+Renewing an existing certificate
+Performing the following challenges<span style="color:#960050;background-color:#1e0010">:</span>
+http-01 challenge <span style="color:#66d9ef">for</span> www.iesgn05.es
+Waiting <span style="color:#66d9ef">for</span> verification...
+Cleaning up challenges
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+new certificate deployed with reload of nginx server; fullchain is
+/etc/letsencrypt/live/www.iesgn05.es/fullchain.pem
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+** DRY RUN<span style="color:#960050;background-color:#1e0010">:</span> simulating <span style="color:#e6db74">&#39;certbot renew&#39;</span> close to cert expiry
+**          (The test certificates below have not been saved.)
+
+Congratulations, all renewals succeeded. The following certs have been renewed<span style="color:#960050;background-color:#1e0010">:</span>
+  /etc/letsencrypt/live/portal.iesgn05.es/fullchain.pem (success)
+  /etc/letsencrypt/live/www.iesgn05.es/fullchain.pem (success)
+** DRY RUN<span style="color:#960050;background-color:#1e0010">:</span> simulating <span style="color:#e6db74">&#39;certbot renew&#39;</span> close to cert expiry
+**          (The test certificates above have not been saved.)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+IMPORTANT NOTES<span style="color:#960050;background-color:#1e0010">:</span>
+ - Your account credentials have been saved <span style="color:#66d9ef">in</span> your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+
+</code></pre></div><h2 id="6-comprueba-que-las-páginas-son-accesible-por-https-y-visualiza-los-detalles-del-certificado-que-has-creado">6. Comprueba que las páginas son accesible por HTTPS y visualiza los detalles del certificado que has creado.</h2>
+<p><a href="http://www.iesgn05.es">www.iesgn05.es</a></p>
+<ul>
+<li><img src="/images/ovh_https/certificado.png" alt="certificado.png"></li>
+</ul>
+<p><a href="http://www.iesgn05.es/cloud">www.iesgn05.es/cloud</a></p>
+<ul>
+<li><img src="/images/ovh_https/cloud_seguro.png" alt="cloud_seguro.png"></li>
+</ul>
+<p>portal.iesgn05.es</p>
+<ul>
+<li>
+<p><img src="/images/ovh_https/portal_seguro.png" alt="portal_seguro.png"></p>
+</li>
+<li>
+<p><img src="/images/ovh_https/portal_seguro1.png" alt="portal_seguro1.png"></p>
+</li>
+</ul>
+<h2 id="7-modifica-la-configuración-del-cliente-de-nextcloud-para-comprobar-que-sigue-en-funcionamiento-con-https">7. Modifica la configuración del cliente de Nextcloud para comprobar que sigue en funcionamiento con HTTPS.</h2>
+<p>Eliminamos la sincronización existente y añadimos una nueva para que se haga correctamente la redirección a https</p>
+<p><img src="/images/ovh_https/cliente.png" alt="cliente.png"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Instalación/migración de aplicaciones web PHP</title>
