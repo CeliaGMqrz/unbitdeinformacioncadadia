@@ -10,19 +10,18 @@
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Actualizacion de centos 7 a Centos 8</title>
-            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</link>
+            <title>Actualizacion de centos7 a Centos8</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/</link>
             <pubDate>Mon, 30 Nov 2020 20:59:38 +0100</pubDate>
             
-            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</guid>
-            <description>Objetivo:
-Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/</guid>
+            <description>Objetivo: Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:
  Actualmente tenemos la versión 7.9.2009 de Centos
 [root@quijote centos]# cat /etc/centos-release CentOS Linux release 7.9.2009 (Core) Vamos a proceder a actualizar Centos siguiendo varios pasos.
 Preparar el sistema para su actualización Habilitamos el repositorio de &amp;lsquo;epel-release&amp;rsquo;
 yum install epel-release -y Necesitaremos instalar las herramientas para el gestor de paquetes YUM
 yum install yum-utils -y Resolvemos los paquetes RPM, de forma que, rpmconf se encarga de buscar los archivos .</description>
-            <content type="html"><![CDATA[<p>Objetivo:</p>
+            <content type="html"><![CDATA[<h3 id="objetivo">Objetivo:</h3>
 <p>Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:</p>
 <hr>
 <p>Actualmente tenemos la versión 7.9.2009 de Centos</p>
