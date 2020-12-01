@@ -6,8 +6,93 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 29 Nov 2020 21:09:40 +0100</lastBuildDate>
+        <lastBuildDate>Mon, 30 Nov 2020 20:59:38 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Actualizacion de centos 7 a Centos 8</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</link>
+            <pubDate>Mon, 30 Nov 2020 20:59:38 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</guid>
+            <description>Objetivo:
+Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:
+ Actualmente tenemos la versión 7.9.2009 de Centos
+[root@quijote centos]# cat /etc/centos-release CentOS Linux release 7.9.2009 (Core) Vamos a proceder a actualizar Centos siguiendo varios pasos.
+Preparar el sistema para su actualización Habilitamos el repositorio de &amp;lsquo;epel-release&amp;rsquo;
+yum install epel-release -y Necesitaremos instalar las herramientas para el gestor de paquetes YUM
+yum install yum-utils -y Resolvemos los paquetes RPM, de forma que, rpmconf se encarga de buscar los archivos .</description>
+            <content type="html"><![CDATA[<p>Objetivo:</p>
+<p>Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:</p>
+<hr>
+<p>Actualmente tenemos la versión 7.9.2009 de Centos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># cat /etc/centos-release</span>
+CentOS Linux release 7.9.2009 (Core)
+</code></pre></div><p>Vamos a proceder a actualizar Centos siguiendo varios pasos.</p>
+<h3 id="preparar-el-sistema-para-su-actualización">Preparar el sistema para su actualización</h3>
+<p>Habilitamos el repositorio de &lsquo;epel-release&rsquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install epel-release -y
+</code></pre></div><p>Necesitaremos instalar las herramientas para el gestor de paquetes YUM</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install yum-utils -y
+</code></pre></div><p>Resolvemos los paquetes RPM, de forma que, rpmconf se encarga de buscar los archivos .rpmnew, .rpmsave y .rpmorigfiles y indicar si mantenemos la versión actual o no.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install rpmconf -y
+rpmconf -a
+</code></pre></div><p>Limpiamos los paquetes que no necesitamos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">package-cleanup --leaves
+package-cleanup --orphans
+</code></pre></div><h3 id="gestor-de-paqutes-dnf">Gestor de paqutes: DNF</h3>
+<p>DNF es el gestor de paquetes que sustituye a YUM, y necesitamos instalarlo para nuestra nueva versión.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install dnf
+</code></pre></div><p>Lo mejor es desinstalar YUM, no entran en conflicto si se instalan los dos pero no es necesario.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf -y remove yum yum-metadata-parser
+rm -Rf /etc/yum
+</code></pre></div><h3 id="actualizar-versión-de-centos-7-a-centos-8">Actualizar versión de Centos 7 a Centos 8</h3>
+<p>Actualizamos el sistema</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf upgrade -y
+</code></pre></div><h3 id="habilitar-repositorios-de-centos-8">Habilitar repositorios de Centos 8</h3>
+<p>Habilitamos los repositorios propios de Centos 8</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf install \
+http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-repos-8.2-2.2004.0.1.el8.x86_64.rpm \
+http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-release-8.2-2.2004.0.1.el8.x86_64.rpm \
+http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/centos-gpg-keys-8.2-2.2004.0.1.el8.noarch.rpm
+
+</code></pre></div><p>Actualiamos repositorios</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf upgrade -y epel-release
+</code></pre></div><p>Limpiamos la caché y eliminamos los archivos temporales</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf makecache
+dnf clean all
+</code></pre></div><p>Eliminamos las versiones de kernel que ya no nos sirven</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">rpm -e `rpm -q kernel`
+</code></pre></div><p>Eliminamos los paquetes conflictivos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">rpm -e --nodeps sysvinit-tools
+
+</code></pre></div><p>Ahora <strong>actualizamos todo el sistema</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+</code></pre></div><p>Es posible que nos encontremos con paquetes conflictivos. En mi caso he tenido que resolver estos conflictos de esta forma.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">rpm -e --justdb python36-rpmconf-1.0.22-1.el7.noarch rpmconf-1.0.22-1.el7.noarch
+rpm -e --justdb --nodeps python3-setuptools-39.2.0-10.el7.noarch
+rpm -e --justdb --nodeps python3-pip-9.0.3-7.el7_7.noarch
+rpm -e --justdb --nodeps vim-minimal
+
+dnf upgrade --best --allowerasing rpm
+</code></pre></div><p>Volvemos a ejecutar el mismo proceso que antes, y no deberia de darnos más conflictos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+</code></pre></div><h3 id="versión-de-kernel-y-paquetes-mínimos">Versión de kernel y paquetes mínimos</h3>
+<p>Instalamos el último kernel de Centos 8</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf install -y kernel-core
+</code></pre></div><p>Instalamos los paquetes mínimos del sistema</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf -y groupupdate <span style="color:#e6db74">&#34;Core&#34;</span> <span style="color:#e6db74">&#34;Minimal Install&#34;</span> \
+--allowerasing --skip-broken
+</code></pre></div><p>Reiniciamos el sistema</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">reboot
+</code></pre></div><p>Comprobamos que se ha actualizado correctamente y tiene la ultima versión de kernel a día de hoy</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[centos@quijote ~]$ cat /etc/redhat-release
+CentOS Linux release 8.2.2004 (Core) 
+[centos@quijote ~]$ uname -ro
+4.18.0-193.28.1.el8_2.x86_64 GNU/Linux
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>

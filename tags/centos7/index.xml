@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>centos7 on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/centos7/</link>
+    <description>Recent content in centos7 on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 30 Nov 2020 20:59:38 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/centos7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Actualizacion de centos 7 a Centos 8</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</link>
+      <pubDate>Mon, 30 Nov 2020 20:59:38 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</guid>
+      <description>Objetivo:
+Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:
+ Actualmente tenemos la versión 7.9.2009 de Centos
+[root@quijote centos]# cat /etc/centos-release CentOS Linux release 7.9.2009 (Core) Vamos a proceder a actualizar Centos siguiendo varios pasos.
+Preparar el sistema para su actualización Habilitamos el repositorio de &amp;lsquo;epel-release&amp;rsquo;
+yum install epel-release -y Necesitaremos instalar las herramientas para el gestor de paquetes YUM
+yum install yum-utils -y Resolvemos los paquetes RPM, de forma que, rpmconf se encarga de buscar los archivos .</description>
+    </item>
+    
+  </channel>
+</rss>

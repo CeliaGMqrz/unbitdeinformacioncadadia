@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos-7-a-centos-8/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/centos7/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/centos8/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/upgrade-centos/</loc>
+    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/cerbot/</loc>
     <lastmod>2020-11-29T21:09:40+01:00</lastmod>
   </url>
@@ -19,21 +54,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/lets-encrypt/</loc>
-    <lastmod>2020-11-29T21:09:40+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-11-29T21:09:40+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-11-29T21:09:40+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-11-29T21:09:40+01:00</lastmod>
   </url>
   
