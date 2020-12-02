@@ -55,7 +55,7 @@ Pasos a realizar:
  Debian Buster sobre volumen de 10GB con sabor m1.">
 <meta itemprop="datePublished" content="2020-11-18T18:22:12+01:00" />
 <meta itemprop="dateModified" content="2020-11-18T18:22:12+01:00" />
-<meta itemprop="wordCount" content="1904">
+<meta itemprop="wordCount" content="1979">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -155,7 +155,7 @@ Pasos a realizar:
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        9 minutes
+        10 minutes
 
         
       </p>
@@ -338,15 +338,18 @@ GATEWAY=<span style="color:#e6db74">&#34;10.0.1.6&#34;</span>
 NETMASK=<span style="color:#e6db74">&#34;255.255.255.0&#34;</span>
 DEVICE=eth0
 HWADDR=fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f7<span style="color:#960050;background-color:#1e0010">:</span>be<span style="color:#960050;background-color:#1e0010">:</span>35
-MTU=8950
 ONBOOT=yes
+STARTMODE=auto
 TYPE=Ethernet
 USERCTL=no
-~                                                                                                                                                                                      
-<span style="color:#e6db74">&#34;/etc/sysconfig/network-scripts/ifcfg-eth0&#34;</span> 12L, 234C
 
-
+</code></pre></div><p>Desactivamos el cloud-init</p>
+<p>Para ello creamos un fichero en /etc/cloud</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/cloud/cloud-init.disabled
+</code></pre></div><p>Le añadimos lo siguiente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">cloud-init=disabled
 </code></pre></div><p>Reiniamos el servicio</p>
+<p>Reiniciamos la máquina</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">systemctl restart network.service
 </code></pre></div><p>Comprobamos la <strong>puerta de enlace</strong>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># ip r</span>
@@ -489,7 +492,7 @@ nano /etc/sudoers
 passwd profesor
 usermod -aG wheel profesor
 </code></pre></div><h2 id="9-copia-de-las-claves-públicas-de-todos-los-profesores-en-las-instancias-para-que-puedan-acceder-con-el-usuario-profesor">9. Copia de las claves públicas de todos los profesores en las instancias para que puedan acceder con el usuario profesor</h2>
-<p>hecho.</p>
+<p>Para ello he copiado las claves públicas al fichero authorized_keys del usuario profesor.</p>
 <h2 id="10-realiza-una-actualización-completa-de-todos-los-servidores">10. Realiza una actualización completa de todos los servidores</h2>
 <p><strong>Dulcinea(Debian 10)</strong></p>
 <p>Repositorios de Dulcinea</p>
@@ -527,22 +530,39 @@ total 36
 </code></pre></div><p>Actualizamos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum update
 </code></pre></div><h2 id="12-hasta-que-no-esté-configurado-el-servidor-dns-incluye-resolución-estática-en-las-tres-instancias-tanto-usando-nombre-completo-como-hostname">12. Hasta que no esté configurado el servidor DNS, incluye resolución estática en las tres instancias tanto usando nombre completo como hostname</h2>
-<p><strong>Dulcinea</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.1.1 dulcinea.novalocal dulcinea
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/hosts
+</code></pre></div><p><strong>Dulcinea</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.1.1 dulcinea.celia.gonzalonazareno.org dulcinea
 127.0.0.1 localhost
-10.0.1.13 quijote.novalocal quijote
-10.0.1.11 sancho.novalocal sancho
+10.0.1.13 quijote.celia.gonzalonazareno.org quijote
+10.0.1.11 sancho.celia.gonzalonazareno.org sancho
+<span style="color:#75715e"># The following lines are desirable for IPv6 capable hosts</span>
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
 </code></pre></div><p><strong>Sancho</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.0.1 localhost
-127.0.1.1 sancho.novalocal sancho
-10.0.1.6 dulcinea.novalocal dulcinea
-10.0.1.13 quijote.novalocal quijote
+127.0.1.1 sancho.celia.gonzalonazareno.org sancho
+10.0.1.6 dulcinea.celia.gonzalonazareno.org dulcinea
+10.0.1.13 quijote.celia.gonzalonazareno.org quijote
+<span style="color:#75715e"># The following lines are desirable for IPv6 capable hosts</span>
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
 </code></pre></div><p><strong>Quijote</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-127.0.0.1   localhost quijote.novalocal quijote
-10.0.1.6    dulcinea.novalocal dulcinea
-10.0.1.11   sancho.novalocal sancho
+127.0.0.1   quijote.celia.gonzalonazareno.org quijote
+10.0.1.6    dulcinea.celia.gonzalonazareno.org dulcinea
+10.0.1.11   sancho.celia.gonzalonazareno.org sancho
 </code></pre></div><h2 id="13-asegúrate-que-el-servidor-tiene-sincronizado-su-reloj-utilizando-un-servidor-ntp-externo">13. Asegúrate que el servidor tiene sincronizado su reloj utilizando un servidor NTP externo</h2>
 <p><strong>Dulcinea</strong></p>
 <p>Listamos las zonas</p>
@@ -586,7 +606,7 @@ Tue Nov 24 13<span style="color:#960050;background-color:#1e0010">:</span>46<spa
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1904 Words
+        1979 Words
       </p>
 
       <p>
