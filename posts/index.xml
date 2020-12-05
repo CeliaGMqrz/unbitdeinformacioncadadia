@@ -15,10 +15,10 @@
             <pubDate>Sat, 05 Dec 2020 13:21:43 +0100</pubDate>
             
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</guid>
-            <description>Modificación del escenario Nota: Si no has visto la primera parte se encuentra: aquí
-Objetivo: Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: red interna y DMZ. Para ello vamos a reutilizar todo lo hecho hasta ahora y añadiremos una máquina más: Frestón</description>
+            <description>Modificación del escenario Nota: Si no has visto la primera parte se encuentra aquí: Configuración inicial de los servidores. Escenario
+Objetivo: Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: red interna y DMZ.</description>
             <content type="html"><![CDATA[<h1 id="modificación-del-escenario">Modificación del escenario</h1>
-<p>Nota: Si no has visto la primera parte se encuentra: <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/">aquí</a></p>
+<p>Nota: Si no has visto la primera parte se encuentra aquí: <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/">Configuración inicial de los servidores. Escenario</a></p>
 <h2 id="objetivo">Objetivo:</h2>
 <p>Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: <strong>red interna</strong> y <strong>DMZ</strong>. Para ello vamos a reutilizar todo lo hecho hasta ahora y añadiremos una máquina más: <strong>Frestón</strong></p>
 <p><img src="/images/escenario/escenario_mod.png" alt="escenario_mod.png"></p>
