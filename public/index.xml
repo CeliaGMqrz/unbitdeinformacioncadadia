@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 30 Nov 2020 20:59:38 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Dec 2020 13:21:43 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Red DMZ. Modificacion del escenario.</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</link>
+      <pubDate>Sat, 05 Dec 2020 13:21:43 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</guid>
+      <description>Modificación del escenario Objetivo: Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: red interna y DMZ. Para ello vamos a reutilizar todo lo hecho hasta ahora y añadiremos una máquina más: Frestón</description>
+    </item>
+    
     <item>
       <title>Actualizacion de Centos7 a Centos8</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/</link>
@@ -106,16 +115,6 @@ En esta tarea debes tratar de compilar un kérnel completamente funcional que re
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/servidor-nginx/</guid>
       <description>Servidor Web Nginxx NGINX es un servidor web open source de alta performance que ofrece el contenido estático de un sitio web de forma rápida y fácil de configurar. Ofrece recursos de equilibrio de carga, proxy inverso y streaming, además de gestionar miles de conexiones simultáneas. El resultado de sus aportes es una mayor velocidad y escalabilidad.
 Además de otras tareas, los servidores web son los encargados de la entrega de aplicaciones web, respondiendo a peticiones HTTPS realizadas por usuarios, normalmente desde un navegador web.</description>
-    </item>
-    
-    <item>
-      <title>Compilar un programa en C con Makefile</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</link>
-      <pubDate>Sat, 31 Oct 2020 18:13:42 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/10/compilar-un-programa-en-c-con-makefile/</guid>
-      <description>Compilación de un programa en C utilizando un Makefile Requisitos previos  Suponemos que tenemos una máquina virtual con Debian Buster, en este caso voy a usar Vagrant con qemu-kvm para crearla. Necesitaremos tener instalado los paquetes necesarios (vagrant, qemu-kvm, virt-manager&amp;hellip;).  Usaremos el siguiente fichero Vagrantfile:
-Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;buster&amp;#34; config.vm.synced_folder &amp;#34;.&amp;#34;, &amp;#34;/vagrant&amp;#34;, disabled: true config.vm.provider :libvirt do |libvirt| libvirt.uri = &amp;#39;qemu+unix:///system&amp;#39; libvirt.host = &amp;#34;debian&amp;#34; libvirt.</description>
     </item>
     
   </channel>

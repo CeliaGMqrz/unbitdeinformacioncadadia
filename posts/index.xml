@@ -6,8 +6,257 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 30 Nov 2020 20:59:38 +0100</lastBuildDate>
+        <lastBuildDate>Sat, 05 Dec 2020 13:21:43 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Red DMZ. Modificacion del escenario.</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</link>
+            <pubDate>Sat, 05 Dec 2020 13:21:43 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</guid>
+            <description>Modificación del escenario Objetivo: Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: red interna y DMZ. Para ello vamos a reutilizar todo lo hecho hasta ahora y añadiremos una máquina más: Frestón</description>
+            <content type="html"><![CDATA[<h1 id="modificación-del-escenario">Modificación del escenario</h1>
+<h2 id="objetivo">Objetivo:</h2>
+<p>Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: <strong>red interna</strong> y <strong>DMZ</strong>. Para ello vamos a reutilizar todo lo hecho hasta ahora y añadiremos una máquina más: <strong>Frestón</strong></p>
+<p><img src="images/escenario/escenario_mod.png" alt="escenario_mod.png"></p>
+<h2 id="creación-de-la-red-dmz">Creación de la red DMZ:</h2>
+<ul>
+<li>Nombre: DMZ de <!-- raw HTML omitted --></li>
+<li>10.0.2.0/24</li>
+</ul>
+<h3 id="conceptos">Conceptos:</h3>
+<p>Vamos a crear una Zona desmilitarizada, o como hemos nombrado, <strong>DMZ</strong>,  que se trata de una red local que se ubica entre la red interna de una organización y una red externa (Internet). Este tipo de red se suele utilizar para proteger la red interna de la organización, de forma que desde la red DMZ se da servicios a la red externa y los <em>intrusos</em> que entre por la red DMZ no tengan acceso a la interna.</p>
+<ul>
+<li>Creamos la red local DMZ</li>
+</ul>
+<p><img src="images/escenario/create_network.png" alt="create_network.png"></p>
+<h2 id="creación-de-las-instancias">Creación de las instancias:</h2>
+<p>Vamos a crear una nueva instancia con las siguientes características, llamada Frestón:</p>
+<ul>
+<li>Debian Buster sobre volumen de 10GB con sabor m1.mini</li>
+<li>Conectada a la red interna</li>
+<li>Accesible indirectamente a través de dulcinea</li>
+<li>IP estática</li>
+</ul>
+<h3 id="configuración-de-festón">Configuración de Festón</h3>
+<ul>
+<li>Vamos a configurar la interfaz como estática, y además indicaremos la puerta de enlace que será nuestro router (Dulcinea)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/network/interfaces
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># This file describes the network interfaces available on your system</span>
+<span style="color:#75715e"># and how to activate them. For more information, see interfaces(5).</span>
+
+<span style="color:#75715e"># The loopback network interface</span>
+auto lo
+iface lo inet loopback
+
+<span style="color:#75715e"># The normal eth0</span>
+allow-hotplug eth0
+iface eth0 inet static
+        address 10.0.1.2
+        netmask 255.255.255.0
+        gateway 10.0.1.6
+
+
+<span style="color:#75715e"># Set this one last, so that cloud-init or user can</span>
+<span style="color:#75715e"># override defaults.</span>
+source /etc/network/interfaces.d/*
+
+</code></pre></div><ul>
+<li>Comprobamos que ha adoptado el direccionamiento correcto</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@freston<span style="color:#960050;background-color:#1e0010">:</span>~$ ip a
+1<span style="color:#960050;background-color:#1e0010">:</span> lo<span style="color:#960050;background-color:#1e0010">:</span> &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group <span style="color:#66d9ef">default</span> qlen 1000
+    link/loopback 00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00 brd 00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2<span style="color:#960050;background-color:#1e0010">:</span> eth0<span style="color:#960050;background-color:#1e0010">:</span> &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group <span style="color:#66d9ef">default</span> qlen 1000
+    link/ether fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>54<span style="color:#960050;background-color:#1e0010">:</span>0f<span style="color:#960050;background-color:#1e0010">:</span>6f brd ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff
+    inet 10.0.1.2/24 brd 10.0.1.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::f816<span style="color:#960050;background-color:#1e0010">:</span>3eff<span style="color:#960050;background-color:#1e0010">:</span>fe54<span style="color:#960050;background-color:#1e0010">:</span>f6f/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+</code></pre></div><ul>
+<li>Comprobamos que la puerta de enlace es la correcta</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@freston<span style="color:#960050;background-color:#1e0010">:</span>~$ ip r
+<span style="color:#66d9ef">default</span> via 10.0.1.6 dev eth0 onlink 
+10.0.1.0/24 dev eth0 proto kernel scope link src 10.0.1.2 
+
+</code></pre></div><ul>
+<li>Ahora vamos a comprobar que tenemos acceso al exterior a través de Dulcinea, ya que Dulcinea ya estaba configurada anteriormente como router para este direccionamiento.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@freston<span style="color:#960050;background-color:#1e0010">:</span>~$ ping 172.22.0.1
+PING 172.22.0.1 (172.22.0.1) 56(84) bytes of data.
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=62 time=1.50 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=62 time=1.73 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=62 time=1.75 ms
+^C
+--- 172.22.0.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 5ms
+rtt min/avg/max/mdev = 1.500/1.659/1.746/0.112 ms
+
+debian@freston<span style="color:#960050;background-color:#1e0010">:</span>~$ ping 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=111 time=42.9 ms
+64 bytes from 8.8.8.8<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=111 time=42.8 ms
+64 bytes from 8.8.8.8<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=111 time=45.10 ms
+^C
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 5ms
+rtt min/avg/max/mdev = 42.821/43.898/45.999/1.504 ms
+
+</code></pre></div><ul>
+<li>Nos aseguramos de tener resolución de nombres apuntando al dns</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">nano /etc/resolv.conf
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)</span>
+<span style="color:#75715e">#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN</span>
+nameserver 192.168.202.2
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">debian@freston<span style="color:#960050;background-color:#1e0010">:</span>~$ ping www.google.es
+PING www.google.es (216.58.211.227) 56(84) bytes of data.
+64 bytes from mad01s24-in-f3.1e100.net (216.58.211.227)<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=112 time=44.7 ms
+64 bytes from mad01s24-in-f3.1e100.net (216.58.211.227)<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=112 time=45.0 ms
+64 bytes from mad01s24-in-f3.1e100.net (216.58.211.227)<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=112 time=44.9 ms
+^C
+--- www.google.es ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 5ms
+rtt min/avg/max/mdev = 44.702/44.867/45.008/0.275 ms
+
+</code></pre></div><p>Una vez tenemos internet actualizamos la máquina</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sudo apt-get update
+sudo apt-get upgrade
+</code></pre></div><p>Adecuamos la hora</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">timedatectl set-timezone Europe/Madrid
+</code></pre></div><p>Crear usuario profesor</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">adduser profesor
+adduser profesor sudo
+</code></pre></div><p>Ademas editamos el fichero /etc/sudoers para darle permisos al usuario profesor de superusuario, y creamos el fichero /home/profesor/.ssh/authorized_keys para que se pueda acceder por ssh al usuario profesor.</p>
+<h2 id="modificación-de-la-ubicación-de-quijote">Modificación de la ubicación de quijote</h2>
+<p>Pasa de la red interna a la DMZ y su direccionamiento tiene que modificarse apropiadamente</p>
+<h4 id="configuración-nueva-de-dulcinea">Configuración nueva de Dulcinea</h4>
+<p>Primero hemos de modificar Dulcinea ya que ha adquirido una nueva interfaz conectada a la red DMZ que es donde está conectado Quijote actualmente</p>
+<p>Modificamos el fichero interfaces de forma que le añadimos el direccionamiento estático a la nueva interfaz y agregamos una nueva regla de iptables adecuado al direccionamiento de la nueva red DMZ</p>
+<p><strong>Fichero interfaces</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
+<span style="color:#75715e"># This file describes the network interfaces available on your system</span>
+<span style="color:#75715e"># and how to activate them. For more information, see interfaces(5).</span>
+
+<span style="color:#75715e"># The loopback network interface</span>
+auto lo
+iface lo inet loopback
+
+<span style="color:#75715e"># The normal eth0 (red externa)</span>
+auto eth0
+iface eth0 inet dhcp
+<span style="color:#75715e">#       post-up ip route del default dev $IFACE || true</span>
+
+<span style="color:#75715e"># Reglas de iptable</span>
+up iptables -t nat -A POSTROUTING -s 10.0.1.0/24 -o eth0 -j MASQUERADE
+up iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -o eth0 -j MASQUERADE
+
+<span style="color:#75715e"># Additional interfaces, just in case we&#39;re using</span>
+<span style="color:#75715e"># multiple networks</span>
+
+<span style="color:#75715e">#Red interna</span>
+auto eth1
+iface eth1 inet static
+        address 10.0.1.6
+        netmask 255.255.255.0
+
+<span style="color:#75715e">#Red DMZ</span>
+
+auto eth2
+iface eth2 inet static
+        address 10.0.2.10
+        netmask 255.255.255.0
+
+
+
+<span style="color:#75715e"># Set this one last, so that cloud-init or user can</span>
+<span style="color:#75715e"># override defaults.</span>
+source /etc/network/interfaces.d/*
+
+</code></pre></div><ul>
+<li>Borramos las reglas de iptable actuales para reinicar el sistema</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">iptables -t nat <span style="color:#f92672">-F</span>
+</code></pre></div><ul>
+<li>Reiniciamos el servicio del network manager</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">/etc/init.d/networking restart
+</code></pre></div><h4 id="configuración-nueva-de-quijote">Configuración nueva de Quijote</h4>
+<p>Hemos pasado a quijote a la red DMZ por lo que se modifica su direccionamiento, indicando la dirección estática y la puerta de enlace a la nueva interfaz de dulcinea.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
+<span style="color:#75715e"># Created by cloud-init on instance boot automatically, do not edit.</span>
+<span style="color:#75715e">#</span>
+BOOTPROTO=<span style="color:#e6db74">&#34;static&#34;</span>
+IPADDR=<span style="color:#e6db74">&#34;10.0.2.4&#34;</span>
+GATEWAY=<span style="color:#e6db74">&#34;10.0.2.10&#34;</span>
+NETMASK=<span style="color:#e6db74">&#34;255.255.255.0&#34;</span>
+DEVICE=eth0
+HWADDR=fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>f7<span style="color:#960050;background-color:#1e0010">:</span>be<span style="color:#960050;background-color:#1e0010">:</span>35
+ONBOOT=yes
+STARTMODE=auto
+TYPE=Ethernet
+USERCTL=no
+
+</code></pre></div><p>Vemos que se ha configurado correctamente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[centos@quijote ~]$ ip a
+1<span style="color:#960050;background-color:#1e0010">:</span> lo<span style="color:#960050;background-color:#1e0010">:</span> &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group <span style="color:#66d9ef">default</span> qlen 1000
+    link/loopback 00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00 brd 00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2<span style="color:#960050;background-color:#1e0010">:</span> eth0<span style="color:#960050;background-color:#1e0010">:</span> &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 8950 qdisc fq_codel state UP group <span style="color:#66d9ef">default</span> qlen 1000
+    link/ether fa<span style="color:#960050;background-color:#1e0010">:</span>16<span style="color:#960050;background-color:#1e0010">:</span>3e<span style="color:#960050;background-color:#1e0010">:</span>62<span style="color:#960050;background-color:#1e0010">:</span>cf<span style="color:#960050;background-color:#1e0010">:</span>92 brd ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff<span style="color:#960050;background-color:#1e0010">:</span>ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 67977sec preferred_lft 67977sec
+    inet6 fe80::3823<span style="color:#960050;background-color:#1e0010">:</span>d813<span style="color:#960050;background-color:#1e0010">:</span>2b45<span style="color:#960050;background-color:#1e0010">:</span>4776/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+[centos@quijote ~]$ ip r
+<span style="color:#66d9ef">default</span> via 10.0.2.10 dev eth0 
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.4 metric 100 
+169.254.169.254 via 10.0.2.2 dev eth0 proto dhcp metric 100 
+
+</code></pre></div><ul>
+<li>Comprobamos el acceso a la red indirectamente por dulcinea</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[centos@quijote ~]$ ping 172.22.0.1
+PING 172.22.0.1 (172.22.0.1) 56(84) bytes of data.
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=62 time=1.44 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=62 time=1.82 ms
+64 bytes from 172.22.0.1<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=62 time=1.96 ms
+^C
+--- 172.22.0.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 6ms
+rtt min/avg/max/mdev = 1.436/1.738/1.960/0.226 ms
+[centos@quijote ~]$ ping 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=111 time=42.9 ms
+64 bytes from 8.8.8.8<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=111 time=64.0 ms
+64 bytes from 8.8.8.8<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=111 time=42.9 ms
+^C
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2ms
+rtt min/avg/max/mdev = 42.942/49.962/64.001/9.929 ms
+
+</code></pre></div><p>Resolucion de nombres</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[centos@quijote ~]$ ping www.youtube.com
+PING youtube-ui.l.google.com (216.58.211.46) 56(84) bytes of data.
+64 bytes from muc03s14-in-f46.1e100.net (216.58.211.46)<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=1 ttl=112 time=43.10 ms
+64 bytes from muc03s14-in-f46.1e100.net (216.58.211.46)<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=2 ttl=112 time=44.9 ms
+64 bytes from muc03s14-in-f46.1e100.net (216.58.211.46)<span style="color:#960050;background-color:#1e0010">:</span> icmp_seq=3 ttl=112 time=44.7 ms
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Actualizacion de Centos7 a Centos8</title>

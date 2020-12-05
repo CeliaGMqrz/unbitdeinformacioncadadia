@@ -3,6 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/dmz/</loc>
+    <lastmod>2020-12-05T13:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nat/</loc>
+    <lastmod>2020-12-05T13:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2020-12-05T13:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</loc>
+    <lastmod>2020-12-05T13:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2020-12-05T13:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2020-12-05T13:21:43+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/</loc>
     <lastmod>2020-11-30T20:59:38+01:00</lastmod>
   </url>
@@ -14,21 +44,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/centos8/</loc>
-    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2020-11-30T20:59:38+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2020-11-30T20:59:38+01:00</lastmod>
   </url>
   
