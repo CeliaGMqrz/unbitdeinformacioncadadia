@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Celia García Márquez ">
+<meta name="description" content="1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación" />
+<meta name="keywords" content=", oracle database 19c, Linux 8" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/" />
+
+
+    <title>
+        
+            Instalación de un servidor Oracle database 19c sobre Linux 8 :: Un bit de informacion cada día  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://unbitdeinformacioncadadia.netlify.app/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+    
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://unbitdeinformacioncadadia.netlify.app/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://unbitdeinformacioncadadia.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://unbitdeinformacioncadadia.netlify.app/favicon-16x16.png">
+    <link rel="manifest" href="https://unbitdeinformacioncadadia.netlify.app/site.webmanifest">
+    <link rel="mask-icon" href="https://unbitdeinformacioncadadia.netlify.app/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://unbitdeinformacioncadadia.netlify.app/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Instalación de un servidor Oracle database 19c sobre Linux 8">
+<meta itemprop="description" content="1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación">
+<meta itemprop="datePublished" content="2020-12-08T15:28:36+01:00" />
+<meta itemprop="dateModified" content="2020-12-08T15:28:36+01:00" />
+<meta itemprop="wordCount" content="1150">
+<meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+
+
+
+<meta itemprop="keywords" content="oracle database 19c,Linux 8," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+
+<meta name="twitter:title" content="Instalación de un servidor Oracle database 19c sobre Linux 8"/>
+<meta name="twitter:description" content="1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación"/>
+
+
+
+    <meta property="og:title" content="Instalación de un servidor Oracle database 19c sobre Linux 8" />
+<meta property="og:description" content="1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/" />
+<meta property="og:image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+<meta property="article:published_time" content="2020-12-08T15:28:36+01:00" />
+<meta property="article:modified_time" content="2020-12-08T15:28:36+01:00" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-12-08 15:28:36 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://unbitdeinformacioncadadia.netlify.app/posts/">Blog</a></li><li><a href="https://unbitdeinformacioncadadia.netlify.app/about/">Contacto</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        6 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/">Instalación de un servidor Oracle database 19c sobre Linux 8</a>
+      </h1>
+
+      
+
+      <div class="post-content">
+        <p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/logo.png" alt="logo.png"></p>
+<h2 id="1-requisitos-para-el-entorno-de-trabajo">1. Requisitos para el entorno de trabajo</h2>
+<p>Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.</p>
+<p>Requisitos:</p>
+<p>Nuestra máquina virtual constará de los siguentes requisitos</p>
+<ul>
+<li>2 Gb de Ram (mínimo), en mi caso le puesto 6Gb</li>
+<li>2 CPU</li>
+<li>30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb</li>
+<li>Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64))</li>
+<li>Red puente hacia la máquina anfitriona</li>
+</ul>
+<h2 id="preinstalación">Preinstalación</h2>
+<p>Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</p>
+<ul>
+<li>Permisos de superusuario</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">su -
+</code></pre></div><ul>
+<li>Obtenemos el paquete de preinstalación de oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https<span style="color:#960050;background-color:#1e0010">:</span>//yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+</code></pre></div><ul>
+<li>Cuando intentamos instalar el paquete nos da un fallo de dependencias entonces las instalamos y con ellas otros paquetes necesarios. Estas dependencias pueden variar de un sistema a otro, hay que fijarse muy bien en el error que te muestra e instalar las dependencias /librerias necesarias.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e">#  rpm -ivh oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm </span>
+advertencia<span style="color:#960050;background-color:#1e0010">:</span>oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm<span style="color:#960050;background-color:#1e0010">:</span> EncabezadoV3 RSA/SHA256 Signature, ID de clave ec551f03<span style="color:#960050;background-color:#1e0010">:</span> NOKEY
+error<span style="color:#960050;background-color:#1e0010">:</span> Error de dependencias<span style="color:#960050;background-color:#1e0010">:</span>
+	compat-libcap1 es necesario por oracle-database-preinstall-19c-1.0-1.el7.x86_64
+	compat-libstdc++-33 es necesario por oracle-database-preinstall-19c-1.0-1.el7.x86_64
+	libaio-devel es necesario por oracle-database-preinstall-19c-1.0-1.el7.x86_64
+
+</code></pre></div><ul>
+<li>Instalamos paquetes necesarios:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install -y gcc-c ++ make
+yum install -y ksh
+yum install -y sysstat
+yum install -y xorg-x11-utils
+yum install java-11-openjdk-devel
+yum install -y libnsl
+</code></pre></div><ul>
+<li>Instalamos dependencias:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf install libaio-devel
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">wget http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/7/os/x86_64/Packages/compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+
+rpm -ivh compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">wget http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/7/os/x86_64/Packages/compat-libcap1-1.10-7.el7.x86_64.rpm
+
+rpm -ivh compat-libcap1-1.10-7.el7.x86_64.rpm 
+
+</code></pre></div><ul>
+<li>Volvemos a instalar el paquete de preinstalación y vemos que ahora se ha instalado correctamente, una vez cumplidas todas las dependencias.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e"># rpm -ivh oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm </span>
+advertencia<span style="color:#960050;background-color:#1e0010">:</span>oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm<span style="color:#960050;background-color:#1e0010">:</span> EncabezadoV3 RSA/SHA256 Signature, ID de clave ec551f03<span style="color:#960050;background-color:#1e0010">:</span> NOKEY
+Verifying...                          <span style="color:#75715e">################################# [100%]</span>
+Preparando...                         <span style="color:#75715e">################################# [100%]</span>
+Actualizando / instalando...
+   1<span style="color:#960050;background-color:#1e0010">:</span>oracle-database-preinstall-19c-1.<span style="color:#75715e">################################# [100%]</span>
+
+</code></pre></div><h2 id="usuario-oracle-y-grupos-cambio-de-contraseña">Usuario oracle y grupos. Cambio de contraseña.</h2>
+<ul>
+<li>Comprobamos que se ha creado el usuario de oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e"># grep &#39;oracle&#39; /etc/passwd </span>
+oracle<span style="color:#960050;background-color:#1e0010">❌</span>65535<span style="color:#960050;background-color:#1e0010">:</span>65535::/home/oracle<span style="color:#960050;background-color:#1e0010">:</span>/bin/bash
+
+</code></pre></div><ul>
+<li>Comprobamos que se han creado los grupos necesarios para oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e"># grep &#39;oracle&#39; /etc/group </span>
+oinstall<span style="color:#960050;background-color:#1e0010">❌</span>65535<span style="color:#960050;background-color:#1e0010">:</span>oracle
+dba<span style="color:#960050;background-color:#1e0010">❌</span>65536<span style="color:#960050;background-color:#1e0010">:</span>oracle
+oper<span style="color:#960050;background-color:#1e0010">❌</span>65537<span style="color:#960050;background-color:#1e0010">:</span>oracle
+backupdba<span style="color:#960050;background-color:#1e0010">❌</span>65538<span style="color:#960050;background-color:#1e0010">:</span>oracle
+dgdba<span style="color:#960050;background-color:#1e0010">❌</span>65539<span style="color:#960050;background-color:#1e0010">:</span>oracle
+kmdba<span style="color:#960050;background-color:#1e0010">❌</span>65540<span style="color:#960050;background-color:#1e0010">:</span>oracle
+racdba<span style="color:#960050;background-color:#1e0010">❌</span>65541<span style="color:#960050;background-color:#1e0010">:</span>oracle
+</code></pre></div><ul>
+<li>Cambiamos la contraseña de Oracle para asegurarnos la nuestra</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">passwd oracle
+</code></pre></div><h2 id="creación-del-directorio-de-trabajo">Creación del directorio de trabajo</h2>
+<ul>
+<li>Creamos el directorio de trabajo</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mkdir -p /u01/app/oracle/product/19.3/dbhome_1
+cd /u01/app/oracle/product/19.3/dbhome_1
+</code></pre></div><h2 id="descarga-de-oracle-19c-e-instalación-del-mismo">Descarga de Oracle 19c e instalación del mismo</h2>
+<ul>
+<li>Descargamos el software desde la pagina oficial comprimido en .zip</li>
+</ul>
+<p><a href="https://www.oracle.com/es/database/technologies/oracle19c-linux-downloads.html">https://www.oracle.com/es/database/technologies/oracle19c-linux-downloads.html</a></p>
+<ul>
+<li>Descomprimimos en el directorio que hemos creado anteriormente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost dbhome_1]<span style="color:#75715e"># unzip /home/user/Descargas/LINUX.X64_193000_db_home.zip </span>
+</code></pre></div><ul>
+<li>Vemos los archivos actuales</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost dbhome_1]<span style="color:#75715e"># ls</span>
+addnode     deinstall      javavm   OPatch                          QOpatch        sqldeveloper
+apex        demo           jdbc     opmn                            R              sqlj
+assistants  diagnostics    jdk      oracle19c-linux-downloads.html  racg           sqlpatch
+bin         dmu            jlib     oracore                         rdbms          sqlplus
+clone       drdaas         ldap     ord                             relnotes       srvm
+crs         dv             lib      ords                            root.sh        suptools
+css         env.ora        md       oss                             root.sh.old    ucp
+ctx         has            mgw      oui                             root.sh.old.1  usm
+cv          hs             network  owm                             runInstaller   utl
+data        install        nls      perl                            schagent.conf  wwg
+dbjava      instantclient  odbc     plsql                           sdk            xdk
+dbs         inventory      olap     precomp                         slax
+
+</code></pre></div><ul>
+<li>Le damos los permisos necesarios al usuario oracle sobre nuestro directorio de trabajo, es decir lo hacemos propietario del mismo.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">chown -R oracle<span style="color:#960050;background-color:#1e0010">:</span>oinstall /u01
+</code></pre></div><ul>
+<li>Comprobamos que se ha cambiado el propietario recursivamente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost dbhome_1]<span style="color:#75715e"># ls -l / | grep &#39;u01&#39;</span>
+drwxrwxrwx.   3 oracle oinstall   17 dic  7 20<span style="color:#960050;background-color:#1e0010">:</span>38 u01
+</code></pre></div><ul>
+<li>Entramos como usuario Oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">su - oracle
+
+
+[oracle@localhost ~]$ pwd
+/home/oracle
+
+</code></pre></div><ul>
+<li>Cambiamos las variables de entorno editando el siguiente fichero de configuración, yo he descargado el editor &lsquo;nano&rsquo; porque me resulta más cómo de &lsquo;vi&rsquo;</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install nano
+nano .bash_profile
+</code></pre></div><ul>
+<li>El fichero debe quedar de la siguiente forma</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
+<span style="color:#75715e"># .bash_profile</span>
+
+<span style="color:#75715e"># Get the aliases and functions</span>
+<span style="color:#66d9ef">if</span> [ <span style="color:#f92672">-f</span> ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+<span style="color:#75715e"># User specific environment and startup programs</span>
+
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=$ORACLE_BASE/product/19.3/dbhome_1
+ORACLE_SID=orcl
+PATH=$PATH<span style="color:#960050;background-color:#1e0010">:</span>$HOME/.local/bin<span style="color:#960050;background-color:#1e0010">:</span>$HOME/bin<span style="color:#960050;background-color:#1e0010">:</span>$ORACLE_HOME/bin
+export PATH ORACLE_BASE ORACLE_HOME ORACLE_SID
+
+</code></pre></div><ul>
+<li>Comprobamos que tenemos las variables operativas</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost ~]$ env | grep ORACLE
+ORACLE_SID=orcl
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=/u01/app/oracle/product/19.3/dbhome_1
+
+</code></pre></div><ul>
+<li>Vemos que usando la variable accedemos a nuestro directorio de trabajo</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost ~]$ cd $ORACLE_HOME
+[oracle@localhost dbhome_1]$ pwd
+/u01/app/oracle/product/19.3/dbhome_1
+</code></pre></div><ul>
+<li>Comprobamos que tenemos el ejecutable de Oracle y que tiene los propietarios adecuados.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ ls -l runInstaller
+-rwxrwxrwx. 1 oracle oinstall 1783 mar  8  2017 runInstaller
+</code></pre></div><ul>
+<li>Vamos a conectarnos por ssh al usuario oracle pero antes vamos a ejecutar una variable para que se pueda traer la ventana de oracle a nuestra máquina anfitriona</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ export DISPLAY=<span style="color:#960050;background-color:#1e0010">:</span>0
+[oracle@localhost dbhome_1]$ echo $DISPLAY
+<span style="color:#960050;background-color:#1e0010">:</span>0
+</code></pre></div><ul>
+<li>Desde la máquina fisica nos conectamos por ssh al usuario oracle utilizando la opción -X</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~$ ssh -X oracle@192.168.100.213
+oracle@192.168.100.213<span style="color:#960050;background-color:#1e0010">&#39;</span>s password<span style="color:#960050;background-color:#1e0010">:</span> 
+Activate the web console with<span style="color:#960050;background-color:#1e0010">:</span> systemctl enable --now cockpit.socket
+
+Last login<span style="color:#960050;background-color:#1e0010">:</span> Tue Dec  8 14<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>55 2020 from ::1
+</code></pre></div><ul>
+<li>Ahora nos vamos a editar un fichero de configuración de oracle para evitar que nos salga un error muy común en la instalación de Oracle sobre Linux 8. Este error es &lsquo;supportedOSCheck&rsquo;</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ su -
+Contraseña<span style="color:#960050;background-color:#1e0010">:</span> 
+[root@localhost ~]<span style="color:#75715e"># nano /u01/app/oracle/product/19.3/dbhome_1/cv/admin/cvu_config </span>
+</code></pre></div><ul>
+<li>Añadimos la siguiente linea</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">CV_ASSUME_DISTID=OEL8.1
+</code></pre></div><ul>
+<li>Ahora sí, ejecutamos la instalación desde el usuario Oracle remotamente:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ ./runInstaller
+Iniciando el asistente de configuración de Oracle Database...
+
+El archivo de respuesta para esta sesión se puede encontrar en<span style="color:#960050;background-color:#1e0010">:</span>
+ /u01/app/oracle/product/19.3/dbhome_1/install/response/db_2020-12-08_02-08-39PM.rsp
+
+Encontrará el log de esta sesión de instalación en<span style="color:#960050;background-color:#1e0010">:</span>
+ /tmp/InstallActions2020-12-08_02-08-39PM/installActions2020-12-08_02-08-39PM.log
+Se han movido los logs de sesión de instalación a:
+ /u01/app/oraInventory/logs/InstallActions2020-12-08_02-08-39PM
+</code></pre></div><h2 id="pasos-seguidos-para-la-instalación">Pasos seguidos para la instalación</h2>
+<ul>
+<li>Vamos a crear una base de datos de instancia única.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador1.png" alt="instalador1.png"></p>
+<ul>
+<li>Elegiremos la clase de Servidor para que nos permita configuraciones más avanzadas</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador2.png" alt="instalador2.png"></p>
+<ul>
+<li>Elegiremos la Edición Enterprise</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador3.png" alt="instalador3.png"></p>
+<ul>
+<li>Como hemos creado nuestro directorio de trabajo previamente se ha configurado por defecto, lo dejamos tal cual.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador4.png" alt="instalador4.png"></p>
+<ul>
+<li>Lo mimso con la ruta del directorio de inventario y el nombre del grupo del sistema cuyos usuarios tendrán permisos sobre el inventario.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador5.png" alt="instalador5.png"></p>
+<ul>
+<li>Elegiremos la opción de Uso General / Procesamiento de Transaciones</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador6.png" alt="instalador6.png"></p>
+<ul>
+<li>Ahora se elige el nombre de la base de datos global, el identificador del Sistema Oracle (SID) y el nombre de Datos de Conexión.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador7.png" alt="instalador7.png"></p>
+<ul>
+<li>Comprobaremos que está seleccionado &lsquo;Usar Unicode&rsquo;</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador8.png" alt="instalador8.png"></p>
+<ul>
+<li>Instalamos el esquema de ejemplo</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador9.png" alt="instalador9.png"></p>
+<ul>
+<li>Indicamos la ubicación del sistema de archivos donde se va almacenar nuestros datos. Se recomienda usar otro disco distinto. Pero en este caso para una instalación de prueba para nuestra práctica lo dejaremos así.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador10.png" alt="instalador10.png"></p>
+<ul>
+<li>No utilizaremos Cloud Control</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador11.png" alt="instalador11.png"></p>
+<ul>
+<li>Si deseamos tener una recuperación de la base de datos podemos marcar esta casilla, pero ahora no lo activaremos, se recomienda hacerlo.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador12.png" alt="instalador12.png"></p>
+<ul>
+<li>También se recomiendan usar varias contraseñas para los distintos usuarios, en este caso como es de prueba lo haremos con la misma.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador13.png" alt="instalador13.png"></p>
+<ul>
+<li>Este paso pertenece a la selección de privilegios en cuanto a los grupos creados previamentes, lo dejamos como se ha configurado por defecto.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador14.png" alt="instalador14.png"></p>
+<ul>
+<li>Se comprobaran los requisitos del sistema y si todo ha ido bien nos mostrará un resumen de las comprobaciones. Después procedemos a &lsquo;Instalar&rsquo;</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador15.png" alt="instalador15.png"></p>
+<ul>
+<li>Una vez se haya acabado la instalación, la cuál dura unos minutos, nos indica que se ha configurado correctamente.</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/oracle19c/instalador16.png" alt="instalador16.png"></p>
+<h2 id="comprobación-de-que-se-puede-ejecutar-sql-plus">Comprobación de que se puede ejecutar SQL PLUS</h2>
+<ul>
+<li>Iniciamos sql desde la línea de comandos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sqlplus / as sysdba
+</code></pre></div><ul>
+<li>Comprobamos que se ha instalado correctamente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ sqlplus / as sysdba
+
+SQL*Plus<span style="color:#960050;background-color:#1e0010">:</span> Release 19.0.0.0.0 - Production on Tue Dec 8 14<span style="color:#960050;background-color:#1e0010">:</span>45<span style="color:#960050;background-color:#1e0010">:</span>56 2020
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Conectado a:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL&gt; 
+
+</code></pre></div>
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/oracle-database-19c/">oracle database 19c</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/linux-8/">Linux 8</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        1150 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          08/12/2020 15:28
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208&amp;caption=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208&amp;canonicalUrl=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208&amp;body=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f&amp;media=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f;description=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f&amp;title=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208&amp;summary=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208&amp;source=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f&amp;resubmit=true&amp;title=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f;title=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208%20https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f&amp;t=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Instalaci%c3%b3n%20de%20un%20servidor%20Oracle%20database%2019c%20sobre%20Linux%208&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2020%2f12%2finstalaci%25C3%25B3n-de-un-servidor-oracle-database-19c-sobre-linux-8%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h"></span>
+          <hr />
+        </div>
+
+        <div class="pagination__buttons">
+          
+
+          
+            <span class="button next">
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./">
+                <span class="button__text">Red DMZ. Modificacion del escenario.</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://unbitdeinformacioncadadia.netlify.app/">Celia García Márquez</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://unbitdeinformacioncadadia.netlify.app/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>

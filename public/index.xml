@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 05 Dec 2020 13:21:43 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Dec 2020 15:28:36 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalación de un servidor Oracle database 19c sobre Linux 8</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</link>
+      <pubDate>Tue, 08 Dec 2020 15:28:36 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</guid>
+      <description>1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</description>
+    </item>
+    
     <item>
       <title>Red DMZ. Modificacion del escenario.</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</link>
@@ -107,16 +119,6 @@ En esta tarea debes tratar de compilar un kérnel completamente funcional que re
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</guid>
       <description>Instalación de un servidor LAMP Crea una instancia de vagrant basado en un box de debian o ubuntu  Primero creamos el fichero Vagrantfile  nano Vagrantfile  Le añadimos estas lineas para configurar nuestra máquina debian  # -*- mode: ruby -*- # vi: set ft=ruby : Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;debian-cms&amp;#34; config.vm.network :public_network, :bridge=&amp;gt;&amp;#34;enp5s0&amp;#34; end  Levantamos la máquina  vagrant up  Cuando esté lista entramos en la máquina por ssh  vagrant ssh  Una vez dentro le añadimos los repositorios esenciales y actualizamos la máquina  sudo su nano /etc/apt/sources.</description>
-    </item>
-    
-    <item>
-      <title>Servidor Nginx</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/servidor-nginx/</link>
-      <pubDate>Wed, 11 Nov 2020 17:51:13 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/servidor-nginx/</guid>
-      <description>Servidor Web Nginxx NGINX es un servidor web open source de alta performance que ofrece el contenido estático de un sitio web de forma rápida y fácil de configurar. Ofrece recursos de equilibrio de carga, proxy inverso y streaming, además de gestionar miles de conexiones simultáneas. El resultado de sus aportes es una mayor velocidad y escalabilidad.
-Además de otras tareas, los servidores web son los encargados de la entrega de aplicaciones web, respondiendo a peticiones HTTPS realizadas por usuarios, normalmente desde un navegador web.</description>
     </item>
     
   </channel>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux 8 on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/linux-8/</link>
+    <description>Recent content in Linux 8 on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 08 Dec 2020 15:28:36 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/linux-8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalación de un servidor Oracle database 19c sobre Linux 8</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</link>
+      <pubDate>Tue, 08 Dec 2020 15:28:36 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</guid>
+      <description>1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</description>
+    </item>
+    
+  </channel>
+</rss>

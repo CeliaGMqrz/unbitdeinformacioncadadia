@@ -6,8 +6,322 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 05 Dec 2020 13:21:43 +0100</lastBuildDate>
+        <lastBuildDate>Tue, 08 Dec 2020 15:28:36 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Instalación de un servidor Oracle database 19c sobre Linux 8</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</link>
+            <pubDate>Tue, 08 Dec 2020 15:28:36 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</guid>
+            <description>1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
+Requisitos:
+Nuestra máquina virtual constará de los siguentes requisitos
+ 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</description>
+            <content type="html"><![CDATA[<p><img src="/images/oracle19c/logo.png" alt="logo.png"></p>
+<h2 id="1-requisitos-para-el-entorno-de-trabajo">1. Requisitos para el entorno de trabajo</h2>
+<p>Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.</p>
+<p>Requisitos:</p>
+<p>Nuestra máquina virtual constará de los siguentes requisitos</p>
+<ul>
+<li>2 Gb de Ram (mínimo), en mi caso le puesto 6Gb</li>
+<li>2 CPU</li>
+<li>30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb</li>
+<li>Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64))</li>
+<li>Red puente hacia la máquina anfitriona</li>
+</ul>
+<h2 id="preinstalación">Preinstalación</h2>
+<p>Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</p>
+<ul>
+<li>Permisos de superusuario</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">su -
+</code></pre></div><ul>
+<li>Obtenemos el paquete de preinstalación de oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">curl -o oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm https<span style="color:#960050;background-color:#1e0010">:</span>//yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+</code></pre></div><ul>
+<li>Cuando intentamos instalar el paquete nos da un fallo de dependencias entonces las instalamos y con ellas otros paquetes necesarios. Estas dependencias pueden variar de un sistema a otro, hay que fijarse muy bien en el error que te muestra e instalar las dependencias /librerias necesarias.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e">#  rpm -ivh oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm </span>
+advertencia<span style="color:#960050;background-color:#1e0010">:</span>oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm<span style="color:#960050;background-color:#1e0010">:</span> EncabezadoV3 RSA/SHA256 Signature, ID de clave ec551f03<span style="color:#960050;background-color:#1e0010">:</span> NOKEY
+error<span style="color:#960050;background-color:#1e0010">:</span> Error de dependencias<span style="color:#960050;background-color:#1e0010">:</span>
+	compat-libcap1 es necesario por oracle-database-preinstall-19c-1.0-1.el7.x86_64
+	compat-libstdc++-33 es necesario por oracle-database-preinstall-19c-1.0-1.el7.x86_64
+	libaio-devel es necesario por oracle-database-preinstall-19c-1.0-1.el7.x86_64
+
+</code></pre></div><ul>
+<li>Instalamos paquetes necesarios:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install -y gcc-c ++ make
+yum install -y ksh
+yum install -y sysstat
+yum install -y xorg-x11-utils
+yum install java-11-openjdk-devel
+yum install -y libnsl
+</code></pre></div><ul>
+<li>Instalamos dependencias:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">dnf install libaio-devel
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">wget http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/7/os/x86_64/Packages/compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+
+rpm -ivh compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">wget http<span style="color:#960050;background-color:#1e0010">:</span>//mirror.centos.org/centos/7/os/x86_64/Packages/compat-libcap1-1.10-7.el7.x86_64.rpm
+
+rpm -ivh compat-libcap1-1.10-7.el7.x86_64.rpm 
+
+</code></pre></div><ul>
+<li>Volvemos a instalar el paquete de preinstalación y vemos que ahora se ha instalado correctamente, una vez cumplidas todas las dependencias.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e"># rpm -ivh oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm </span>
+advertencia<span style="color:#960050;background-color:#1e0010">:</span>oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm<span style="color:#960050;background-color:#1e0010">:</span> EncabezadoV3 RSA/SHA256 Signature, ID de clave ec551f03<span style="color:#960050;background-color:#1e0010">:</span> NOKEY
+Verifying...                          <span style="color:#75715e">################################# [100%]</span>
+Preparando...                         <span style="color:#75715e">################################# [100%]</span>
+Actualizando / instalando...
+   1<span style="color:#960050;background-color:#1e0010">:</span>oracle-database-preinstall-19c-1.<span style="color:#75715e">################################# [100%]</span>
+
+</code></pre></div><h2 id="usuario-oracle-y-grupos-cambio-de-contraseña">Usuario oracle y grupos. Cambio de contraseña.</h2>
+<ul>
+<li>Comprobamos que se ha creado el usuario de oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e"># grep &#39;oracle&#39; /etc/passwd </span>
+oracle<span style="color:#960050;background-color:#1e0010">❌</span>65535<span style="color:#960050;background-color:#1e0010">:</span>65535::/home/oracle<span style="color:#960050;background-color:#1e0010">:</span>/bin/bash
+
+</code></pre></div><ul>
+<li>Comprobamos que se han creado los grupos necesarios para oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost user]<span style="color:#75715e"># grep &#39;oracle&#39; /etc/group </span>
+oinstall<span style="color:#960050;background-color:#1e0010">❌</span>65535<span style="color:#960050;background-color:#1e0010">:</span>oracle
+dba<span style="color:#960050;background-color:#1e0010">❌</span>65536<span style="color:#960050;background-color:#1e0010">:</span>oracle
+oper<span style="color:#960050;background-color:#1e0010">❌</span>65537<span style="color:#960050;background-color:#1e0010">:</span>oracle
+backupdba<span style="color:#960050;background-color:#1e0010">❌</span>65538<span style="color:#960050;background-color:#1e0010">:</span>oracle
+dgdba<span style="color:#960050;background-color:#1e0010">❌</span>65539<span style="color:#960050;background-color:#1e0010">:</span>oracle
+kmdba<span style="color:#960050;background-color:#1e0010">❌</span>65540<span style="color:#960050;background-color:#1e0010">:</span>oracle
+racdba<span style="color:#960050;background-color:#1e0010">❌</span>65541<span style="color:#960050;background-color:#1e0010">:</span>oracle
+</code></pre></div><ul>
+<li>Cambiamos la contraseña de Oracle para asegurarnos la nuestra</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">passwd oracle
+</code></pre></div><h2 id="creación-del-directorio-de-trabajo">Creación del directorio de trabajo</h2>
+<ul>
+<li>Creamos el directorio de trabajo</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">mkdir -p /u01/app/oracle/product/19.3/dbhome_1
+cd /u01/app/oracle/product/19.3/dbhome_1
+</code></pre></div><h2 id="descarga-de-oracle-19c-e-instalación-del-mismo">Descarga de Oracle 19c e instalación del mismo</h2>
+<ul>
+<li>Descargamos el software desde la pagina oficial comprimido en .zip</li>
+</ul>
+<p><a href="https://www.oracle.com/es/database/technologies/oracle19c-linux-downloads.html">https://www.oracle.com/es/database/technologies/oracle19c-linux-downloads.html</a></p>
+<ul>
+<li>Descomprimimos en el directorio que hemos creado anteriormente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost dbhome_1]<span style="color:#75715e"># unzip /home/user/Descargas/LINUX.X64_193000_db_home.zip </span>
+</code></pre></div><ul>
+<li>Vemos los archivos actuales</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost dbhome_1]<span style="color:#75715e"># ls</span>
+addnode     deinstall      javavm   OPatch                          QOpatch        sqldeveloper
+apex        demo           jdbc     opmn                            R              sqlj
+assistants  diagnostics    jdk      oracle19c-linux-downloads.html  racg           sqlpatch
+bin         dmu            jlib     oracore                         rdbms          sqlplus
+clone       drdaas         ldap     ord                             relnotes       srvm
+crs         dv             lib      ords                            root.sh        suptools
+css         env.ora        md       oss                             root.sh.old    ucp
+ctx         has            mgw      oui                             root.sh.old.1  usm
+cv          hs             network  owm                             runInstaller   utl
+data        install        nls      perl                            schagent.conf  wwg
+dbjava      instantclient  odbc     plsql                           sdk            xdk
+dbs         inventory      olap     precomp                         slax
+
+</code></pre></div><ul>
+<li>Le damos los permisos necesarios al usuario oracle sobre nuestro directorio de trabajo, es decir lo hacemos propietario del mismo.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">chown -R oracle<span style="color:#960050;background-color:#1e0010">:</span>oinstall /u01
+</code></pre></div><ul>
+<li>Comprobamos que se ha cambiado el propietario recursivamente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@localhost dbhome_1]<span style="color:#75715e"># ls -l / | grep &#39;u01&#39;</span>
+drwxrwxrwx.   3 oracle oinstall   17 dic  7 20<span style="color:#960050;background-color:#1e0010">:</span>38 u01
+</code></pre></div><ul>
+<li>Entramos como usuario Oracle</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">su - oracle
+
+
+[oracle@localhost ~]$ pwd
+/home/oracle
+
+</code></pre></div><ul>
+<li>Cambiamos las variables de entorno editando el siguiente fichero de configuración, yo he descargado el editor &lsquo;nano&rsquo; porque me resulta más cómo de &lsquo;vi&rsquo;</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">yum install nano
+nano .bash_profile
+</code></pre></div><ul>
+<li>El fichero debe quedar de la siguiente forma</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">
+<span style="color:#75715e"># .bash_profile</span>
+
+<span style="color:#75715e"># Get the aliases and functions</span>
+<span style="color:#66d9ef">if</span> [ <span style="color:#f92672">-f</span> ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+<span style="color:#75715e"># User specific environment and startup programs</span>
+
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=$ORACLE_BASE/product/19.3/dbhome_1
+ORACLE_SID=orcl
+PATH=$PATH<span style="color:#960050;background-color:#1e0010">:</span>$HOME/.local/bin<span style="color:#960050;background-color:#1e0010">:</span>$HOME/bin<span style="color:#960050;background-color:#1e0010">:</span>$ORACLE_HOME/bin
+export PATH ORACLE_BASE ORACLE_HOME ORACLE_SID
+
+</code></pre></div><ul>
+<li>Comprobamos que tenemos las variables operativas</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost ~]$ env | grep ORACLE
+ORACLE_SID=orcl
+ORACLE_BASE=/u01/app/oracle
+ORACLE_HOME=/u01/app/oracle/product/19.3/dbhome_1
+
+</code></pre></div><ul>
+<li>Vemos que usando la variable accedemos a nuestro directorio de trabajo</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost ~]$ cd $ORACLE_HOME
+[oracle@localhost dbhome_1]$ pwd
+/u01/app/oracle/product/19.3/dbhome_1
+</code></pre></div><ul>
+<li>Comprobamos que tenemos el ejecutable de Oracle y que tiene los propietarios adecuados.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ ls -l runInstaller
+-rwxrwxrwx. 1 oracle oinstall 1783 mar  8  2017 runInstaller
+</code></pre></div><ul>
+<li>Vamos a conectarnos por ssh al usuario oracle pero antes vamos a ejecutar una variable para que se pueda traer la ventana de oracle a nuestra máquina anfitriona</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ export DISPLAY=<span style="color:#960050;background-color:#1e0010">:</span>0
+[oracle@localhost dbhome_1]$ echo $DISPLAY
+<span style="color:#960050;background-color:#1e0010">:</span>0
+</code></pre></div><ul>
+<li>Desde la máquina fisica nos conectamos por ssh al usuario oracle utilizando la opción -X</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">celiagm@debian<span style="color:#960050;background-color:#1e0010">:</span>~$ ssh -X oracle@192.168.100.213
+oracle@192.168.100.213<span style="color:#960050;background-color:#1e0010">&#39;</span>s password<span style="color:#960050;background-color:#1e0010">:</span> 
+Activate the web console with<span style="color:#960050;background-color:#1e0010">:</span> systemctl enable --now cockpit.socket
+
+Last login<span style="color:#960050;background-color:#1e0010">:</span> Tue Dec  8 14<span style="color:#960050;background-color:#1e0010">:</span>00<span style="color:#960050;background-color:#1e0010">:</span>55 2020 from ::1
+</code></pre></div><ul>
+<li>Ahora nos vamos a editar un fichero de configuración de oracle para evitar que nos salga un error muy común en la instalación de Oracle sobre Linux 8. Este error es &lsquo;supportedOSCheck&rsquo;</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ su -
+Contraseña<span style="color:#960050;background-color:#1e0010">:</span> 
+[root@localhost ~]<span style="color:#75715e"># nano /u01/app/oracle/product/19.3/dbhome_1/cv/admin/cvu_config </span>
+</code></pre></div><ul>
+<li>Añadimos la siguiente linea</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">CV_ASSUME_DISTID=OEL8.1
+</code></pre></div><ul>
+<li>Ahora sí, ejecutamos la instalación desde el usuario Oracle remotamente:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ ./runInstaller
+Iniciando el asistente de configuración de Oracle Database...
+
+El archivo de respuesta para esta sesión se puede encontrar en<span style="color:#960050;background-color:#1e0010">:</span>
+ /u01/app/oracle/product/19.3/dbhome_1/install/response/db_2020-12-08_02-08-39PM.rsp
+
+Encontrará el log de esta sesión de instalación en<span style="color:#960050;background-color:#1e0010">:</span>
+ /tmp/InstallActions2020-12-08_02-08-39PM/installActions2020-12-08_02-08-39PM.log
+Se han movido los logs de sesión de instalación a:
+ /u01/app/oraInventory/logs/InstallActions2020-12-08_02-08-39PM
+</code></pre></div><h2 id="pasos-seguidos-para-la-instalación">Pasos seguidos para la instalación</h2>
+<ul>
+<li>Vamos a crear una base de datos de instancia única.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador1.png" alt="instalador1.png"></p>
+<ul>
+<li>Elegiremos la clase de Servidor para que nos permita configuraciones más avanzadas</li>
+</ul>
+<p><img src="/images/oracle19c/instalador2.png" alt="instalador2.png"></p>
+<ul>
+<li>Elegiremos la Edición Enterprise</li>
+</ul>
+<p><img src="/images/oracle19c/instalador3.png" alt="instalador3.png"></p>
+<ul>
+<li>Como hemos creado nuestro directorio de trabajo previamente se ha configurado por defecto, lo dejamos tal cual.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador4.png" alt="instalador4.png"></p>
+<ul>
+<li>Lo mimso con la ruta del directorio de inventario y el nombre del grupo del sistema cuyos usuarios tendrán permisos sobre el inventario.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador5.png" alt="instalador5.png"></p>
+<ul>
+<li>Elegiremos la opción de Uso General / Procesamiento de Transaciones</li>
+</ul>
+<p><img src="/images/oracle19c/instalador6.png" alt="instalador6.png"></p>
+<ul>
+<li>Ahora se elige el nombre de la base de datos global, el identificador del Sistema Oracle (SID) y el nombre de Datos de Conexión.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador7.png" alt="instalador7.png"></p>
+<ul>
+<li>Comprobaremos que está seleccionado &lsquo;Usar Unicode&rsquo;</li>
+</ul>
+<p><img src="/images/oracle19c/instalador8.png" alt="instalador8.png"></p>
+<ul>
+<li>Instalamos el esquema de ejemplo</li>
+</ul>
+<p><img src="/images/oracle19c/instalador9.png" alt="instalador9.png"></p>
+<ul>
+<li>Indicamos la ubicación del sistema de archivos donde se va almacenar nuestros datos. Se recomienda usar otro disco distinto. Pero en este caso para una instalación de prueba para nuestra práctica lo dejaremos así.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador10.png" alt="instalador10.png"></p>
+<ul>
+<li>No utilizaremos Cloud Control</li>
+</ul>
+<p><img src="/images/oracle19c/instalador11.png" alt="instalador11.png"></p>
+<ul>
+<li>Si deseamos tener una recuperación de la base de datos podemos marcar esta casilla, pero ahora no lo activaremos, se recomienda hacerlo.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador12.png" alt="instalador12.png"></p>
+<ul>
+<li>También se recomiendan usar varias contraseñas para los distintos usuarios, en este caso como es de prueba lo haremos con la misma.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador13.png" alt="instalador13.png"></p>
+<ul>
+<li>Este paso pertenece a la selección de privilegios en cuanto a los grupos creados previamentes, lo dejamos como se ha configurado por defecto.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador14.png" alt="instalador14.png"></p>
+<ul>
+<li>Se comprobaran los requisitos del sistema y si todo ha ido bien nos mostrará un resumen de las comprobaciones. Después procedemos a &lsquo;Instalar&rsquo;</li>
+</ul>
+<p><img src="/images/oracle19c/instalador15.png" alt="instalador15.png"></p>
+<ul>
+<li>Una vez se haya acabado la instalación, la cuál dura unos minutos, nos indica que se ha configurado correctamente.</li>
+</ul>
+<p><img src="/images/oracle19c/instalador16.png" alt="instalador16.png"></p>
+<h2 id="comprobación-de-que-se-puede-ejecutar-sql-plus">Comprobación de que se puede ejecutar SQL PLUS</h2>
+<ul>
+<li>Iniciamos sql desde la línea de comandos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sqlplus / as sysdba
+</code></pre></div><ul>
+<li>Comprobamos que se ha instalado correctamente</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[oracle@localhost dbhome_1]$ sqlplus / as sysdba
+
+SQL*Plus<span style="color:#960050;background-color:#1e0010">:</span> Release 19.0.0.0.0 - Production on Tue Dec 8 14<span style="color:#960050;background-color:#1e0010">:</span>45<span style="color:#960050;background-color:#1e0010">:</span>56 2020
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+
+Conectado a:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+SQL&gt; 
+
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Red DMZ. Modificacion del escenario.</title>
