@@ -320,6 +320,84 @@ Version 19.3.0.0.0
 
 SQL&gt; 
 
+</code></pre></div><h2 id="añadir-datos">Añadir datos</h2>
+<ul>
+<li>Nos conectamos de la siguiente forma a sql plus como administrador, nos pedirá la contraseña.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sqlplus sys as sysdba
+</code></pre></div><ul>
+<li>Ahora vamos a inicializar la instancia</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">startup
+</code></pre></div><p>Nos saldrá algo parecido a:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">SQL&gt; startup
+ORACLE instance started.
+
+Total System Global Area 1795159792 bytes
+Fixed Size		    9135856 bytes
+Variable Size		  419430400 bytes
+Database Buffers	 1358954496 bytes
+Redo Buffers		    7639040 bytes
+Base de datos montada.
+Base de datos abierta.
+</code></pre></div><ul>
+<li>Procedemos a crear el usuario que se va conectar a la base de datos y nos sucede un error. Este error se debe a que tenemos un contenedor creado den la base de datos actual.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">SQL&gt; create user celiagm identified by celiagm;
+create user celiagm identified by celiagm
+            *
+ERROR en linea 1<span style="color:#960050;background-color:#1e0010">:</span>
+ORA-65096<span style="color:#960050;background-color:#1e0010">:</span> nombre de usuario o rol comun no valido
+
+</code></pre></div><ul>
+<li>Para crear un usuario común ejecutaremos lo siguiente.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">alter session set <span style="color:#e6db74">&#34;_ORACLE_SCRIPT&#34;</span>=true;
+</code></pre></div><ul>
+<li>Ahora si podemos crear el usuario y le damos los privilegios necesarios.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">SQL&gt; create user celiagm identified by celiagm;
+
+Usuario creado.
+
+SQL&gt; grant connect to celiagm;
+
+Concesion terminada correctamente.
+
+SQL&gt; grant resource to celiagm;
+
+Concesion terminada correctamente.
+
+SQL&gt; grant unlimited tablespace to celiagm;
+
+Concesion terminada correctamente.
+
+</code></pre></div><ul>
+<li>Nos desconectamos como administrador y entramos como el usuario creado.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">disconnect
+connect celiagm/celiagm
+</code></pre></div><h4 id="crear-las-tablas-e-insertar-datos">Crear las tablas e insertar datos</h4>
+<p>Para ello vamos a utilizar un proyecto que hice en el primer año del ciclo que se trata de una base de datos sobre una escuela infantil.</p>
+<p>La puedes encontrar <a href="https://github.com/CeliaGMqrz/utilidades/blob/main/fase2.sql">aquí</a></p>
+<p>Nota: Cuando consultes &lsquo;select * from cat&rsquo; debes de tener 12 filas seleccionadas, es decir 12 tablas.</p>
+<p>Consulta de prueba:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">SQL&gt; select nif from relaciones where relacion = <span style="color:#e6db74">&#39;Padre&#39;</span>;
+
+NIF
+---------
+41255644C
+47845789X
+K4747894D
+47458759P
+20011122Q
+Y4005598D
+47789222B
+42556648E
+20045444H
+K4747894D
+26603366E
+
 </code></pre></div>]]></content>
         </item>
         
