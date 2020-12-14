@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Dec 2020 15:28:36 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Dec 2020 20:18:59 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalación y configuración inicial de OpenLDAP</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</link>
+      <pubDate>Mon, 14 Dec 2020 20:18:59 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</guid>
+      <description>Descripción:
+Realiza la instalación y configuración básica de OpenLDAP en frestón utilizando como base el nombre DNS asignado.
+Crea dos unidades organizativas, una para personas y otra para grupos.
+ 1. Conceptos previos LDAP corresponde a Lightweight Directory Access Protocol, que significa protocolo ligero de acceso a directorios. Es decir, se trata de un protocolo que permite acceder a través de la red a información guardada en directorios en un sevidor.</description>
+    </item>
+    
     <item>
       <title>Instalación de un servidor Oracle database 19c sobre Linux 8</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</link>
@@ -110,15 +122,6 @@ Pasos a realizar:
       <description>Ejercicio planteado:
 Al ser linux un kérnel libre, es posible descargar el código fuente, configurarlo y comprimirlo. Además, esta tarea a priori compleja, es más sencilla de lo que parece gracias a las herramientas disponibles.
 En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles.</description>
-    </item>
-    
-    <item>
-      <title>Instalación de un entorno LAMP</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</link>
-      <pubDate>Wed, 11 Nov 2020 19:21:43 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-de-un-entorno-lamp/</guid>
-      <description>Instalación de un servidor LAMP Crea una instancia de vagrant basado en un box de debian o ubuntu  Primero creamos el fichero Vagrantfile  nano Vagrantfile  Le añadimos estas lineas para configurar nuestra máquina debian  # -*- mode: ruby -*- # vi: set ft=ruby : Vagrant.configure(&amp;#34;2&amp;#34;) do |config| config.vm.box = &amp;#34;debian/buster64&amp;#34; config.vm.hostname = &amp;#34;debian-cms&amp;#34; config.vm.network :public_network, :bridge=&amp;gt;&amp;#34;enp5s0&amp;#34; end  Levantamos la máquina  vagrant up  Cuando esté lista entramos en la máquina por ssh  vagrant ssh  Una vez dentro le añadimos los repositorios esenciales y actualizamos la máquina  sudo su nano /etc/apt/sources.</description>
     </item>
     
   </channel>

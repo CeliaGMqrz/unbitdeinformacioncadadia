@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ldap on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/ldap/</link>
+    <description>Recent content in ldap on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 14 Dec 2020 20:18:59 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/ldap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalación y configuración inicial de OpenLDAP</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</link>
+      <pubDate>Mon, 14 Dec 2020 20:18:59 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</guid>
+      <description>Descripción:
+Realiza la instalación y configuración básica de OpenLDAP en frestón utilizando como base el nombre DNS asignado.
+Crea dos unidades organizativas, una para personas y otra para grupos.
+ 1. Conceptos previos LDAP corresponde a Lightweight Directory Access Protocol, que significa protocolo ligero de acceso a directorios. Es decir, se trata de un protocolo que permite acceder a través de la red a información guardada en directorios en un sevidor.</description>
+    </item>
+    
+  </channel>
+</rss>
