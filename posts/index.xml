@@ -76,9 +76,9 @@ Realiza la configuración del servicio que permita su gestión remota desde un e
 <p>Desafortunadamente la instalación no se lleva a cabo, se queda congelado y no podemos continuar. Posiblemente por un fallo relacionado con las redes suponiendo que estamos conectados a través de una VPN.</p>
 <p>Lo volvemos a intentar en el Centro, creamos una máquina virtual nueva con el mismo procedimiento y los mismos pasos efectuados y efectivamente desde allí podemos hacer la instalación, comprobamos que efectivamente la máquina tiene acceso a internet.</p>
 <p>Parte de la instalación de debian y comprobación de red</p>
-<p><a href="https://youtu.be/4riAUMLBVFc"><img src="/images/vmware/1.png" alt="video"></a></p>
+<p><a href="https://youtu.be/4riAUMLBVFc">Ver Video 1</a></p>
 <p>Comprobación de que la máquina está actualizada y con acceso a la red</p>
-<p><a href="https://youtu.be/4riAUMLBVFc"><img src="/images/vmware/1.png" alt="video2"></a></p>
+<p><a href="https://youtu.be/4riAUMLBVFc">Ver Video 2</a></p>
 ]]></content>
         </item>
         
