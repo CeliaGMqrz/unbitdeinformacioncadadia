@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 14 Dec 2020 20:18:59 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Dec 2020 13:53:35 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Instalación y configuración básica de VMWare ESXi</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-b%C3%A1sica-de-vmware-esxi/</link>
+      <pubDate>Tue, 22 Dec 2020 13:53:35 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-b%C3%A1sica-de-vmware-esxi/</guid>
+      <description>Descripción de la tarea: Utiliza el servidor físico que se te haya asignado e instala la versión adecuada del sistema de virtualización VMWare ESXi (ten en cuenta que recibe diferentes denominaciones comerciales, pero nos referimos al sistema de virtualización de VMWare que proporciona virtualización de alto rendimiento mediante la técnica de la paravirtualización).
+Realiza la configuración del servicio que permita su gestión remota desde un equipo cliente e instala en tu equipo la aplicación cliente que permita gestionar remotamente el hipervisor.</description>
+    </item>
+    
     <item>
       <title>Instalación y configuración inicial de OpenLDAP</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</link>
@@ -111,17 +121,6 @@ OpenSSL permite con una serie de comandos crear una autoridad de certificación 
 Pasos a realizar:
 1. Creación de la red interna:  Nombre red interna de  10.0.1.0/24  2. Creación de las instancias   Dulcinea:
  Debian Buster sobre volumen de 10GB con sabor m1.</description>
-    </item>
-    
-    <item>
-      <title>Compilación de un kernel linux a medida</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</link>
-      <pubDate>Sun, 15 Nov 2020 20:07:29 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/compilaci%C3%B3n-de-un-kernel-linux-a-medida/</guid>
-      <description>Ejercicio planteado:
-Al ser linux un kérnel libre, es posible descargar el código fuente, configurarlo y comprimirlo. Además, esta tarea a priori compleja, es más sencilla de lo que parece gracias a las herramientas disponibles.
-En esta tarea debes tratar de compilar un kérnel completamente funcional que reconozca todo el hardware básico de tu equipo y que sea a la vez lo más pequeño posible, es decir que incluya un vmlinuz lo más pequeño posible y que incorpore sólo los módulos imprescindibles.</description>
     </item>
     
   </channel>
