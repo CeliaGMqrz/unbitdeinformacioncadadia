@@ -167,62 +167,62 @@ Realiza la configuración del servicio que permita su gestión remota desde un e
 <p>Instala una máquina virtual que tenga acceso a Internet. La corrección consistirá en comprobar el funcionamiento de dicha máquina virtual.</p>
 <h2 id="instalación-de-vmware-esxi">Instalación de VMWare ESXi</h2>
 <p>Obtenemos la imagen de VMWare para nuestro servidor:</p>
-<p><a href="https://www.dell.com/support/home/es-es/drivers/driversdetails?driverid=5yc4t">descargar ISO VMWare ESXi</a></p>
+<p><a href="https://unbitdeinformacioncadadia.netlify.app/images/vmware/https://www.dell.com/support/home/es-es/drivers/driversdetails?driverid=5yc4t">descargar ISO VMWare ESXi</a></p>
 <p>Grabamos la ISO en un usb y lo introducimos en el servidor.</p>
 <p>Reinciamos y configuramos el servidor para que arranque por el usb, a continuación realizamos la instalación. Es una instalación bastante simple así que pasamos a la configuración. Lo único relevante aquí es tener en cuenta las credenciales que nos va a pedir para su administración.</p>
 <p>Nota: Es importante tener activado en la BIOS la opción de Virtualización, sin este requisito no se podrá instalar y nos surgirá el siguiente error.</p>
-<p><img src="requisito.jpeg" alt="requisito.jpeg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/requisito.jpeg" alt="requisito.jpeg"></p>
 <p>Nos pedirá la confirmación para instalar sobre el disco</p>
-<p><img src="confirm.jpeg" alt="confirm.jpeg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/confirm.jpeg" alt="confirm.jpeg"></p>
 <p>Vemos que se ha instalado correctamente</p>
-<p><img src="complete.jpg" alt="complete.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/complete.jpg" alt="complete.jpg"></p>
 <h2 id="configuración-de-vmware-desde-el-servidor">Configuración de VMWare desde el Servidor</h2>
 <p>Para configurar MVWare nos pedirá las credenciales que facilitamos en la instalación</p>
-<p><img src="credenciales.jpeg" alt="credenciales.jpeg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/credenciales.jpeg" alt="credenciales.jpeg"></p>
 <p>Le indicaremos una dirección IP estática, la cual será 172.22.221.68, anteriormente tenia la 172.22.221.63. Le hemos añadido 5 más para que podamos conectarnos a la máquina.</p>
-<p><img src="estatica.jpg" alt="estatica.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/estatica.jpg" alt="estatica.jpg"></p>
 <p>De forma que quedaría así</p>
-<p><img src="estatica1.jpg" alt="estatica1.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/estatica1.jpg" alt="estatica1.jpg"></p>
 <p>Nos aseguramos que está habilitado el ssh</p>
-<p><img src="ssh.jpg" alt="ssh.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/ssh.jpg" alt="ssh.jpg"></p>
 <p>Ahora reiniciamos el servidor, arrancando desde el disco duro donde se ha instalado el software y tendríamos lista la instalación para poder acceder remotamente desde nuestro equipo.</p>
 <h2 id="instalación-del-cliente-vsphere-client-en-windows10">Instalación del cliente vSphere Client en Windows10</h2>
 <p>Desde casa he accedido a través de la VPN. He instalado OpenVPN sobre Windows y he configurado el cliente para conectarme a la red del Centro.</p>
 <p>Accedemos desde el navegador a la dirección del servidor configurada en VMWare, la cual es <strong>172.22.221.68</strong>. Nos aparece lo siguiente:</p>
-<p><img src="vmw1.jpg" alt="vmw1.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw1.jpg" alt="vmw1.jpg"></p>
 <p>Aquí nos aparece el enlace para descargar el cliente vSphere, lo descargamos y lo instalamos sobre nuestro sistema.</p>
 <p>Cuando esté instalado lo abrimos, nos pedirá la ip del servidor y nuestras crenciales, cuando lo introducimos tendrá este aspecto.</p>
-<p><img src="credenciales.png" alt="credenciales.png"></p>
-<p><img src="vmw2.jpg" alt="vmw2.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/credenciales.png" alt="credenciales.png"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw2.jpg" alt="vmw2.jpg"></p>
 <h2 id="crear-máquina-virtual-en-vmware-a-través-del-cliente">Crear máquina virtual en VMWare a través del Cliente</h2>
 <p>Seleccionamos nuestro servidor y creamos la una máquina virtual nueva.</p>
-<p><img src="vmw5.jpg" alt="vmw5.jpg"></p>
-<p><img src="vmw3.jpg" alt="vmw3.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw5.jpg" alt="vmw5.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw3.jpg" alt="vmw3.jpg"></p>
 <p>Tenemos dos opciones de configuración, típica o avanzada, en la típica se configuran varios valores por defecto y en la avanada podemos indicar la ram que vamos a usar el número de cpu e hilos entre otras cosas. No es relevante qué vamos a elegir aquí para esta práctica.</p>
-<p><img src="vmw4.jpg" alt="vmw4.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw4.jpg" alt="vmw4.jpg"></p>
 <p>Nos pedirá el nombre que le vamos a poner a la máquina, en mi caso le he puesto xannan.</p>
-<p><img src="vmw6.jpg" alt="vmw6.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw6.jpg" alt="vmw6.jpg"></p>
 <p>Seleccionamos el almacenamiento</p>
-<p><img src="vmw7.jpg" alt="vmw7.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw7.jpg" alt="vmw7.jpg"></p>
 <p>Seleccionamos el sistema operativo que vamos a instalar en mi caso puse &lsquo;otro linux 64&rsquo;</p>
-<p><img src="vmw8.jpg" alt="vmw8.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw8.jpg" alt="vmw8.jpg"></p>
 <p>Dejamos por defecto la interfaz de red</p>
-<p><img src="vmw9.jpg" alt="vmw9.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw9.jpg" alt="vmw9.jpg"></p>
 <p>Dejamos por defecto los valores para crear el disco</p>
-<p><img src="vmw10.jpg" alt="vmw10.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/vmw10.jpg" alt="vmw10.jpg"></p>
 <p>Nos hará un resumen de la máquina que va a crear y le damos a &lsquo;Finish&rsquo; para finalizar.</p>
 <p>Ya tendríamos la máquina virtual creada</p>
-<p><img src="mv1.jpg" alt="mv1.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/mv1.jpg" alt="mv1.jpg"></p>
 <p>A continuación le vamos a insertar una iso que tenemos en el equipo local a través del cliente de esta forma. La máquina deberá de estar encendida en ese momento.</p>
-<p><img src="isodisk.jpg" alt="isodisk.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/isodisk.jpg" alt="isodisk.jpg"></p>
 <p>Reiniciamos la máquina virtual para que arranque desde el cd con la iso e iniciará la instalación.</p>
-<p><img src="instalacion1.jpg" alt="instalacion1.jpg"></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/instalacion1.jpg" alt="instalacion1.jpg"></p>
 <p>Desafortunadamente la instalación no se lleva a cabo, se queda congelado y no podemos continuar. Posiblemente por un fallo relacionado con las redes suponiendo que estamos conectados a través de una VPN.</p>
 <p>Lo volvemos a intentar en el Centro, creamos una máquina virtual nueva con el mismo procedimiento y los mismos pasos efectuados y efectivamente desde allí podemos hacer la instalación, comprobamos que efectivamente la máquina tiene acceso a internet.</p>
 <p>Parte de la instalación de debian y comprobación de red</p>
-<p><a href="https://youtu.be/4riAUMLBVFc"><img src="captura12.png" alt="video"></a></p>
+<p><a href="https://youtu.be/4riAUMLBVFc"><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/1.png" alt="video"></a></p>
 <p>Comprobación de que la máquina está actualizada y con acceso a la red</p>
-<p><a href="https://youtu.be/4riAUMLBVFc"><img src="captura12.png" alt="video2"></a></p>
+<p><a href="https://youtu.be/4riAUMLBVFc"><img src="https://unbitdeinformacioncadadia.netlify.app/images/vmware/1.png" alt="video2"></a></p>
 
       </div>
     </article>
