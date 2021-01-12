@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 22 Dec 2020 13:53:35 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jan 2021 19:49:10 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configurar un DNS con bind9</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/</link>
+      <pubDate>Tue, 12 Jan 2021 19:49:10 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/</guid>
+      <description>Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
+  Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior</description>
+    </item>
+    
     <item>
       <title>Instalación y configuración básica de VMWare ESXi</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-b%C3%A1sica-de-vmware-esxi/</link>
@@ -109,18 +119,6 @@ Realizar la migración de la aplicación drupal que tienes instalada en el entor
 Crear su autoridad certificadora (generar el certificado digital de la CA). Mostrar el fichero de configuración de la AC.
 Conocimientos previos:
 OpenSSL permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.</description>
-    </item>
-    
-    <item>
-      <title>Instalación y configuración inicial de los servidores</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/</link>
-      <pubDate>Wed, 18 Nov 2020 18:22:12 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/</guid>
-      <description>En esta tarea se va a crear el escenario de trabajo que se va a usar durante todo el curso, que va a constar inicialmente de 3 instancias con nombres relacionados con el libro &amp;ldquo;Don Quijote de la Mancha&amp;rdquo;.
-Pasos a realizar:
-1. Creación de la red interna:  Nombre red interna de  10.0.1.0/24  2. Creación de las instancias   Dulcinea:
- Debian Buster sobre volumen de 10GB con sabor m1.</description>
     </item>
     
   </channel>

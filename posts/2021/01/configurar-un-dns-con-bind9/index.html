@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Celia García Márquez ">
+<meta name="description" content="Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
+  Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior" />
+<meta name="keywords" content=", dns, bind9" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/" />
+
+
+    <title>
+        
+            Configurar un DNS con bind9 :: Un bit de informacion cada día  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://unbitdeinformacioncadadia.netlify.app/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+    
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://unbitdeinformacioncadadia.netlify.app/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://unbitdeinformacioncadadia.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://unbitdeinformacioncadadia.netlify.app/favicon-16x16.png">
+    <link rel="manifest" href="https://unbitdeinformacioncadadia.netlify.app/site.webmanifest">
+    <link rel="mask-icon" href="https://unbitdeinformacioncadadia.netlify.app/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://unbitdeinformacioncadadia.netlify.app/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Configurar un DNS con bind9">
+<meta itemprop="description" content="Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
+  Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior">
+<meta itemprop="datePublished" content="2021-01-12T19:49:10+01:00" />
+<meta itemprop="dateModified" content="2021-01-12T19:49:10+01:00" />
+<meta itemprop="wordCount" content="2610">
+<meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+
+
+
+<meta itemprop="keywords" content="dns,bind9," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+
+<meta name="twitter:title" content="Configurar un DNS con bind9"/>
+<meta name="twitter:description" content="Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
+  Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior"/>
+
+
+
+    <meta property="og:title" content="Configurar un DNS con bind9" />
+<meta property="og:description" content="Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
+  Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/" />
+<meta property="og:image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
+<meta property="article:published_time" content="2021-01-12T19:49:10+01:00" />
+<meta property="article:modified_time" content="2021-01-12T19:49:10+01:00" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2021-01-12 19:49:10 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://unbitdeinformacioncadadia.netlify.app/posts/">Blog</a></li><li><a href="https://unbitdeinformacioncadadia.netlify.app/about/">Contacto</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        13 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/">Configurar un DNS con bind9</a>
+      </h1>
+
+      
+
+      <div class="post-content">
+        <h3 id="objetivo">Objetivo:</h3>
+<p>Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal <strong>gonzalonazareno.org</strong>, que se llamará <strong>tu_nombre.gonzalonazareno.org</strong>. A partir de este momento no será necesario la resolución estática en los servidores.</p>
+<ul>
+<li>
+<p>Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior</p>
+</li>
+<li>
+<p>Configura de forma adecuada todas las máquinas para que usen como servidor DNS a freston</p>
+</li>
+<li>
+<p>Indica al profesor el nombre de tu dominio para que pueda realizar la delegación en el servidor DNS principal papion-dns.</p>
+</li>
+</ul>
+<p>Comprueba que los servidores tienen configurados el nuevo nombre de dominio de forma adecuada después de volver a reiniciar el servidor (o tomar una nueva configuración DHCP). Para que el servidor tenga el FQDN debes tener configurado de forma correcta el parámetro domain y el parámetro search en el fichero /etc/resolv.conf, además debemos evitar que este fichero se sobreescriba con los datos que manda el servidor DHCP de OpenStack. Quizás sea buena idea mirar la configuración de cloud-init. Documenta la configuración que has tenido que modificar y muestra el contenido del fichero /etc/resolv.conf y la salida del comando hostname -f después de un reinicio.</p>
+<h3 id="instalación-de-bind9-y-su-configuración">Instalación de bind9 y su configuración</h3>
+<ul>
+<li>
+<p>El servidor DNS se llama freston.celia.gonzalonazareno.org y va a ser el servidor con autoridad para la zona celia.gonzalonazareno.org.</p>
+</li>
+<li>
+<p>El servidor debe resolver el nombre de todas las máquinas.</p>
+</li>
+<li>
+<p>El servidor debe resolver los distintos servicios (virtualhosh, servidor de base de datos, servido ldap, &hellip;).</p>
+</li>
+<li>
+<p>Debes determinar cómo vas a nombrar a dulcinea, para que seamos capaz de resolver la ip flotante y la ip fija. Para ello vamos a usar vistas en bind9.</p>
+</li>
+<li>
+<p>Debes considerar la posibilidad de hacer tres zonas de resolución inversa: para las redes 10.0.0.0/24, 10.0.1.0/24 y 10.0.2.0/24. (No vamos a crear la zona inversa para la red externa de ip flotantes). para resolver ip fijas y flotantes del cloud.</p>
+</li>
+</ul>
+<hr>
+<h2 id="1-instalación-del-servicio-bind9">1. Instalación del servicio bind9</h2>
+<ul>
+<li>Primero vamos a instalar el servicio bind9 en Freston</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install bind9
+</code></pre></div><h2 id="2-configuración-de-bind9">2. Configuración de bind9</h2>
+<p>El servidor DNS se va a configurar en un principio de la siguiente manera:</p>
+<ul>
+<li>El servidor DNS se llama freston.celia.gonzalonazareno.org y va a ser el servidor con autoridad para la zona celia.gonzalonazareno.org.</li>
+</ul>
+<p>Para ello vamos a editar el fichero <strong>/etc/hosts</strong> del servidor Freston</p>
+<p>Actualmente lo tenemos así para que resuelva nombres de forma estática</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">127.0.1.1 freston.celia.gonzalonazareno.org freston
+127.0.0.1 localhost
+10.0.1.6 dulcinea.celia.gonzalonazareno.org dulcinea
+10.0.1.11 sancho.celia.gonzalonazareno.org sancho
+10.0.2.4 quijote.celia.gonzalonazareno.org quijote
+</code></pre></div><p>Ahora vamos a dejar solo nuestro nombre ya que bind se encargará de la resolucion de nombres una vez esté configurado.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">127.0.1.1 freston.celia.gonzalonazareno.org freston
+127.0.0.1 localhost
+</code></pre></div><ul>
+<li>En el fichero de configuración <strong>/etc/bind/named.conf</strong> Comentamos la línea en la que están definidas las zonas por defecto, ya que vamos a definirlas nosotros.</li>
+</ul>
+<h3 id="etcbindnamedconf"><code>/etc/bind/named.conf</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+// This is the primary configuration file <span style="color:#66d9ef">for</span> the BIND DNS server named.
+//
+// Please read /usr/share/doc/bind9/README.Debian.gz <span style="color:#66d9ef">for</span> information on the
+// structure of BIND configuration files in Debian, *BEFORE* you customize
+// this configuration file.
+//
+// If you are just adding zones, please <span style="color:#66d9ef">do</span> that in /etc/bind/named.conf.local
+
+include <span style="color:#e6db74">&#34;/etc/bind/named.conf.options&#34;</span>;
+include <span style="color:#e6db74">&#34;/etc/bind/named.conf.local&#34;</span>;
+//include <span style="color:#e6db74">&#34;/etc/bind/named.conf.default-zones&#34;</span>;
+</code></pre></div><ul>
+<li>Ahora vamos a editar el fichero <strong>/etc/bind/named.conf.options</strong></li>
+</ul>
+<p>En este fichero se definen las opciones que le vamos a dar a nuestro servicio, de tal forma que permitiremos que las peticiones de todos los clientes puedan ser recursivas. Tambien permitiremos las consultas desde el exterior, la red interna, la red DMZ y la del DNS del centro. Además permitiremos guardar las consultas en caché para una obtención más rápida de las mismas.</p>
+<h3 id="etcbindnamedconfoptions"><code>/etc/bind/named.conf.options</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">allow-recursion <span style="color:#f92672">{</span> any; <span style="color:#f92672">}</span>;
+allow-query <span style="color:#f92672">{</span> 10.0.1.0/24; 10.0.2.0/24; 192.168.202.2; 172.22.0.0/15; <span style="color:#f92672">}</span>;
+allow-query-cache <span style="color:#f92672">{</span> any; <span style="color:#f92672">}</span>;
+</code></pre></div><h2 id="21configurar-las-vistas">2.1.Configurar las vistas</h2>
+<p>Necesitaremos vistas. Las necesitamos para tener zonas diferenciadas según de donde venga la consulta. Para ello tenemos que editar el fichero <strong>/etc/bind/named.conf.local</strong></p>
+<h3 id="etcbindnamedconflocal"><code>/etc/bind/named.conf.local</code></h3>
+<ul>
+<li>Vista para la red interna:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">view interna <span style="color:#f92672">{</span>
+        match-clients <span style="color:#f92672">{</span>10.0.1.0/24;<span style="color:#f92672">}</span>;
+        allow-recursion <span style="color:#f92672">{</span> any; <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;celia.gonzalonazareno.org&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.int.celia.gonzalonazareno.org&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;1.0.10.in-addr.arpa&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.1.0.10&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;2.0.10.in-addr.arpa&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.2.0.10&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        include <span style="color:#e6db74">&#34;/etc/bind/zones.rfc1918&#34;</span>;
+        include <span style="color:#e6db74">&#34;/etc/bind/named.conf.default-zones&#34;</span>;
+<span style="color:#f92672">}</span>;
+</code></pre></div><ul>
+<li>Vista para la red externa</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">view externa <span style="color:#f92672">{</span>
+        match-clients <span style="color:#f92672">{</span> 172.22.0.0/15; 192.168.202.2;<span style="color:#f92672">}</span>;
+        allow-recursion <span style="color:#f92672">{</span> any; <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;celia.gonzalonazareno.org&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.ext.celia.gonzalonazareno.org&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        include <span style="color:#e6db74">&#34;/etc/bind/zones.rfc1918&#34;</span>;
+        include <span style="color:#e6db74">&#34;/etc/bind/named.conf.default-zones&#34;</span>;
+<span style="color:#f92672">}</span>;
+</code></pre></div><ul>
+<li>Vista para la red DMZ</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">view dmz <span style="color:#f92672">{</span>
+        match-clients <span style="color:#f92672">{</span>10.0.2.0/24;<span style="color:#f92672">}</span>;
+        allow-recursion <span style="color:#f92672">{</span> any; <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;celia.gonzalonazareno.org&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.dmz.celia.gonzalonazareno.org&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;1.0.10.in-addr.arpa&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.1.0.10&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        zone <span style="color:#e6db74">&#34;2.0.10.in-addr.arpa&#34;</span>
+        <span style="color:#f92672">{</span>
+                type master;
+                file <span style="color:#e6db74">&#34;/var/cache/bind/db.2.0.10&#34;</span>;
+        <span style="color:#f92672">}</span>;
+
+        include <span style="color:#e6db74">&#34;/etc/bind/zones.rfc1918&#34;</span>;
+        include <span style="color:#e6db74">&#34;/etc/bind/named.conf.default-zones&#34;</span>;
+<span style="color:#f92672">}</span>;
+</code></pre></div><ul>
+<li>Vamos a crear las zonas una vez tenemos listas las vistas, para ello copiamos el fichero &lsquo;vacio&rsquo; y creamos los ficheros nuevos para cada zona.</li>
+</ul>
+<h2 id="22-crear-zonas">2.2. Crear zonas</h2>
+<h3 id="zona-para-la-red-interna"><strong>Zona para la red interna</strong></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo cp /etc/bind/db.empty /var/cache/bind/db.int.celia.gonzalonazareno.org
+
+</code></pre></div><p>Editamos el fichero de tal forma</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /var/cache/bind/db.int.celia.gonzalonazareno.org 
+</code></pre></div><h3 id="etcbinddbintceliagonzalonazarenoorg-"><code>/etc/bind/db.int.celia.gonzalonazareno.org </code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">; BIND reverse data file <span style="color:#66d9ef">for</span> empty rfc1918 zone
+;
+; DO NOT EDIT THIS FILE - it is used <span style="color:#66d9ef">for</span> multiple zones.
+; Instead, copy it, edit named.conf, and use that copy.
+;
+$TTL    <span style="color:#ae81ff">86400</span>
+@       IN      SOA     freston.celia.gonzalonazareno.org. root.localhost. <span style="color:#f92672">(</span>
+                              <span style="color:#ae81ff">1</span>         ; Serial
+                         <span style="color:#ae81ff">604800</span>         ; Refresh
+                          <span style="color:#ae81ff">86400</span>         ; Retry
+                        <span style="color:#ae81ff">2419200</span>         ; Expire
+                          <span style="color:#ae81ff">86400</span> <span style="color:#f92672">)</span>       ; Negative Cache TTL
+;
+@       IN      NS      freston.celia.gonzalonazareno.org.
+$ORIGIN celia.gonzalonazareno.org.
+freston  IN     A       10.0.1.2
+dulcinea IN     A       10.0.1.6
+sancho   IN     A       10.0.1.11
+quijote  IN     A       10.0.2.4
+www      IN     CNAME   quijote
+bd       IN     CNAME   sancho
+</code></pre></div><h3 id="zona-inversa-para-la-red-interna"><strong>Zona inversa para la red interna</strong></h3>
+<p>Podemos usar como plantilla /etc/bind/db.127</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/bind/db.1.0.10 
+</code></pre></div><h3 id="etcbinddb1010-"><code>/etc/bind/db.1.0.10 </code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">;
+; BIND reverse data file <span style="color:#66d9ef">for</span> local loopback interface
+;
+$TTL    <span style="color:#ae81ff">604800</span>
+@       IN      SOA     freston.celia.gonzalonazareno.org. root.localhost. <span style="color:#f92672">(</span>
+                              <span style="color:#ae81ff">1</span>         ; Serial
+                         <span style="color:#ae81ff">604800</span>         ; Refresh
+                          <span style="color:#ae81ff">86400</span>         ; Retry
+                        <span style="color:#ae81ff">2419200</span>         ; Expire
+                         <span style="color:#ae81ff">604800</span> <span style="color:#f92672">)</span>       ; Negative Cache TTL
+;
+@       IN      NS      freston.celia.gonzalonazareno.org.
+$ORIGIN 1.0.10.in-addr.arpa.
+<span style="color:#ae81ff">2</span>   IN      PTR     freston.celia.gonzalonazareno.org.
+<span style="color:#ae81ff">6</span>   IN      PTR     dulcinea.celia.gonzalonazareno.org.
+<span style="color:#ae81ff">11</span>  IN      PTR     sancho.celia.gonzalonazareno.org.
+
+</code></pre></div><h3 id="zona-para-la-red-dmz"><strong>Zona para la red DMZ</strong></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo cp db.int.celia.gonzalonazareno.org db.dmz.celia.gonzalonazareno.org
+sudo nano db.dmz.celia.gonzalonazareno.org
+</code></pre></div><h3 id="etcbinddbdmzceliagonzalonazarenoorg-"><code>/etc/bind/db.dmz.celia.gonzalonazareno.org </code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">; BIND reverse data file <span style="color:#66d9ef">for</span> empty rfc1918 zone
+;
+; DO NOT EDIT THIS FILE - it is used <span style="color:#66d9ef">for</span> multiple zones.
+; Instead, copy it, edit named.conf, and use that copy.
+;
+$TTL    <span style="color:#ae81ff">86400</span>
+@       IN      SOA     freston.celia.gonzalonazareno.org. root.localhost. <span style="color:#f92672">(</span>
+                              <span style="color:#ae81ff">1</span>         ; Serial
+                         <span style="color:#ae81ff">604800</span>         ; Refresh
+                          <span style="color:#ae81ff">86400</span>         ; Retry
+                        <span style="color:#ae81ff">2419200</span>         ; Expire
+                          <span style="color:#ae81ff">86400</span> <span style="color:#f92672">)</span>       ; Negative Cache TTL
+;
+@       IN      NS      freston.celia.gonzalonazareno.org.
+$ORIGIN celia.gonzalonazareno.org.
+freston  IN     A       10.0.1.2
+dulcinea IN     A       10.0.1.6
+sancho   IN     A       10.0.1.11
+quijote  IN     A       10.0.2.4
+www      IN     CNAME   quijote
+bd       IN     CNAME   sancho
+</code></pre></div><h3 id="zona-inversa-para-la-red-dmz"><strong>Zona inversa para la red DMZ</strong></h3>
+<h3 id="etcbinddb2010--"><code>/etc/bind/db.2.0.10  </code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">;
+; BIND reverse data file <span style="color:#66d9ef">for</span> local loopback interface
+;
+$TTL    <span style="color:#ae81ff">604800</span>
+@       IN      SOA     freston.celia.gonzalonazareno.org. root.localhost. <span style="color:#f92672">(</span>
+                              <span style="color:#ae81ff">1</span>         ; Serial
+                         <span style="color:#ae81ff">604800</span>         ; Refresh
+                          <span style="color:#ae81ff">86400</span>         ; Retry
+                        <span style="color:#ae81ff">2419200</span>         ; Expire
+                         <span style="color:#ae81ff">604800</span> <span style="color:#f92672">)</span>       ; Negative Cache TTL
+;
+@       IN      NS      freston.celia.gonzalonazareno.org.
+$ORIGIN 2.0.10.in-addr.arpa.
+<span style="color:#ae81ff">4</span>   IN      PTR     quijote.celia.gonzalonazareno.org.
+</code></pre></div><h3 id="zona-externa"><strong>Zona externa</strong></h3>
+<h3 id="etcbinddbextceliagonzalonazarenoorg"><code>/etc/bind/db.ext.celia.gonzalonazareno.org</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">; BIND reverse data file <span style="color:#66d9ef">for</span> empty rfc1918 zone
+;
+; DO NOT EDIT THIS FILE - it is used <span style="color:#66d9ef">for</span> multiple zones.
+; Instead, copy it, edit named.conf, and use that copy.
+;
+$TTL    <span style="color:#ae81ff">86400</span>
+@       IN      SOA     dulcinea.celia.gonzalonazareno.org. root.localhost. <span style="color:#f92672">(</span>
+                              <span style="color:#ae81ff">1</span>         ; Serial
+                         <span style="color:#ae81ff">604800</span>         ; Refresh
+                          <span style="color:#ae81ff">86400</span>         ; Retry
+                        <span style="color:#ae81ff">2419200</span>         ; Expire
+                          <span style="color:#ae81ff">86400</span> <span style="color:#f92672">)</span>       ; Negative Cache TTL
+;
+@       IN      NS      dulcinea.celia.gonzalonazareno.org.
+$ORIGIN celia.gonzalonazareno.org.
+dulcinea IN     A       172.22.200.222
+www      IN     CNAME   dulcinea
+
+</code></pre></div><blockquote>
+<p>No necesitamos zona inversa para la red externa.</p>
+</blockquote>
+<p><strong>IMPORTANTE!!</strong></p>
+<p>Editar el fichero <strong>/etc/hosts</strong> de cada máquina e indicar el servidor de dns</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nameserver 10.0.1.2
+search celia.gonzalonazareno.org
+</code></pre></div><h2 id="3-regla-dnat-en-dulcinea">3. Regla DNAT en Dulcinea</h2>
+<p>Una regla DNAT cambia la dirección destino de un paquete. Funciona comom el Port de Forwarding.</p>
+<p>Le vamos a decir que añada una regla dnat, indicando que el tráfico que venga por el puerto 53 y la interfaz eth0 lo redirija a la interfaz eth1 (10.0.1.6) al puerto 53, cambiado la dirección destino de ese tráfico para que se puedan realizar las consultas desde fuera al dns que tenemos en el interior.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -t nat -A PREROUTING -p udp --dport <span style="color:#ae81ff">53</span> -i eth0 -j DNAT --to 10.0.1.2:53
+</code></pre></div><p>Comprobamos que la regla se ha añadido correctamente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -L -nv
+Chain PREROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination         
+   <span style="color:#ae81ff">21</span>  <span style="color:#ae81ff">2122</span> DNAT       udp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            udp dpt:53 to:10.0.1.2:53
+
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain POSTROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination         
+ <span style="color:#ae81ff">1466</span>  112K MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0           
+  <span style="color:#ae81ff">428</span> <span style="color:#ae81ff">30576</span> MASQUERADE  all  --  *      eth0    10.0.2.0/24          0.0.0.0/0           
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination   
+</code></pre></div><h2 id="4-consultas">4. CONSULTAS</h2>
+<p>Entrega el resultado de las siguientes consultas desde un cliente interno a nuestra red y otro externo:</p>
+<ul>
+<li>El servidor DNS con autoridad sobre la zona del dominio tu_nombre.gonzalonazareno.org</li>
+</ul>
+<h4 id="cliente-interno">Cliente interno:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ dig ns celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; ns celia.gonzalonazareno.org
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">64888</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: 8559e5d7dd18224732b6c17b5ffb621ecaa6ca73d21b38c5 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;celia.gonzalonazareno.org.	IN	NS
+
+;; ANSWER SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	freston.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+freston.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.2
+
+;; Query time: <span style="color:#ae81ff">1</span> msec
+;; SERVER: 10.0.1.2#53<span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>
+;; WHEN: Sun Jan <span style="color:#ae81ff">10</span> 21:22:54 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">120</span>
+
+</code></pre></div><h4 id="cliente-externo">Cliente externo:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ dig @172.22.200.222 ns celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; @172.22.200.222 ns celia.gonzalonazareno.org
+; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">62993</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: 6826810ba15b1058052ad0ad5ffdbe8b28a1029fabee5c20 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;celia.gonzalonazareno.org.	IN	NS
+
+;; ANSWER SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	dulcinea.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+dulcinea.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	172.22.200.222
+
+;; Query time: <span style="color:#ae81ff">88</span> msec
+;; SERVER: 172.22.200.222#53<span style="color:#f92672">(</span>172.22.200.222<span style="color:#f92672">)</span>
+;; WHEN: mar ene <span style="color:#ae81ff">12</span> 16:21:47 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">121</span>
+
+</code></pre></div><ul>
+<li>La dirección IP de dulcinea.</li>
+</ul>
+<h4 id="cliente-interno-1">Cliente interno:</h4>
+<p>Desde el cliente interno obtenemos la dirección ip de dulcinea correspondiente a la red desde la que preguntamos internamente.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@sancho:/home/ubuntu# dig dulcinea.celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; dulcinea.celia.gonzalonazareno.org
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">29638</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: 65c55cf8c6f45eea90576a2b5ffcae73f7cb8e54aa7baac7 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;dulcinea.celia.gonzalonazareno.org. IN	A
+
+;; ANSWER SECTION:
+dulcinea.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.6
+
+;; AUTHORITY SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	freston.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+freston.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.2
+
+;; Query time: <span style="color:#ae81ff">0</span> msec
+;; SERVER: 10.0.1.2#53<span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>
+;; WHEN: Mon Jan <span style="color:#ae81ff">11</span> 21:00:51 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">145</span>
+
+</code></pre></div><h4 id="cliente-externo-1">Cliente externo:</h4>
+<p>Como podemos comprobar nos da la ip flotante de dulcinea ya que estamos preguntando desde un cliente externo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ dig @172.22.200.222 dulcinea.celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; @172.22.200.222 dulcinea.celia.gonzalonazareno.org
+; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">63671</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">1</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: 92d96ff1c492f1fef7751e095ffdbf629b7f9f966a88d817 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;dulcinea.celia.gonzalonazareno.org. IN	A
+
+;; ANSWER SECTION:
+dulcinea.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	172.22.200.222
+
+;; AUTHORITY SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	dulcinea.celia.gonzalonazareno.org.
+
+;; Query time: <span style="color:#ae81ff">85</span> msec
+;; SERVER: 172.22.200.222#53<span style="color:#f92672">(</span>172.22.200.222<span style="color:#f92672">)</span>
+;; WHEN: mar ene <span style="color:#ae81ff">12</span> 16:25:22 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">121</span>
+
+</code></pre></div><ul>
+<li>Una resolución de www.</li>
+</ul>
+<h4 id="cliente-interno-2">Cliente interno:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ dig www.celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; www.celia.gonzalonazareno.org
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">37621</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: aca3b042c7b7a507cb9e72615ffb628e2669239b2b833cb7 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;www.celia.gonzalonazareno.org.	IN	A
+
+;; ANSWER SECTION:
+www.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	CNAME	quijote.celia.gonzalonazareno.org.
+quijote.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.2.4
+
+;; AUTHORITY SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	freston.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+freston.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.2
+
+;; Query time: <span style="color:#ae81ff">1</span> msec
+;; SERVER: 10.0.1.2#53<span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>
+;; WHEN: Sun Jan <span style="color:#ae81ff">10</span> 21:24:46 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">162</span>
+
+</code></pre></div><h4 id="cliente-externo-2">Cliente externo:</h4>
+<p>Igualmente desde el cliente externo la respuesta es dulcinea con su ip flotante.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ dig @172.22.200.222 www.celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; @172.22.200.222 www.celia.gonzalonazareno.org
+; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">40115</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">1</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: 7039cbb23f22926f7f93def35ffdbedc6e6ccff4f6b729a5 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;www.celia.gonzalonazareno.org.	IN	A
+
+;; ANSWER SECTION:
+www.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	CNAME	dulcinea.celia.gonzalonazareno.org.
+dulcinea.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	172.22.200.222
+
+;; AUTHORITY SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	dulcinea.celia.gonzalonazareno.org.
+
+;; Query time: <span style="color:#ae81ff">87</span> msec
+;; SERVER: 172.22.200.222#53<span style="color:#f92672">(</span>172.22.200.222<span style="color:#f92672">)</span>
+;; WHEN: mar ene <span style="color:#ae81ff">12</span> 16:23:08 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">139</span>
+
+</code></pre></div><ul>
+<li>Un resolución inversa de IP fija en cada una de las redes. (Esta consulta sólo funcionará desde una máquina interna).</li>
+</ul>
+<h4 id="red-interna-10010">Red interna: 10.0.1.0:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ubuntu@sancho:~$ dig -x 10.0.1.6
+
+; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; -x 10.0.1.6
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">53123</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: c2a1b13108b08d9c4de459eb5ffdc107294d3d1779e913a7 <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;6.1.0.10.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+6.1.0.10.in-addr.arpa.	604800	IN	PTR	dulcinea.celia.gonzalonazareno.org.
+
+;; AUTHORITY SECTION:
+1.0.10.in-addr.arpa.	604800	IN	NS	freston.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+freston.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.2
+
+;; Query time: <span style="color:#ae81ff">0</span> msec
+;; SERVER: 10.0.1.2#53<span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>
+;; WHEN: Tue Jan <span style="color:#ae81ff">12</span> 16:32:23 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">164</span>
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ dig -x 10.0.1.11
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; -x 10.0.1.11
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">48242</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: f2ecd80d6d26eb4e9d7615ed5ffdc3a9dc29eb38e4fdad3d <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;11.1.0.10.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+11.1.0.10.in-addr.arpa.	604800	IN	PTR	sancho.celia.gonzalonazareno.org.
+
+;; AUTHORITY SECTION:
+1.0.10.in-addr.arpa.	604800	IN	NS	freston.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+freston.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.2
+
+;; Query time: <span style="color:#ae81ff">1</span> msec
+;; SERVER: 10.0.1.2#53<span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>
+;; WHEN: Tue Jan <span style="color:#ae81ff">12</span> 16:43:37 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">163</span>
+
+</code></pre></div><h4 id="red-dmz-10020">Red DMZ: 10.0.2.0:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ dig -x 10.0.2.4
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u2-Debian &lt;&lt;&gt;&gt; -x 10.0.2.4
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">1318</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: 80dec2a22e8cbb7a8a45db0f5ffdc352c0f141f3086c692f <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;4.2.0.10.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+4.2.0.10.in-addr.arpa.	604800	IN	PTR	quijote.celia.gonzalonazareno.org.
+
+;; AUTHORITY SECTION:
+2.0.10.in-addr.arpa.	604800	IN	NS	freston.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+freston.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	10.0.1.2
+
+;; Query time: <span style="color:#ae81ff">1</span> msec
+;; SERVER: 10.0.1.2#53<span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>
+;; WHEN: Tue Jan <span style="color:#ae81ff">12</span> 16:42:10 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">163</span>
+
+</code></pre></div><hr>
+<h2 id="servidor-web">Servidor Web</h2>
+<p>En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un servidor web apache. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones php-fpm). Entrega una captura de pantalla accediendo a <a href="http://www.tunombre.gonzalonazareno.org/info.php">www.tunombre.gonzalonazareno.org/info.php</a> donde se vea la salida del fichero info.php. Investiga la reglas DNAT de cortafuegos que tienes que configurar en dulcinea para, cuando accedemos a la IP flotante se acceda al servidor web.</p>
+<h2 id="servidor-de-base-de-datos">Servidor de base de datos</h2>
+<p>En sancho (Ubuntu) vamos a instalar un servidor de base de datos mariadb (bd.tu_nombre.gonzalonazareno.org). Entrega una prueba de funcionamiento donde se vea como se realiza una conexión a la base de datos desde quijote</p>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/dns/">dns</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/bind9/">bind9</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        2610 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          12/01/2021 19:49
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Configurar%20un%20DNS%20con%20bind9&amp;caption=Configurar%20un%20DNS%20con%20bind9&amp;canonicalUrl=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Configurar%20un%20DNS%20con%20bind9&amp;body=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f&amp;media=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f;description=Configurar%20un%20DNS%20con%20bind9" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f&amp;title=Configurar%20un%20DNS%20con%20bind9&amp;summary=Configurar%20un%20DNS%20con%20bind9&amp;source=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f&amp;resubmit=true&amp;title=Configurar%20un%20DNS%20con%20bind9" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f;title=Configurar%20un%20DNS%20con%20bind9" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Configurar%20un%20DNS%20con%20bind9%20https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f&amp;t=Configurar%20un%20DNS%20con%20bind9" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Configurar%20un%20DNS%20con%20bind9&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fconfigurar-un-dns-con-bind9%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h"></span>
+          <hr />
+        </div>
+
+        <div class="pagination__buttons">
+          
+
+          
+            <span class="button next">
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-b%C3%A1sica-de-vmware-esxi/">
+                <span class="button__text">Instalación y configuración básica de VMWare ESXi</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2021</span>
+            
+                <span><a href="https://unbitdeinformacioncadadia.netlify.app/">Celia García Márquez</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://unbitdeinformacioncadadia.netlify.app/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
