@@ -20,7 +20,8 @@
   Modificación del escenario
   Actualización de Centos7 a Centos8
   1. Descripción de la tarea: En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un servidor web apache. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones** php-fpm**).</description>
-            <content type="html"><![CDATA[<p>Este artículo trata sobre la instalación de un servidor web Apache2 sobre Centos8 incluido dentro de un entorno previamente creado en un cloud. Las entradas anteriores son las siguientes:</p>
+            <content type="html"><![CDATA[<p><img src="/images/dns/banner.jpg" alt="banner.jpg"></p>
+<p>Este artículo trata sobre la instalación de un servidor web Apache2 sobre Centos8 incluido dentro de un entorno previamente creado en un cloud. Las entradas anteriores son las siguientes:</p>
 <ul>
 <li>
 <p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/">Instalación inicial de los servidores</a></p>
@@ -58,7 +59,7 @@
            └─38527 /usr/sbin/httpd -DFOREGROUND
 
 Jan <span style="color:#ae81ff">12</span> 17:21:47 quijote systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Starting The Apache HTTP Server...
-</code></pre></div><h2 id="4-abrir-puerto-443-para-servir-https">4. Abrir puerto 443 para servir https</h2>
+</code></pre></div><h2 id="4-configurar-el-firewall">4. Configurar el firewall</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo firewall-cmd --permanent --add-service<span style="color:#f92672">=</span>https
 sudo firewall-cmd --zone<span style="color:#f92672">=</span>public --permanent --add-service<span style="color:#f92672">=</span>http
 sudo firewall-cmd --reload
@@ -144,8 +145,31 @@ Chain POSTROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style=
 
 Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
  pkts bytes target     prot opt in     out     source               destination  
-</code></pre></div><p>Comprobamos que podemos acceder a la web</p>
+</code></pre></div><p>Nos aseguramos que en nuestra máquina física tenemos en el /etc/resolv.conf el servidor dns con la ip de dulcinea y la dirección del sitio web asociada la ip de dulcinea en el /etc/hosts, ya que no estamos conectando desde casa.</p>
+<p>Comprobamos que podemos acceder a la web</p>
 <p><img src="/images/dns/web.jpeg" alt="web.jpeg"></p>
+<h3 id="instalación-de-php-fpm">Instalación de php-fpm</h3>
+<p>Para ello debemos ejecutar lo siguiente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dnf install php php-fpm  php-gd php-mysqlnd
+</code></pre></div><p>Habilitamos e iniciamos el servicio</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ sudo systemctl enable php-fpm
+Created symlink /etc/systemd/system/multi-user.target.wants/php-fpm.service → /usr/lib/systemd/system/php-fpm.service.
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ sudo systemctl start php-fpm
+</code></pre></div><p>Ahora tenemos que editar el fichero de configuración de nuestro virtualhost para poder servir php, le agregamos lo siguiente:</p>
+<p><code>/etc/httpd/sites-available/celia.gonzalonazareno.org.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&lt;Proxy <span style="color:#e6db74">&#34;unix:/run/php-fpm/www.sock|fcgi://php-fpm&#34;</span>&gt;
+        ProxySet disablereuse<span style="color:#f92672">=</span>off
+&lt;/Proxy&gt;
+
+&lt;FilesMatch <span style="color:#ae81ff">\.</span>php$&gt;
+        SetHandler proxy:fcgi://php-fpm
+&lt;/FilesMatch&gt;
+</code></pre></div><p>Una vez modificado el archivo tenemos que crear un fichero .php indispensable para ver que funciona</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /var/www/iesgn/info.php
+</code></pre></div><p><code>info.php</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&lt;?php phpinfo<span style="color:#f92672">()</span>; ?&gt;
+</code></pre></div><p>Comprobamos que funciona</p>
+<p><img src="/images/dns/info.png" alt="info.png"></p>
 ]]></content>
         </item>
         
