@@ -57,7 +57,7 @@ sudo apt-get install software-properties-common sudo apt-key adv --fetch-keys &#
 sudo mysql_secure_installation ubuntu@sancho:~$ sudo mysql_secure_installation NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB SERVERS IN PRODUCTION USE!">
 <meta itemprop="datePublished" content="2021-01-13T14:51:48+01:00" />
 <meta itemprop="dateModified" content="2021-01-13T14:51:48+01:00" />
-<meta itemprop="wordCount" content="1110">
+<meta itemprop="wordCount" content="1120">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/"/>
 
 
@@ -279,7 +279,8 @@ Jan <span style="color:#ae81ff">13</span> 16:30:34 sancho /etc/mysql/debian-star
 Jan <span style="color:#ae81ff">13</span> 16:30:34 sancho /etc/mysql/debian-start<span style="color:#f92672">[</span>7331<span style="color:#f92672">]</span>: Phase 7/7: Running <span style="color:#e6db74">&#39;FLUSH PRIVILEGES&#39;</span>
 Jan <span style="color:#ae81ff">13</span> 16:30:34 sancho /etc/mysql/debian-start<span style="color:#f92672">[</span>7331<span style="color:#f92672">]</span>: OK
 
-</code></pre></div><p>Ahora ya podemos acceder a mysql, crear un usuario que tendrá acceso remotamente desde quijote (10.0.2.4) a la base de datos alojada en Sancho.</p>
+</code></pre></div><h3 id="2-configurar-mariadb-para-acceder-remotamente">2. Configurar mariadb para acceder remotamente</h3>
+<p>Ahora ya podemos acceder a mysql, crear un usuario que tendrá acceso remotamente desde quijote (10.0.2.4) a la base de datos alojada en Sancho.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ubuntu@sancho:~$ sudo mysql -u root -p
 Enter password: 
 Welcome to the MariaDB monitor.  Commands end with ; or <span style="color:#ae81ff">\g</span>.
@@ -319,7 +320,8 @@ bind-address            <span style="color:#f92672">=</span> 0.0.0.0
 
 </code></pre></div><p>Reiniciamos el servicio</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo systemctl restart mariadb
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ mysql -u celia -p -h bd.celia.gonzalonazareno.org
+</code></pre></div><h3 id="3-prueba-de-funcionamiento">3. Prueba de funcionamiento</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ mysql -u celia -p -h bd.celia.gonzalonazareno.org
 Enter password: 
 Welcome to the MariaDB monitor.  Commands end with ; or <span style="color:#ae81ff">\g</span>.
 Your MariaDB connection id is <span style="color:#ae81ff">36</span>
@@ -436,7 +438,7 @@ MariaDB <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]<
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        1110 Words
+        1120 Words
       </p>
 
       <p>
