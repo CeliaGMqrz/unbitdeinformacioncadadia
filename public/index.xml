@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 13 Jan 2021 11:36:08 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jan 2021 14:51:48 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Servidor de base de datos. MariaDB en Ubuntu</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</link>
+      <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</guid>
+      <description>En sancho (Ubuntu) vamos a instalar un servidor de base de datos mariadb (bd.celia.gonzalonazareno.org).
+1. Instalación de mariadb en Ubuntu Antes de nada tendremos que actualizar la paquetería
+sudo apt-get update sudo apt-get upgrade Instalamos mysql agregando el repositorio
+sudo apt-get install software-properties-common sudo apt-key adv --fetch-keys &amp;#39;https://mariadb.org/mariadb_release_signing_key.asc&amp;#39; sudo add-apt-repository &amp;#39;deb [arch=amd64,arm64,ppc64el] https://mirror.one.com/mariadb/repo/10.4/ubuntu focal main&amp;#39; sudo apt install mariadb-server Procederemos a la instalación segura de mysql
+sudo mysql_secure_installation ubuntu@sancho:~$ sudo mysql_secure_installation NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB SERVERS IN PRODUCTION USE!</description>
+    </item>
+    
     <item>
       <title>Servidor Web Apache2 (httpd) en Centos8</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</link>
@@ -109,17 +122,6 @@ yum install yum-utils -y Resolvemos los paquetes RPM, de forma que, rpmconf se e
       <description>OBJETIVO:
 Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
  1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal.</description>
-    </item>
-    
-    <item>
-      <title>Instalar Openstackclient y deshabilitar la seguridad de puertos</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/</link>
-      <pubDate>Thu, 19 Nov 2020 19:31:53 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalar-openstackclient-y-deshabilitar-la-seguridad-de-puertos/</guid>
-      <description>Necesitamos instalar Openstackclient, para ello lo vamos hacer desde un entorno virtual para no comprometer la paquetería de nuestro sistema, ya que no es necesario para nuestro sistema actualmente.
- Recordamos como creamos un entorno virtual con venv
- Instalamos el paquete necesario para instalar módulos:  apt-get install python3-venv  Desde el usuario sin privilegios podemos crear un entorno virtual con python3:  python3 -m venv entorno  Activar y desactivar el entorno  source entorno/bin/activate (entorno)$ deactivate  Usando el entorno virtual creado previamente, vamos a instalar el paquete Openstackclient (necesitaremos la libreria de python3).</description>
     </item>
     
   </channel>

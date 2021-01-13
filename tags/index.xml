@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 13 Jan 2021 11:36:08 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jan 2021 14:51:48 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mariadb</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/mariadb/</link>
+      <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/mariadb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/ubuntu/</link>
+      <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>apache</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</link>
@@ -77,24 +95,6 @@
       <pubDate>Tue, 08 Dec 2020 15:28:36 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/linux-8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>oracle database 19c</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/oracle-database-19c/</link>
-      <pubDate>Tue, 08 Dec 2020 15:28:36 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/oracle-database-19c/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DMZ</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/dmz/</link>
-      <pubDate>Sat, 05 Dec 2020 13:21:43 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/dmz/</guid>
       <description></description>
     </item>
     

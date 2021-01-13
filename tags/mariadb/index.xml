@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mariadb on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/mariadb/</link>
+    <description>Recent content in mariadb on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 13 Jan 2021 14:51:48 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/mariadb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Servidor de base de datos. MariaDB en Ubuntu</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</link>
+      <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</guid>
+      <description>En sancho (Ubuntu) vamos a instalar un servidor de base de datos mariadb (bd.celia.gonzalonazareno.org).
+1. Instalación de mariadb en Ubuntu Antes de nada tendremos que actualizar la paquetería
+sudo apt-get update sudo apt-get upgrade Instalamos mysql agregando el repositorio
+sudo apt-get install software-properties-common sudo apt-key adv --fetch-keys &amp;#39;https://mariadb.org/mariadb_release_signing_key.asc&amp;#39; sudo add-apt-repository &amp;#39;deb [arch=amd64,arm64,ppc64el] https://mirror.one.com/mariadb/repo/10.4/ubuntu focal main&amp;#39; sudo apt install mariadb-server Procederemos a la instalación segura de mysql
+sudo mysql_secure_installation ubuntu@sancho:~$ sudo mysql_secure_installation NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB SERVERS IN PRODUCTION USE!</description>
+    </item>
+    
+  </channel>
+</rss>
