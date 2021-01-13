@@ -6,8 +6,148 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 12 Jan 2021 19:49:10 +0100</lastBuildDate>
+        <lastBuildDate>Wed, 13 Jan 2021 11:36:08 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Servidor Web Apache2 (httpd) en Centos8</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</link>
+            <pubDate>Wed, 13 Jan 2021 11:36:08 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</guid>
+            <description>Este artículo trata sobre la instalación de un servidor web Apache2 sobre Centos8 incluido dentro de un entorno previamente creado en un cloud. Las entradas anteriores son las siguientes:
+  Instalación inicial de los servidores
+  Modificación del escenario
+  Actualización de Centos7 a Centos8
+  1. Descripción de la tarea: En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un servidor web apache. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones** php-fpm**).</description>
+            <content type="html"><![CDATA[<p>Este artículo trata sobre la instalación de un servidor web Apache2 sobre Centos8 incluido dentro de un entorno previamente creado en un cloud. Las entradas anteriores son las siguientes:</p>
+<ul>
+<li>
+<p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/">Instalación inicial de los servidores</a></p>
+</li>
+<li>
+<p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./">Modificación del escenario</a></p>
+</li>
+<li>
+<p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/">Actualización de Centos7 a Centos8</a></p>
+</li>
+</ul>
+<h2 id="1-descripción-de-la-tarea">1. Descripción de la tarea:</h2>
+<p>En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un <strong>servidor web apache</strong>. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones** php-fpm**). Entrega una captura de pantalla accediendo a <a href="http://www.tunombre.gonzalonazareno.org/info.php">www.tunombre.gonzalonazareno.org/info.php</a> donde se vea la salida del fichero info.php. Investiga la reglas DNAT de cortafuegos que tienes que configurar en dulcinea para, cuando accedemos a la IP flotante se acceda al servidor web.</p>
+<h2 id="2-conceptos">2. Conceptos:</h2>
+<p>Si quieres ver una introducción de Apache 2.4 <a href="https://github.com/CeliaGMqrz/virtualhosting_apache/blob/main/introduccion_apache.md">esta es tu página</a>, antes de proceder con esta guía. En este repositorio se dan los conceptos básicos y las ventajas de usar Apache2, así como su instalación en Debian/Ubuntu y además una guía para crear virtualhosting con el mismo.</p>
+<h2 id="3-instalar-apache2">3. Instalar Apache2</h2>
+<p>Apache se encuetra disponible en los repositorios de CentOS, lo vamos a instalar con dnf</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dnf install httpd
+</code></pre></div><p>Lo iniciamos y comprobamos que está funcionando</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ sudo systemctl start httpd
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ sudo systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded <span style="color:#f92672">(</span>/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled<span style="color:#f92672">)</span>
+   Active: active <span style="color:#f92672">(</span>running<span style="color:#f92672">)</span> since Tue 2021-01-12 17:21:47 CET; 2s ago
+     Docs: man:httpd.service<span style="color:#f92672">(</span>8<span style="color:#f92672">)</span>
+ Main PID: <span style="color:#ae81ff">38523</span> <span style="color:#f92672">(</span>httpd<span style="color:#f92672">)</span>
+   Status: <span style="color:#e6db74">&#34;Started, listening on: port 80&#34;</span>
+    Tasks: <span style="color:#ae81ff">213</span> <span style="color:#f92672">(</span>limit: 2731<span style="color:#f92672">)</span>
+   Memory: 21.3M
+   CGroup: /system.slice/httpd.service
+           ├─38523 /usr/sbin/httpd -DFOREGROUND
+           ├─38524 /usr/sbin/httpd -DFOREGROUND
+           ├─38525 /usr/sbin/httpd -DFOREGROUND
+           ├─38526 /usr/sbin/httpd -DFOREGROUND
+           └─38527 /usr/sbin/httpd -DFOREGROUND
+
+Jan <span style="color:#ae81ff">12</span> 17:21:47 quijote systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Starting The Apache HTTP Server...
+</code></pre></div><h2 id="4-abrir-puerto-443-para-servir-https">4. Abrir puerto 443 para servir https</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo firewall-cmd --permanent --add-service<span style="color:#f92672">=</span>https
+sudo firewall-cmd --zone<span style="color:#f92672">=</span>public --permanent --add-service<span style="color:#f92672">=</span>http
+sudo firewall-cmd --reload
+</code></pre></div><h2 id="5-crear-virtualhost">5. Crear virtualhost</h2>
+<p>Creamos los directorios &lsquo;sites-enabled&rsquo; y &lsquo;sites-avaliable&rsquo; y le indicamos que vamos a tener nuestros virtualhost en esas carpetas</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mkdir /etc/httpd/sites-enabled
+sudo mkdir /etc/httpd/sites-available
+sudo nano /etc/httpd/conf/httpd.conf 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/httpd/conf/httpd.conf 
+</code></pre></div><p><code>/etc/httpd/conf/httpd.conf </code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">IncludeOptional sites-enabled/*.conf
+</code></pre></div><p>Creamos el documentroot y el html principal</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mkdir /var/www/iesgn
+sudo nano /var/www/iesgn/index.html
+</code></pre></div><p>Crearemos una carpeta para el log de manera que podamos ver los errores</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mkdir /var/www/iesgn/log
+</code></pre></div><p>Vemos los permisos que tiene el documenroot y nos aseguramos de que están correctos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ls -l /var/www/
+total <span style="color:#ae81ff">0</span>
+drwxr-xr-x. <span style="color:#ae81ff">2</span> root root  <span style="color:#ae81ff">6</span> Nov  <span style="color:#ae81ff">4</span> 04:23 cgi-bin
+drwxr-xr-x. <span style="color:#ae81ff">2</span> root root  <span style="color:#ae81ff">6</span> Nov  <span style="color:#ae81ff">4</span> 04:23 html
+drwxr-xr-x. <span style="color:#ae81ff">3</span> root root <span style="color:#ae81ff">35</span> Jan <span style="color:#ae81ff">13</span> 10:59 iesgn
+</code></pre></div><p>Creamos el fichero de configuración de nuestro virtualhost</p>
+<p><code>sudo nano /etc/httpd/sites-availble/gonzalonazareno.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"> &lt;VirtualHost *:80&gt;
+    ServerName www.celia.gonzalonazareno.org
+    DocumentRoot /var/www/iesgn     
+    ErrorLog /var/www/iesgn/log/error.log
+    CustomLog /var/www/iesgn/log/requests.log combined
+&lt;/VirtualHost&gt;
+
+</code></pre></div><p>Creamos el enlace y vemos que se ha creado correctamente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ sudo ln -s /etc/httpd/sites-available/celia.gonzalonazareno.org.conf /etc/httpd/sites-enabled/
+
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ cat /etc/httpd/sites-enabled/celia.gonzalonazareno.org.conf 
+&lt;VirtualHost *:80&gt;
+    ServerName www.celia.gonzalonazareno.org
+    DocumentRoot /var/www/iesgn
+    ErrorLog /var/www/iesgn/log/error.log
+    CustomLog /var/www/iesgn/log/requests.log combined
+&lt;/VirtualHost&gt;
+
+</code></pre></div><p>Ejecutamos el siguiente comando para configurar una política universal de Apache:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo setsebool -P httpd_unified <span style="color:#ae81ff">1</span>
+</code></pre></div><p>Reiniciamos el servicio y comprobamos que está funcionando</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lines 1-19/19 <span style="color:#f92672">(</span>END<span style="color:#f92672">)</span>...skipping...
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded <span style="color:#f92672">(</span>/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled<span style="color:#f92672">)</span>
+   Active: active <span style="color:#f92672">(</span>running<span style="color:#f92672">)</span> since Wed 2021-01-13 11:17:18 CET; 1min 12s ago
+     Docs: man:httpd.service<span style="color:#f92672">(</span>8<span style="color:#f92672">)</span>
+ Main PID: <span style="color:#ae81ff">39646</span> <span style="color:#f92672">(</span>httpd<span style="color:#f92672">)</span>
+   Status: <span style="color:#e6db74">&#34;Running, listening on: port 80&#34;</span>
+    Tasks: <span style="color:#ae81ff">213</span> <span style="color:#f92672">(</span>limit: 2731<span style="color:#f92672">)</span>
+   Memory: 21.3M
+   CGroup: /system.slice/httpd.service
+           ├─39646 /usr/sbin/httpd -DFOREGROUND
+           ├─39647 /usr/sbin/httpd -DFOREGROUND
+           ├─39648 /usr/sbin/httpd -DFOREGROUND
+           ├─39649 /usr/sbin/httpd -DFOREGROUND
+           └─39650 /usr/sbin/httpd -DFOREGROUND
+
+Jan <span style="color:#ae81ff">13</span> 11:17:17 quijote systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Starting The Apache HTTP Server...
+Jan <span style="color:#ae81ff">13</span> 11:17:18 quijote httpd<span style="color:#f92672">[</span>39646<span style="color:#f92672">]</span>: AH00558: httpd: Could not reliably determine the server<span style="color:#960050;background-color:#1e0010">&#39;</span>s fully qu&gt;
+Jan <span style="color:#ae81ff">13</span> 11:17:18 quijote systemd<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>: Started The Apache HTTP Server.
+Jan <span style="color:#ae81ff">13</span> 11:17:18 quijote httpd<span style="color:#f92672">[</span>39646<span style="color:#f92672">]</span>: Server configured, listening on: port <span style="color:#ae81ff">80</span>
+
+</code></pre></div><p>Ahora tenemos que ir a Dulcinea y agregar una regla DNAT con iptables para redirigir el trafico y se pueda acceder a la web por el puerto 80</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#ae81ff">80</span> -i eth0 -j DNAT --to 10.0.2.4:80
+
+debian@dulcinea:~$ sudo iptables -t nat -L -nv
+Chain PREROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination         
+   <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2314</span> DNAT       udp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            udp dpt:53 to:10.0.1.2:53
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:10.0.2.4:80
+
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain POSTROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination         
+ <span style="color:#ae81ff">2122</span>  163K MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0           
+  <span style="color:#ae81ff">679</span> <span style="color:#ae81ff">48548</span> MASQUERADE  all  --  *      eth0    10.0.2.0/24          0.0.0.0/0           
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination  
+</code></pre></div><p>Comprobamos que podemos acceder a la web</p>
+<p><img src="" alt=""></p>
+]]></content>
+        </item>
         
         <item>
             <title>Configurar un DNS con bind9</title>
@@ -291,7 +431,7 @@ www      IN     CNAME   dulcinea
 search celia.gonzalonazareno.org
 </code></pre></div><h2 id="3-regla-dnat-en-dulcinea">3. Regla DNAT en Dulcinea</h2>
 <p>Una regla DNAT cambia la dirección destino de un paquete. Funciona comom el Port de Forwarding.</p>
-<p>Le vamos a decir que añada una regla dnat, indicando que el tráfico que venga por el puerto 53 y la interfaz eth0 lo redirija a la interfaz eth1 (10.0.1.6) al puerto 53, cambiado la dirección destino de ese tráfico para que se puedan realizar las consultas desde fuera al dns que tenemos en el interior.</p>
+<p>Le vamos a decir que añada una regla dnat, indicando que el tráfico que venga por el puerto 53 y la interfaz eth0 lo redirija a la interfaz de freston (10.0.1.2) al puerto 53, cambiado la dirección destino de ese tráfico para que se puedan realizar las consultas desde fuera al dns que tenemos en el interior.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -t nat -A PREROUTING -p udp --dport <span style="color:#ae81ff">53</span> -i eth0 -j DNAT --to 10.0.1.2:53
 </code></pre></div><p>Comprobamos que la regla se ha añadido correctamente</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -L -nv

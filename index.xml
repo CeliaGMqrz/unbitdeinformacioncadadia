@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 12 Jan 2021 19:49:10 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Jan 2021 11:36:08 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Servidor Web Apache2 (httpd) en Centos8</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</link>
+      <pubDate>Wed, 13 Jan 2021 11:36:08 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</guid>
+      <description>Este artículo trata sobre la instalación de un servidor web Apache2 sobre Centos8 incluido dentro de un entorno previamente creado en un cloud. Las entradas anteriores son las siguientes:
+  Instalación inicial de los servidores
+  Modificación del escenario
+  Actualización de Centos7 a Centos8
+  1. Descripción de la tarea: En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un servidor web apache. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones** php-fpm**).</description>
+    </item>
+    
     <item>
       <title>Configurar un DNS con bind9</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/</link>
@@ -107,18 +120,6 @@ Realizar la migración de la aplicación drupal que tienes instalada en el entor
       <description>Necesitamos instalar Openstackclient, para ello lo vamos hacer desde un entorno virtual para no comprometer la paquetería de nuestro sistema, ya que no es necesario para nuestro sistema actualmente.
  Recordamos como creamos un entorno virtual con venv
  Instalamos el paquete necesario para instalar módulos:  apt-get install python3-venv  Desde el usuario sin privilegios podemos crear un entorno virtual con python3:  python3 -m venv entorno  Activar y desactivar el entorno  source entorno/bin/activate (entorno)$ deactivate  Usando el entorno virtual creado previamente, vamos a instalar el paquete Openstackclient (necesitaremos la libreria de python3).</description>
-    </item>
-    
-    <item>
-      <title>Crear Autoridad Certificadora y Certificado autofirmado</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</link>
-      <pubDate>Thu, 19 Nov 2020 18:51:45 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/crear-autoridad-certificadora-y-certificado-autofirmado/</guid>
-      <description>HTTPS / SSL Tarea 1: Certificado autofirmado PARTE 1 OBJETIVO:
-Crear su autoridad certificadora (generar el certificado digital de la CA). Mostrar el fichero de configuración de la AC.
-Conocimientos previos:
-OpenSSL permite con una serie de comandos crear una autoridad de certificación o CA en la que los servidores y clientes internos confien. Las funciones de la CA incluyen crear certificados a partir de las solicitudes de los certificados para los servidores y también la revocación y renovación de certificados.</description>
     </item>
     
   </channel>
