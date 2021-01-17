@@ -432,12 +432,10 @@ Created symlink /etc/systemd/system/multi-user.target.wants/php-fpm.service → 
             <pubDate>Tue, 12 Jan 2021 19:49:10 +0100</pubDate>
             
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/</guid>
-            <description>cover = &amp;ldquo;/images/dns/banner.jpg&amp;rdquo;
-Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
+            <description>Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
   Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior</description>
-            <content type="html"><![CDATA[<p>cover = &ldquo;/images/dns/banner.jpg&rdquo;</p>
-<h3 id="objetivo">Objetivo:</h3>
-<p>Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal <strong>gonzalonazareno.org</strong>, que se llamará <strong>tu_nombre.gonzalonazareno.org</strong>. A partir de este momento no será necesario la resolución estática en los servidores.</p>
+            <content type="html"><![CDATA[<h3 id="objetivo">Objetivo:</h3>
+<p>Vamos  a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal <strong>gonzalonazareno.org</strong>, que se llamará <strong>tu_nombre.gonzalonazareno.org</strong>. A partir de este momento no será necesario la resolución estática en los servidores.</p>
 <ul>
 <li>
 <p>Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior</p>
