@@ -594,7 +594,7 @@ allow-query-cache <span style="color:#f92672">{</span> any; <span style="color:#
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo cp /etc/bind/db.empty /var/cache/bind/db.int.celia.gonzalonazareno.org
 
 </code></pre></div><p>Editamos el fichero de tal forma</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /var/cache/bind/db.int.celia.gonzalonazareno.org 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /var/cache/bind/db.int.celia.gonzalonazareno.org
 </code></pre></div><h3 id="etcbinddbintceliagonzalonazarenoorg-"><code>/etc/bind/db.int.celia.gonzalonazareno.org </code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">; BIND reverse data file <span style="color:#66d9ef">for</span> empty rfc1918 zone
 ;
@@ -619,7 +619,7 @@ www      IN     CNAME   quijote
 bd       IN     CNAME   sancho
 </code></pre></div><h3 id="zona-inversa-para-la-red-interna"><strong>Zona inversa para la red interna</strong></h3>
 <p>Podemos usar como plantilla /etc/bind/db.127</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/bind/db.1.0.10 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/bind/db.1.0.10
 </code></pre></div><h3 id="etcbinddb1010-"><code>/etc/bind/db.1.0.10 </code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">;
 ; BIND reverse data file <span style="color:#66d9ef">for</span> local loopback interface
@@ -713,19 +713,19 @@ search celia.gonzalonazareno.org
 </code></pre></div><p>Comprobamos que la regla se ha añadido correctamente</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -L -nv
 Chain PREROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
- pkts bytes target     prot opt in     out     source               destination         
+ pkts bytes target     prot opt in     out     source               destination
    <span style="color:#ae81ff">21</span>  <span style="color:#ae81ff">2122</span> DNAT       udp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            udp dpt:53 to:10.0.1.2:53
 
 Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
- pkts bytes target     prot opt in     out     source               destination         
+ pkts bytes target     prot opt in     out     source               destination
 
 Chain POSTROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
- pkts bytes target     prot opt in     out     source               destination         
- <span style="color:#ae81ff">1466</span>  112K MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0           
-  <span style="color:#ae81ff">428</span> <span style="color:#ae81ff">30576</span> MASQUERADE  all  --  *      eth0    10.0.2.0/24          0.0.0.0/0           
+ pkts bytes target     prot opt in     out     source               destination
+ <span style="color:#ae81ff">1466</span>  112K MASQUERADE  all  --  *      eth0    10.0.1.0/24          0.0.0.0/0
+  <span style="color:#ae81ff">428</span> <span style="color:#ae81ff">30576</span> MASQUERADE  all  --  *      eth0    10.0.2.0/24          0.0.0.0/0
 
 Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">0</span> packets, <span style="color:#ae81ff">0</span> bytes<span style="color:#f92672">)</span>
- pkts bytes target     prot opt in     out     source               destination   
+ pkts bytes target     prot opt in     out     source               destination
 </code></pre></div><h2 id="4-consultas">4. CONSULTAS</h2>
 <p>Entrega el resultado de las siguientes consultas desde un cliente interno a nuestra red y otro externo:</p>
 <ul>
