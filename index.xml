@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 13 Jan 2021 14:51:48 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jan 2021 10:11:23 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configurar HTTPS en Centos (Quijote)</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-quijote/</link>
+      <pubDate>Thu, 21 Jan 2021 10:11:23 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-quijote/</guid>
+      <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
+1. Creación de un certificado SSL Wilcard Concepto: ¿Qué es un certificado SSL Wilcard?
+Es un certificado que protege la dirección URL de un sitio web, así como también sus subdominios.
+Crear clave privada y certificado
+El certificado principalmente se va a generar en Freston, nuestra máquina donde tenemos configurado el DNS de nuestro escenario.</description>
+    </item>
+    
     <item>
       <title>Servidor de base de datos. MariaDB en Ubuntu</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</link>
@@ -111,17 +124,6 @@ yum install yum-utils -y Resolvemos los paquetes RPM, de forma que, rpmconf se e
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</guid>
       <description>HTTPS (Seguridad) Objetivo: Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.
 1. Vamos a utilizar el servicio letsencrypt para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
-    </item>
-    
-    <item>
-      <title>Instalación/migración de aplicaciones web PHP</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/</link>
-      <pubDate>Sat, 28 Nov 2020 20:44:54 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/</guid>
-      <description>OBJETIVO:
-Realizar la migración de la aplicación drupal que tienes instalada en el entorno de desarrollo a nuestro entorno de producción, para ello ten en cuenta lo siguiente:
- 1. La aplicación se tendrá que migrar a un nuevo virtualhost al que se accederá con el nombre portal.iesgnXX.es.  Crear el nuevo virtualhost portal.iesgn05.es  cp /etc/nginx/sites-available/iesgn05 /etc/nginx/sites-available/portal.iesgn05.es nano /etc/nginx/sites-available/portal.iesgn05.es # Default server configuration # server { listen 80; listen [::]:80; root /var/www/portal.</description>
     </item>
     
   </channel>
