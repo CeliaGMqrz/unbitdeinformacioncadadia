@@ -181,9 +181,9 @@ Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="colo
 </ul>
 <p>Recuerda que el /etc/resolv.conf tiene que apuntar a la ip flotante de dulcinea.</p>
 <p>Comprobamos que funciona y que estamos en un sitio seguro</p>
-<p><img src="safe1.png" alt="safe1.png"></p>
-<p><img src="safe2.png" alt="safe2.png"></p>
-<p><img src="safe3.png" alt="safe3.png"></p>
+<p><img src="/images/escenario/safe1.png" alt="safe1.png"></p>
+<p><img src="/images/escenario/safe2.png" alt="safe2.png"></p>
+<p><img src="/images/escenarios/afe3.png" alt="safe3.png"></p>
 ]]></content>
         </item>
         
