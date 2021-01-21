@@ -9,11 +9,11 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Thu, 21 Jan 2021 10:11:23 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/https/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Configurar HTTPS en Centos (Quijote)</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-quijote/</link>
+      <title>Configurar HTTPS en Centos 8 (Quijote)</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</link>
       <pubDate>Thu, 21 Jan 2021 10:11:23 +0100</pubDate>
       
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-quijote/</guid>
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</guid>
       <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
 1. Creación de un certificado SSL Wilcard Concepto: ¿Qué es un certificado SSL Wilcard?
 Es un certificado que protege la dirección URL de un sitio web, así como también sus subdominios.

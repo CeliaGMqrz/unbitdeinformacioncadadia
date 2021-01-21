@@ -10,17 +10,17 @@
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Configurar HTTPS en Centos (Quijote)</title>
-            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-quijote/</link>
+            <title>Configurar HTTPS en Centos 8 (Quijote)</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</link>
             <pubDate>Thu, 21 Jan 2021 10:11:23 +0100</pubDate>
             
-            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-quijote/</guid>
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</guid>
             <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
 1. Creación de un certificado SSL Wilcard Concepto: ¿Qué es un certificado SSL Wilcard?
 Es un certificado que protege la dirección URL de un sitio web, así como también sus subdominios.
 Crear clave privada y certificado
 El certificado principalmente se va a generar en Freston, nuestra máquina donde tenemos configurado el DNS de nuestro escenario.</description>
-            <content type="html"><![CDATA[<p><img src="/images/escenario/https.jpeg" alt="https.jpeg"></p>
+            <content type="html"><![CDATA[<p><img src="/images/candado.jpeg" alt="https.jpeg"></p>
 <p><strong>¡!</strong> Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.</p>
 <h3 id="1-creación-de-un-certificado-ssl-wilcard">1. Creación de un certificado SSL Wilcard</h3>
 <p><strong>Concepto: ¿Qué es un certificado SSL Wilcard?</strong></p>
