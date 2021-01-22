@@ -7,7 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 21 Jan 2021 10:11:23 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Jan 2021 12:48:10 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proyecto: Escenario planteado sobre OpenStack</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/</link>
+      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/</guid>
+      <description>Introducción En el IES Gonzalo Nazareno, en el segundo año del ciclo superior de Administración de sistemas informáticos en red, se ha propuesto un escenario implantado sobre Openstack en el que nosotros, los alumnos hemos puesto en práctica muchas tareas relacionadas con servidores linux.
+Trabajamos con sistemas operativos Linux, entre ellos con distribuciones como Debian Buster, Centos7, Centos8 y Ubuntu Server 20.04.
+Tratamos con los diferentes sistemas y la instalación y configuración de servidores web como Apache2 o Nginx, bases de datos, cifrado con openssl, servicios como bind9 para DNS, directorio activo como OpenLDAP, entre otros&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Instalación de aplicación web CMS python</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</link>
+      <pubDate>Thu, 21 Jan 2021 13:04:33 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</guid>
+      <description>Objetivo: En este post vamos a trabajar sobre el entorno de trabajo de openstack nuevamente, el mismo sobre el que tratamos en el blog.
+La máquina virtual sobre la que trabajamos es un Centos 8, nuestro llamado Quijote.
+El objetivo es desplegar un CMS python, en este caso wagtail, basado en django.
+1. Instalación de wagtail. Entorno de desarrollo: Creación del entorno virtual.  Primero tendremos que crear un entorno virtual en nuestra máquina anfitriona.</description>
+    </item>
+    
     <item>
       <title>Configurar HTTPS en Centos 8 (Quijote)</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</link>
@@ -100,30 +123,6 @@ Nuestra máquina virtual constará de los siguentes requisitos
       <description>Modificación del escenario Nota: Si no has visto la primera parte se encuentra aquí:
 Configuración inicial de los servidores. Escenario
 Objetivo: Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: red interna y DMZ.</description>
-    </item>
-    
-    <item>
-      <title>Actualizacion de Centos7 a Centos8</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/</link>
-      <pubDate>Mon, 30 Nov 2020 20:59:38 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/</guid>
-      <description>Objetivo: Actualizar CentOS 7 a CentOS 8 garantizando que todos los servicios previos continúen funcionando:
- Actualmente tenemos la versión 7.9.2009 de Centos
-[root@quijote centos]# cat /etc/centos-release CentOS Linux release 7.9.2009 (Core) Vamos a proceder a actualizar Centos siguiendo varios pasos.
-Preparar el sistema para su actualización Habilitamos el repositorio de &amp;lsquo;epel-release&amp;rsquo;
-yum install epel-release -y Necesitaremos instalar las herramientas para el gestor de paquetes YUM
-yum install yum-utils -y Resolvemos los paquetes RPM, de forma que, rpmconf se encarga de buscar los archivos .</description>
-    </item>
-    
-    <item>
-      <title>Configurar HTTPS con Let&#39;s Encrypt en un servidor con Nginx</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</link>
-      <pubDate>Sun, 29 Nov 2020 21:09:40 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/configurar-https-con-lets-encrypt-en-un-servidor-con-nginx/</guid>
-      <description>HTTPS (Seguridad) Objetivo: Vamos a configurar el protocolo HTTPS para el acceso a nuestras aplicaciones, para ello tienes que tener en cuenta los siguiente.
-1. Vamos a utilizar el servicio letsencrypt para solicitar los certificados de nuestras páginas. Let&amp;rsquo;s Encrypt se trata de una autoridad de certificación, conocida como CA, libre y gratuita, que permite generar certificados SSL gratuitos y automáticos para nuestros sitios web, con el objetivo de promover que el tráfico de Internet sea seguro.</description>
     </item>
     
   </channel>
