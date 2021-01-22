@@ -15,19 +15,19 @@
             <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
             
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/</guid>
-            <description>Introducción En el IES Gonzalo Nazareno, en el segundo año del ciclo superior de Administración de sistemas informáticos en red, se ha propuesto un escenario implantado sobre Openstack en el que nosotros, los alumnos hemos puesto en práctica muchas tareas relacionadas con servidores linux.
+            <description>Introducción En el IES Gonzalo Nazareno, en el segundo año del ciclo superior de Administración de sistemas informáticos en red, se ha propuesto un escenario implantado sobre Openstack en el que nosotros, los alumnos, hemos puesto en práctica muchas tareas relacionadas con servidores linux.
 Trabajamos con sistemas operativos Linux, entre ellos con distribuciones como Debian Buster, Centos7, Centos8 y Ubuntu Server 20.04.
 Tratamos con los diferentes sistemas y la instalación y configuración de servidores web como Apache2 o Nginx, bases de datos, cifrado con openssl, servicios como bind9 para DNS, directorio activo como OpenLDAP, entre otros&amp;hellip;</description>
             <content type="html"><![CDATA[<p><img src="/images/escenario/openstack.jpg" alt="openstack.jpg"></p>
 <h2 id="introducción">Introducción</h2>
-<p>En el IES Gonzalo Nazareno, en el segundo año del ciclo superior de Administración de sistemas informáticos en red, se ha propuesto un escenario implantado sobre Openstack en el que nosotros, los alumnos hemos puesto en práctica muchas tareas relacionadas con servidores linux.</p>
+<p>En el IES Gonzalo Nazareno, en el segundo año del ciclo superior de Administración de sistemas informáticos en red, se ha propuesto un escenario implantado sobre Openstack en el que nosotros, los alumnos, hemos puesto en práctica muchas tareas relacionadas con servidores linux.</p>
 <p>Trabajamos con sistemas operativos Linux, entre ellos con distribuciones como Debian Buster, Centos7, Centos8 y Ubuntu Server 20.04.</p>
 <p>Tratamos con los diferentes sistemas y la instalación y configuración de servidores web como Apache2 o Nginx, bases de datos, cifrado con openssl, servicios como bind9 para DNS, directorio activo como OpenLDAP, entre otros&hellip;</p>
 <h2 id="listado-de-tareas">Listado de tareas</h2>
 <blockquote>
 <p>Las tareas se irán actualizando y modificando a lo largo del curso.</p>
 </blockquote>
-<ul>
+<ol>
 <li>
 <p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-los-servidores/">Instalación y configuración inicial de los servidores</a></p>
 </li>
@@ -52,7 +52,7 @@ Tratamos con los diferentes sistemas y la instalación y configuración de servi
 <li>
 <p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/">Configuración de MariaDB en Ubuntu. Sancho</a></p>
 </li>
-</ul>
+</ol>
 ]]></content>
         </item>
         
