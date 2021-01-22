@@ -4237,7 +4237,9 @@ Tue Nov 24 13<span style="color:#960050;background-color:#1e0010">:</span>46<spa
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">[root@quijote centos]<span style="color:#75715e"># timedatectl set-timezone Europe/Madrid</span>
 [root@quijote centos]<span style="color:#75715e"># date</span>
 Tue Nov 24 13<span style="color:#960050;background-color:#1e0010">:</span>46<span style="color:#960050;background-color:#1e0010">:</span>49 CET 2020
-</code></pre></div>]]></content>
+</code></pre></div><p>-&gt; Continua el proyecto en:
+<a href="https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/actualizacion-de-centos7-a-centos8/">Actualización de Centos7 a Centos8</a></p>
+]]></content>
         </item>
         
         <item>
