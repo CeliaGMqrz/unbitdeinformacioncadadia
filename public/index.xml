@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 22 Jan 2021 12:48:10 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Jan 2021 09:27:32 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configurar LDAPs en Debian. OpenLDAP. (Freston)</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</link>
+      <pubDate>Mon, 25 Jan 2021 09:27:32 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</guid>
+      <description>Configurar LDAPS en Debian Buster ¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
+1. Introducción LDAP. Protocolo Ligero de Acceso a Directorio. ¿Qué es LDAP?
+Es un protocolo muy utilizado por empresas que apuestan por el software libre al utilizar distribuciones de Linux para construir un **directorio activo **en el que se gestionan las credenciales de los trabajadores, los permisos y estaciones de trabajo.</description>
+    </item>
+    
     <item>
       <title>Proyecto: Escenario planteado sobre OpenStack</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/</link>
@@ -112,17 +123,6 @@ Crea dos unidades organizativas, una para personas y otra para grupos.
 Requisitos:
 Nuestra máquina virtual constará de los siguentes requisitos
  2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</description>
-    </item>
-    
-    <item>
-      <title>Red DMZ. Modificacion del escenario.</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</link>
-      <pubDate>Sat, 05 Dec 2020 13:21:43 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/red-dmz.-modificacion-del-escenario./</guid>
-      <description>Modificación del escenario Nota: Si no has visto la primera parte se encuentra aquí:
-Configuración inicial de los servidores. Escenario
-Objetivo: Vamos a modificar el escenario que tenemos actualmente en OpenStack para que se adecúe a la realización de todas las prácticas en todos los módulos de 2º, en particular para que tenga una estructura más real a la de varios equipos detrás de un cortafuegos, separando los servidores en dos redes: red interna y DMZ.</description>
     </item>
     
   </channel>

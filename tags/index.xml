@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 22 Jan 2021 12:48:10 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Jan 2021 09:27:32 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ldaps</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/ldaps/</link>
+      <pubDate>Mon, 25 Jan 2021 09:27:32 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/ldaps/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>escenario</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/escenario/</link>
@@ -86,15 +95,6 @@
       <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/mariadb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ubuntu</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/ubuntu/</link>
-      <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/ubuntu/</guid>
       <description></description>
     </item>
     
