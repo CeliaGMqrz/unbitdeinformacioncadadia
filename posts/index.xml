@@ -231,9 +231,8 @@ Tratamos con los diferentes sistemas y la instalación y configuración de servi
             <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
 Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
 2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos.</description>
-            <content type="html"><![CDATA[<p><img src="/images/ovh_correo/postfix.png" alt="postfix.png"></p>
-<h2 id="1-objetivo">1. Objetivo.</h2>
-<p>Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio <strong>iesgn05</strong>. El nombre del servidor de correo será <strong>mail.iesgn05.es</strong>.</p>
+            <content type="html"><![CDATA[<h2 id="1-objetivo">1. Objetivo.</h2>
+<p><img src="/images/ovh_correo/postfix.png" alt="postfix.png"> Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio <strong>iesgn05</strong>. El nombre del servidor de correo será <strong>mail.iesgn05.es</strong>.</p>
 <p>Configurar un registro <strong>SPF</strong>, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.</p>
 <h2 id="2-gestión-de-correos-desde-el-servidor">2. Gestión de correos desde el servidor</h2>
 <h3 id="21-instalación-del-servidor-de-correos">2.1. Instalación del servidor de correos</h3>
