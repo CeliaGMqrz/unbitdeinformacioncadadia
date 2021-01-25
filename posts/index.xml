@@ -380,6 +380,118 @@ M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rqu
         </item>
         
         <item>
+            <title>Servidor de Correos. Postfix (II). Alias y Redirecciones.</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</link>
+            <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</guid>
+            <description>1. Uso de cron para notificar a root de una tarea Vamos a comprobar como los procesos del servidor pueden mandar correos para informar sobre su estado. Por ejemplo cada vez que se ejecuta una tarea cron podemos enviar un correo informando del resultado. Normalmente estos correos se mandan al usuario root del servidor, para ello:
+Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de postfix:</description>
+            <content type="html"><![CDATA[<h3 id="1-uso-de-cron-para-notificar-a-root-de-una-tarea">1. Uso de cron para notificar a root de una tarea</h3>
+<p>Vamos a comprobar como los procesos del servidor pueden mandar correos para informar sobre su estado. Por ejemplo cada vez que se ejecuta una tarea cron podemos enviar un correo informando del resultado. Normalmente estos correos se mandan al usuario root del servidor, para ello:</p>
+<p>Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de postfix:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Creamos el script</span>
+nano /root/mostrar_log_mail.sh
+
+<span style="color:#75715e">#Con el siguiente contenido</span>
+
+<span style="color:#75715e">#!/bin/sh</span>
+
+tail -n10 /var/log/mail.log
+
+<span style="color:#75715e">#Le damos los permisos oportunos y lo ejecutamos para ver que funciona</span>
+
+chmod <span style="color:#ae81ff">744</span> mostrar_log_mail.sh
+bash mostrar_log_mail.sh
+
+</code></pre></div><ul>
+<li>Ahora ejecutamos el crontab -e, para inicializar la tarea y le indicamos a quien va ir dirigido el correo, en este caso a ROOT.</li>
+</ul>
+<p><code>crontab -e</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@kiara:~$ crontab -e
+no crontab <span style="color:#66d9ef">for</span> debian - using an empty one
+
+Select an editor.  To change later, run <span style="color:#e6db74">&#39;select-editor&#39;</span>.
+  1. /usr/bin/joe
+  2. /usr/bin/jstar
+  3. /usr/bin/jpico
+  4. /usr/bin/jmacs
+  5. /bin/nano        &lt;---- easiest
+  6. /usr/bin/vim.basic
+  7. /usr/bin/rjoe
+  8. /usr/bin/vim.tiny
+
+Choose 1-8 <span style="color:#f92672">[</span>5<span style="color:#f92672">]</span>:  
+crontab: installing new crontab
+</code></pre></div><ul>
+<li>Indicamos donde se va a enviar el correo cada vez que ejecute</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">MAILTO<span style="color:#f92672">=</span> root
+</code></pre></div><ul>
+<li>Ejecutamos <strong>mail</strong> con el usuario root y comprobamos que tenemos un correo mostrando el log</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@kiara:~# mail
+Mail version 8.1.2 01/15/2001.  Type ? <span style="color:#66d9ef">for</span> help.
+<span style="color:#e6db74">&#34;/var/mail/root&#34;</span>: <span style="color:#ae81ff">2</span> messages <span style="color:#ae81ff">2</span> new
+&gt;N  <span style="color:#ae81ff">1</span> root@kiara.iesgn0  Mon Jan <span style="color:#ae81ff">25</span> 10:39   22/783   Cron &lt;debian@kiara&gt; /root/mostrar_log_mail.sh
+ N  <span style="color:#ae81ff">2</span> root@kiara.iesgn0  Mon Jan <span style="color:#ae81ff">25</span> 10:39   31/1832  Cron &lt;root@kiara&gt; /root/mostrar_log_mail.sh
+&amp; w
+No file specified.
+&amp; <span style="color:#ae81ff">2</span>
+Message 2:
+From root@kiara.iesgn05.es  Mon Jan <span style="color:#ae81ff">25</span> 10:39:01 <span style="color:#ae81ff">2021</span>
+X-Original-To: root
+From: root@kiara.iesgn05.es <span style="color:#f92672">(</span>Cron Daemon<span style="color:#f92672">)</span>
+To: root@kiara.iesgn05.es
+Subject: Cron &lt;root@kiara&gt; /root/mostrar_log_mail.sh
+MIME-Version: 1.0
+Content-Type: text/plain; charset<span style="color:#f92672">=</span>UTF-8
+Content-Transfer-Encoding: 8bit
+X-Cron-Env: &lt;MAILTO<span style="color:#f92672">=</span>root&gt;
+X-Cron-Env: &lt;SHELL<span style="color:#f92672">=</span>/bin/sh&gt;
+X-Cron-Env: &lt;HOME<span style="color:#f92672">=</span>/root&gt;
+X-Cron-Env: &lt;PATH<span style="color:#f92672">=</span>/usr/bin:/bin&gt;
+X-Cron-Env: &lt;LOGNAME<span style="color:#f92672">=</span>root&gt;
+Date: Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 10:39:01 +0000 <span style="color:#f92672">(</span>UTC<span style="color:#f92672">)</span>
+
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/pickup<span style="color:#f92672">[</span>29459<span style="color:#f92672">]</span>: 1610A4231B: uid<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span> from<span style="color:#f92672">=</span>&lt;debian&gt;
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/cleanup<span style="color:#f92672">[</span>29250<span style="color:#f92672">]</span>: 1610A4231B: message-id<span style="color:#f92672">=</span>&lt;20210125103801.1610A4231B@kiara.iesgn05.es&gt;
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 1610A4231B: from<span style="color:#f92672">=</span>&lt;debian@kiara.iesgn05.es&gt;, size<span style="color:#f92672">=</span>649, nrcpt<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>queue active<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/local<span style="color:#f92672">[</span>29253<span style="color:#f92672">]</span>: 1610A4231B: to<span style="color:#f92672">=</span>&lt;root@kiara.iesgn05.es&gt;, orig_to<span style="color:#f92672">=</span>&lt;root&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.01, delays<span style="color:#f92672">=</span>0.01/0/0/0, dsn<span style="color:#f92672">=</span>2.0.0, status<span style="color:#f92672">=</span>sent <span style="color:#f92672">(</span>delivered to mailbox<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 1610A4231B: removed
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/pickup<span style="color:#f92672">[</span>29459<span style="color:#f92672">]</span>: 18E484231B: uid<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> from<span style="color:#f92672">=</span>&lt;root&gt;
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/cleanup<span style="color:#f92672">[</span>29250<span style="color:#f92672">]</span>: 18E484231B: message-id<span style="color:#f92672">=</span>&lt;20210125103801.18E484231B@kiara.iesgn05.es&gt;
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 18E484231B: from<span style="color:#f92672">=</span>&lt;root@kiara.iesgn05.es&gt;, size<span style="color:#f92672">=</span>784, nrcpt<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>queue active<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/local<span style="color:#f92672">[</span>29253<span style="color:#f92672">]</span>: 18E484231B: to<span style="color:#f92672">=</span>&lt;root@kiara.iesgn05.es&gt;, orig_to<span style="color:#f92672">=</span>&lt;root&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.01, delays<span style="color:#f92672">=</span>0/0/0/0, dsn<span style="color:#f92672">=</span>2.0.0, status<span style="color:#f92672">=</span>sent <span style="color:#f92672">(</span>delivered to mailbox<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 10:38:01 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 18E484231B: removed
+
+&amp; quit
+Saved <span style="color:#ae81ff">1</span> message in /root/mbox
+Held <span style="color:#ae81ff">1</span> message in /var/mail/root
+You have mail in /var/mail/root
+root@kiara:~# nano mostrar_log_mail.sh 
+You have new mail in /var/mail/root
+
+</code></pre></div><h3 id="2-alias-y-redirecciones-para-que-nos-llegue-a-un-correo-personal">2. Alias y redirecciones para que nos llegue a un correo personal</h3>
+<p>Si queremos redireccionar los correos al usuario debian solo tenemos que indicarlo en el siguiente fichero</p>
+<p><code>/etc/aliases</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root: debian
+</code></pre></div><p>Ejecutar</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">newaliases
+</code></pre></div><p>Si abrimos el buzón de mail de <strong>debian</strong> veremos como se nos redirecciona</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@kiara:~# mail
+Mail version 8.1.2 01/15/2001.  Type ? <span style="color:#66d9ef">for</span> help.
+<span style="color:#e6db74">&#34;/var/mail/root&#34;</span>: <span style="color:#ae81ff">2</span> messages <span style="color:#ae81ff">2</span> new
+&gt;N  <span style="color:#ae81ff">1</span> root@kiara.iesgn0  Mon Jan <span style="color:#ae81ff">25</span> 10:39   22/783   Cron &lt;debian@kiara&gt; /root/mostrar_log_mail.sh
+</code></pre></div><p>Si además queremos que se redirecciona al exterior a <strong>nuestro correo electrónico</strong>, tenemos que crear el siguiente fichero</p>
+<p><code>nano /home/debian/.forward</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cgarmai95@gmail.com
+</code></pre></div><p>Ejecutamos el script y comprobamos que se ha enviado un correo notificando su ejecución.</p>
+<p><img src="/images/ovh_correo/redir_gmail.png" alt="redir_gmail.png"></p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Instalación de aplicación web CMS python</title>
             <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</link>
             <pubDate>Thu, 21 Jan 2021 13:04:33 +0100</pubDate>

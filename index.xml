@@ -42,6 +42,16 @@ Configurar un registro SPF, que es un mecanismo de autenticación que mediante u
     </item>
     
     <item>
+      <title>Servidor de Correos. Postfix (II). Alias y Redirecciones.</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</link>
+      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</guid>
+      <description>1. Uso de cron para notificar a root de una tarea Vamos a comprobar como los procesos del servidor pueden mandar correos para informar sobre su estado. Por ejemplo cada vez que se ejecuta una tarea cron podemos enviar un correo informando del resultado. Normalmente estos correos se mandan al usuario root del servidor, para ello:
+Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de postfix:</description>
+    </item>
+    
+    <item>
       <title>Instalación de aplicación web CMS python</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</link>
       <pubDate>Thu, 21 Jan 2021 13:04:33 +0100</pubDate>
@@ -110,18 +120,6 @@ sudo mysql_secure_installation ubuntu@sancho:~$ sudo mysql_secure_installation N
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-b%C3%A1sica-de-vmware-esxi/</guid>
       <description>Descripción de la tarea: Utiliza el servidor físico que se te haya asignado e instala la versión adecuada del sistema de virtualización VMWare ESXi (ten en cuenta que recibe diferentes denominaciones comerciales, pero nos referimos al sistema de virtualización de VMWare que proporciona virtualización de alto rendimiento mediante la técnica de la paravirtualización).
 Realiza la configuración del servicio que permita su gestión remota desde un equipo cliente e instala en tu equipo la aplicación cliente que permita gestionar remotamente el hipervisor.</description>
-    </item>
-    
-    <item>
-      <title>Instalación y configuración inicial de OpenLDAP</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</link>
-      <pubDate>Mon, 14 Dec 2020 20:18:59 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-y-configuraci%C3%B3n-inicial-de-openldap/</guid>
-      <description>Descripción:
-Realiza la instalación y configuración básica de OpenLDAP en frestón utilizando como base el nombre DNS asignado.
-Crea dos unidades organizativas, una para personas y otra para grupos.
- 1. Conceptos previos LDAP corresponde a Lightweight Directory Access Protocol, que significa protocolo ligero de acceso a directorios. Es decir, se trata de un protocolo que permite acceder a través de la red a información guardada en directorios en un sevidor.</description>
     </item>
     
   </channel>

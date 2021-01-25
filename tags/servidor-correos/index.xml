@@ -19,5 +19,15 @@ Configurar un registro SPF, que es un mecanismo de autenticación que mediante u
 2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete  postfix y la utilidad bsd-mailx ` para leer los correos.</description>
     </item>
     
+    <item>
+      <title>Servidor de Correos. Postfix (II). Alias y Redirecciones.</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</link>
+      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</guid>
+      <description>1. Uso de cron para notificar a root de una tarea Vamos a comprobar como los procesos del servidor pueden mandar correos para informar sobre su estado. Por ejemplo cada vez que se ejecuta una tarea cron podemos enviar un correo informando del resultado. Normalmente estos correos se mandan al usuario root del servidor, para ello:
+Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de postfix:</description>
+    </item>
+    
   </channel>
 </rss>
