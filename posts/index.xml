@@ -230,14 +230,14 @@ Tratamos con los diferentes sistemas y la instalación y configuración de servi
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</guid>
             <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
 Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
-2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos.</description>
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete  postfix y la utilidad bsd-mailx ` para leer los correos.</description>
             <content type="html"><![CDATA[<p><img src="/images/ovh_correo/postfix.png" alt="postfix.png"></p>
 <h2 id="1-objetivo">1. Objetivo.</h2>
 <p>Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio <strong>iesgn05</strong>. El nombre del servidor de correo será <strong>mail.iesgn05.es</strong>.</p>
 <p>Configurar un registro <strong>SPF</strong>, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.</p>
 <h2 id="2-gestión-de-correos-desde-el-servidor">2. Gestión de correos desde el servidor</h2>
 <h3 id="21-instalación-del-servidor-de-correos">2.1. Instalación del servidor de correos</h3>
-<p>Para instalar el servidor de correos vamos a descargar e instalar el paquete <code></code>postfix<code>y la utilidad</code>bsd-mailx` para leer los correos.</p>
+<p>Para instalar el servidor de correos vamos a descargar e instalar el paquete <code></code> postfix <code>y la utilidad</code> bsd-mailx ` para leer los correos.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install postfix bsd-mailx
 </code></pre></div><p>Cuando instalemos postfix, dejaremos la configuración por defecto por el momento, dejando la opción &lsquo;Internet Site&rsquo; y creara la configuración estándar.</p>
 <h3 id="22-enviar-un-correo-de-prueba-de-local-al-exterior">2.2. Enviar un correo de prueba de local al exterior</h3>
