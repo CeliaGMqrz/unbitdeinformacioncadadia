@@ -14,7 +14,7 @@
       <pubDate>Mon, 25 Jan 2021 09:27:32 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</guid>
-      <description>Configurar LDAPS en Debian Buster ¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
+      <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
 1. Introducción LDAP. Protocolo Ligero de Acceso a Directorio. ¿Qué es LDAP?
 Es un protocolo muy utilizado por empresas que apuestan por el software libre al utilizar distribuciones de Linux para construir un **directorio activo **en el que se gestionan las credenciales de los trabajadores, los permisos y estaciones de trabajo.</description>
     </item>
