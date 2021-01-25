@@ -278,13 +278,13 @@ You have mail in /var/mail/debian
 </code></pre></div><ul>
 <li>Mostrar registro SPF</li>
 </ul>
-<p><img src="/images/ohv_correo/correo2.png" alt="correo2.png"></p>
+<p><img src="/images/ovh_correo/correo2.png" alt="correo2.png"></p>
 <h3 id="22-enviar-un-correo-de-prueba-del-exterior-a-local">2.2. Enviar un correo de prueba del exterior a local</h3>
 <p>Tarea 2: Documenta una prueba de funcionamiento, donde envíes un correo desde el exterior (gmail, hotmail,…) a tu servidor local. Muestra el log donde se vea el envío. Muestra cómo has leído el correo. Muestra el registro MX de tu dominio.</p>
 <ul>
 <li>Enviamos el correo de prueba</li>
 </ul>
-<p><img src="/images/ohv_correo/correo3.png" alt="correo3.png"></p>
+<p><img src="/images/ovh_correo/correo3.png" alt="correo3.png"></p>
 <ul>
 <li>Mostramos el log del envio</li>
 </ul>
