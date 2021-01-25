@@ -223,6 +223,162 @@ Tratamos con los diferentes sistemas y la instalación y configuración de servi
         </item>
         
         <item>
+            <title>Servidor de Correos. Postfix (I)</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</link>
+            <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</guid>
+            <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
+Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos.</description>
+            <content type="html"><![CDATA[<h2 id="1-objetivo">1. Objetivo.</h2>
+<p>Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio <strong>iesgn05</strong>. El nombre del servidor de correo será <strong>mail.iesgn05.es</strong>.</p>
+<p>Configurar un registro <strong>SPF</strong>, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.</p>
+<h2 id="2-gestión-de-correos-desde-el-servidor">2. Gestión de correos desde el servidor</h2>
+<h3 id="21-instalación-del-servidor-de-correos">2.1. Instalación del servidor de correos</h3>
+<p>Para instalar el servidor de correos vamos a descargar e instalar el paquete <code></code>postfix<code>y la utilidad</code>bsd-mailx` para leer los correos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install postfix bsd-mailx
+</code></pre></div><p>Cuando instalemos postfix, dejaremos la configuración por defecto por el momento, dejando la opción &lsquo;Internet Site&rsquo; y creara la configuración estándar.</p>
+<h3 id="22-enviar-un-correo-de-prueba-de-local-al-exterior">2.2. Enviar un correo de prueba de local al exterior</h3>
+<p>Tarea 1: Documenta una prueba de funcionamiento, donde envíes desde tu servidor local al exterior. Muestra el log donde se vea el envío. Muestra el correo que has recibido. Muestra el registro SPF.</p>
+<ul>
+<li>Mandamos el correo de prueba:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@kiara:~$ mail cgarmai95@gmail.com
+Subject: Prueba
+Hola esto es una prueba
+Cc: 
+
+</code></pre></div><ul>
+<li>Comprobamos que nos llega el correo</li>
+</ul>
+<p><img src="/images/ovh_correo/correo1.png" alt="correo1.png"></p>
+<ul>
+<li>Mostramos el log</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@kiara:~$ cat /var/log/mail.log 
+Jan <span style="color:#ae81ff">25</span> 09:02:52 kiara postfix/postfix-script<span style="color:#f92672">[</span>27856<span style="color:#f92672">]</span>: starting the Postfix mail system
+Jan <span style="color:#ae81ff">25</span> 09:02:52 kiara postfix/master<span style="color:#f92672">[</span>27858<span style="color:#f92672">]</span>: daemon started -- version 3.4.14, configuration /etc/postfix
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/pickup<span style="color:#f92672">[</span>27860<span style="color:#f92672">]</span>: 3BB6B42306: uid<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span> from<span style="color:#f92672">=</span>&lt;debian&gt;
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/cleanup<span style="color:#f92672">[</span>27978<span style="color:#f92672">]</span>: 3BB6B42306: message-id<span style="color:#f92672">=</span>&lt;20210125090703.3BB6B42306@kiara.iesgn05.es&gt;
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 3BB6B42306: from<span style="color:#f92672">=</span>&lt;debian@kiara.iesgn05.es&gt;, size<span style="color:#f92672">=</span>477, nrcpt<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">(</span>queue active<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/local<span style="color:#f92672">[</span>27980<span style="color:#f92672">]</span>: 3BB6B42306: to<span style="color:#f92672">=</span>&lt;Prueba@kiara.iesgn05.es&gt;, orig_to<span style="color:#f92672">=</span>&lt;Prueba&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.04, delays<span style="color:#f92672">=</span>0.02/0.01/0/0.01, dsn<span style="color:#f92672">=</span>5.1.1, status<span style="color:#f92672">=</span>bounced <span style="color:#f92672">(</span>unknown user: <span style="color:#e6db74">&#34;prueba&#34;</span><span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/local<span style="color:#f92672">[</span>27982<span style="color:#f92672">]</span>: 3BB6B42306: to<span style="color:#f92672">=</span>&lt;Subject:@kiara.iesgn05.es&gt;, orig_to<span style="color:#f92672">=</span>&lt;Subject:&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.04, delays<span style="color:#f92672">=</span>0.02/0.02/0/0.01, dsn<span style="color:#f92672">=</span>5.1.1, status<span style="color:#f92672">=</span>bounced <span style="color:#f92672">(</span>unknown user: <span style="color:#e6db74">&#34;subject:&#34;</span><span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/smtp<span style="color:#f92672">[</span>27981<span style="color:#f92672">]</span>: connect to gmail-smtp-in.l.google.com<span style="color:#f92672">[</span>2a00:1450:400c:c0a::1a<span style="color:#f92672">]</span>:25: Network is unreachable
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/smtp<span style="color:#f92672">[</span>27981<span style="color:#f92672">]</span>: 3BB6B42306: to<span style="color:#f92672">=</span>&lt;cgarmai95@gmail.com&gt;, relay<span style="color:#f92672">=</span>gmail-smtp-in.l.google.com<span style="color:#f92672">[</span>64.233.184.27<span style="color:#f92672">]</span>:25, delay<span style="color:#f92672">=</span>0.78, delays<span style="color:#f92672">=</span>0.02/0.01/0.34/0.42, dsn<span style="color:#f92672">=</span>2.0.0, status<span style="color:#f92672">=</span>sent <span style="color:#f92672">(</span><span style="color:#ae81ff">250</span> 2.0.0 OK  <span style="color:#ae81ff">1611565624</span> i9si3008047wrw.2 - gsmtp<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/cleanup<span style="color:#f92672">[</span>27978<span style="color:#f92672">]</span>: 04D5C4231C: message-id<span style="color:#f92672">=</span>&lt;20210125090704.04D5C4231C@kiara.iesgn05.es&gt;
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 04D5C4231C: from<span style="color:#f92672">=</span>&lt;&gt;, size<span style="color:#f92672">=</span>2682, nrcpt<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>queue active<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/bounce<span style="color:#f92672">[</span>27984<span style="color:#f92672">]</span>: 3BB6B42306: sender non-delivery notification: 04D5C4231C
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 3BB6B42306: removed
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/local<span style="color:#f92672">[</span>27980<span style="color:#f92672">]</span>: 04D5C4231C: to<span style="color:#f92672">=</span>&lt;debian@kiara.iesgn05.es&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.01, delays<span style="color:#f92672">=</span>0/0/0/0, dsn<span style="color:#f92672">=</span>2.0.0, status<span style="color:#f92672">=</span>sent <span style="color:#f92672">(</span>delivered to mailbox<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 04D5C4231C: removed
+You have mail in /var/mail/debian
+
+</code></pre></div><ul>
+<li>Mostrar registro SPF</li>
+</ul>
+<p><img src="/images/ohv_correo/correo2.png" alt="correo2.png"></p>
+<h3 id="22-enviar-un-correo-de-prueba-del-exterior-a-local">2.2. Enviar un correo de prueba del exterior a local</h3>
+<p>Tarea 2: Documenta una prueba de funcionamiento, donde envíes un correo desde el exterior (gmail, hotmail,…) a tu servidor local. Muestra el log donde se vea el envío. Muestra cómo has leído el correo. Muestra el registro MX de tu dominio.</p>
+<ul>
+<li>Enviamos el correo de prueba</li>
+</ul>
+<p><img src="/images/ohv_correo/correo3.png" alt="correo3.png"></p>
+<ul>
+<li>Mostramos el log del envio</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">MIME-Version: 1.0
+Date: Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 10:29:42 +0100
+Message-ID: &lt;CA+p9fxpdJwBg_0wsL0kEsC_Q1Qjm6M9SF-YuqqPNDTBTP3w-_g@mail.gmail.com&gt;
+Subject: prueba2
+From: <span style="color:#e6db74">&#34;Celia García Márquez&#34;</span> &lt;cgarmai95@gmail.com&gt;
+To: debian@kiara.iesgn05.es
+Content-Type: multipart/alternative; boundary<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;00000000000087828d05b9b62d12&#34;</span>
+
+--00000000000087828d05b9b62d12
+Content-Type: text/plain; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+Esto es una prueba para el servidor de correos
+
+--<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+*Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez*
+
+--00000000000087828d05b9b62d12
+Content-Type: text/html; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;Esto es una prueba para el servidor de correos&lt;br clear<span style="color:#f92672">=</span>3D<span style="color:#f92672">=</span>
+<span style="color:#e6db74">&#34;all&#34;</span>&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- &lt;br&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span> class<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span> data<span style="color:#f92672">=</span>
+-smartmail<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span>&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;&lt;i&gt;Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa <span style="color:#f92672">=</span>
+M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+--00000000000087828d05b9b62d12--
+</code></pre></div><ul>
+<li>Comprobamos que nos ha llegado el correo, vemos el mendaje con la utilidad <code>mail</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Message 1:
+From cgarmai95@gmail.com  Mon Jan <span style="color:#ae81ff">25</span> 09:29:54 <span style="color:#ae81ff">2021</span>
+X-Original-To: debian@kiara.iesgn05.es
+DKIM-Signature: v<span style="color:#f92672">=</span>1; a<span style="color:#f92672">=</span>rsa-sha256; c<span style="color:#f92672">=</span>relaxed/relaxed;
+        d<span style="color:#f92672">=</span>gmail.com; s<span style="color:#f92672">=</span>20161025;
+        h<span style="color:#f92672">=</span>mime-version:from:date:message-id:subject:to;
+        bh<span style="color:#f92672">=</span>2rQiNF6LN2Lr26bwdeUaEikIBfAgcj3FFXH0Jwihfd0<span style="color:#f92672">=</span>;
+        b<span style="color:#f92672">=</span>mxEmJ7xX6+3hwa9oh/C0jAuSmHaXSiZ4UwVXhpHVriXRCF9qg+Qq3x2VOFvBgy2Ooe
+         BSz+PStpArCrP6s4td7Rm6jl88EiePiFXW1ERJU3Fos6lSiQvh/a3J+RCcXuznQtn/Pk
+         mvf5N93ZrW7ejbME4c82rtZCjJw5wwNp1U4ocJbAod38fTf263jsakmuEmUIKBo+S19S
+         qXkPc1t4yHrgeXlYMBGrlibiCSsQRXexbgSbLZ8KZ+BdGFqBxzWhY7EUD60USSJjw+j7
+         GUDk9jGxtB2M/mQcdVEjKwgZz+11n7oTCclN2C7mjof3+/1TrTbwY+l+h0exVa+0EC8O
+         +e7Q<span style="color:#f92672">==</span>
+X-Google-DKIM-Signature: v<span style="color:#f92672">=</span>1; a<span style="color:#f92672">=</span>rsa-sha256; c<span style="color:#f92672">=</span>relaxed/relaxed;
+        d<span style="color:#f92672">=</span>1e100.net; s<span style="color:#f92672">=</span>20161025;
+        h<span style="color:#f92672">=</span>x-gm-message-state:mime-version:from📅message-id:subject:to;
+        bh<span style="color:#f92672">=</span>2rQiNF6LN2Lr26bwdeUaEikIBfAgcj3FFXH0Jwihfd0<span style="color:#f92672">=</span>;
+        b<span style="color:#f92672">=</span>tAcv7LMfoO0GSNPm5lHJWBHEA9Y/Tr+uNvPKO3Mq+eGLAizzzeN5Z8XSUIMNcJQgIA
+         FhQL6z3OperopA3ufBP5JjxHFGUNYOczPuc+ynqJY/6nkKVVvMktP/sEVOzSa3lTlu/A
+         9P8XMeZ22wko4nNnB8h4YX80VhtiBRL/gHNczQ7BC+hbAP/abP8TOyiSyliALVhZHAmK
+         urTIE7Opl5WFpFXIBjyUaO3aD/9D65lbIczckdT7iUg3NO44Ix7OUOH6vLs3TPuvVTk3
+         lhMTTgbY0vpn5xY9NM3zhzjbhSk6JSKoWtrR+ZtLAjCMEWAWqbUsl0WLai0WlGOo2he0
+         qkVw<span style="color:#f92672">==</span>
+X-Gm-Message-State: AOAM530XD7PUhxVlbeMUpqmYiIlmOrWikb2sl9UUcFPZD1/O0JGQecc1
+        1lceXgI6W+g7Ttmc95emhj6zN2pq0Mx9BB3dak/zFBUTGvs<span style="color:#f92672">=</span>
+X-Google-Smtp-Source: ABdhPJx5I5LePunEuUcS/aU4J+C8LRdt80m6YPgIPai/SYaXIZaL3YrJTLk24gmMDM39Z5kaI6bYTp4clDMwry5+Clg<span style="color:#f92672">=</span>
+X-Received: by 2002:a9d:20a8:: with SMTP id x37mr825585ota.62.1611566992979;
+ Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 01:29:52 -0800 <span style="color:#f92672">(</span>PST<span style="color:#f92672">)</span>
+MIME-Version: 1.0
+From: <span style="color:#f92672">=</span>?UTF-8?Q?Celia_Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa_M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez?<span style="color:#f92672">=</span> &lt;cgarmai95@gmail.com&gt;
+Date: Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 10:29:42 +0100
+Subject: prueba2
+To: debian@kiara.iesgn05.es
+Content-Type: multipart/alternative; boundary<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;00000000000025fb9b05b9b62e3d&#34;</span>
+
+--00000000000025fb9b05b9b62e3d
+Content-Type: text/plain; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+Esto es una prueba para el servidor de correos
+
+--<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+*Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez*
+
+--00000000000025fb9b05b9b62e3d
+Content-Type: text/html; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;Esto es una prueba para el servidor de correos&lt;br clear<span style="color:#f92672">=</span>3D<span style="color:#f92672">=</span>
+<span style="color:#e6db74">&#34;all&#34;</span>&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- &lt;br&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span> class<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span> data<span style="color:#f92672">=</span>
+-smartmail<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span>&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;&lt;i&gt;Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa <span style="color:#f92672">=</span>
+M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+</code></pre></div><ul>
+<li>Registro MX de mi dominio</li>
+</ul>
+<p><img src="/images/ovh_correo/correo4.png" alt="correo4.png"></p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Instalación de aplicación web CMS python</title>
             <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</link>
             <pubDate>Thu, 21 Jan 2021 13:04:33 +0100</pubDate>

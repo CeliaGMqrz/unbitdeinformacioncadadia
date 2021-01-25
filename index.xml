@@ -31,6 +31,17 @@ Tratamos con los diferentes sistemas y la instalación y configuración de servi
     </item>
     
     <item>
+      <title>Servidor de Correos. Postfix (I)</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</link>
+      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</guid>
+      <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
+Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos.</description>
+    </item>
+    
+    <item>
       <title>Instalación de aplicación web CMS python</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</link>
       <pubDate>Thu, 21 Jan 2021 13:04:33 +0100</pubDate>
@@ -111,18 +122,6 @@ Realiza la configuración del servicio que permita su gestión remota desde un e
 Realiza la instalación y configuración básica de OpenLDAP en frestón utilizando como base el nombre DNS asignado.
 Crea dos unidades organizativas, una para personas y otra para grupos.
  1. Conceptos previos LDAP corresponde a Lightweight Directory Access Protocol, que significa protocolo ligero de acceso a directorios. Es decir, se trata de un protocolo que permite acceder a través de la red a información guardada en directorios en un sevidor.</description>
-    </item>
-    
-    <item>
-      <title>Instalación de un servidor Oracle database 19c sobre Linux 8</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</link>
-      <pubDate>Tue, 08 Dec 2020 15:28:36 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2020/12/instalaci%C3%B3n-de-un-servidor-oracle-database-19c-sobre-linux-8/</guid>
-      <description>1. Requisitos para el entorno de trabajo Vamos a instalar ORACLE 19c sobre Linux 8. Para ello vamos a trabajar en una máquina virtual.
-Requisitos:
-Nuestra máquina virtual constará de los siguentes requisitos
- 2 Gb de Ram (mínimo), en mi caso le puesto 6Gb 2 CPU 30 Gb de almacenamiento mínimo, en mi caso le he puesto 60Gb Sistema Linux: (Red Hat Enterprise Linux for x86_64 (v. 8.3 for x86_64)) Red puente hacia la máquina anfitriona  Preinstalación Necesitamos instalar el paquete de Oracle con los paquetes esenciales anteriores a su instalación</description>
     </item>
     
   </channel>

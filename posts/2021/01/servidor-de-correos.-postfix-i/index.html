@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Celia García Márquez ">
+<meta name="description" content="1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
+Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos." />
+<meta name="keywords" content="blogs, servidor correos, spf, mailx, postfix" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<link rel="canonical" href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/" />
+
+
+    <title>
+        
+            Servidor de Correos. Postfix (I) :: Un bit de informacion cada día  — Hello Friend NG Theme
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://unbitdeinformacioncadadia.netlify.app/main.393856bf2c430bb6c01d7af07c6fe966e7cce8073435cfbbc46e590bab7405ef.css">
+
+
+    
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://unbitdeinformacioncadadia.netlify.app/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://unbitdeinformacioncadadia.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://unbitdeinformacioncadadia.netlify.app/favicon-16x16.png">
+    <link rel="manifest" href="https://unbitdeinformacioncadadia.netlify.app/site.webmanifest">
+    <link rel="mask-icon" href="https://unbitdeinformacioncadadia.netlify.app/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://unbitdeinformacioncadadia.netlify.app/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+
+<meta itemprop="name" content="Servidor de Correos. Postfix (I)">
+<meta itemprop="description" content="1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
+Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos.">
+<meta itemprop="datePublished" content="2021-01-22T12:48:10+01:00" />
+<meta itemprop="dateModified" content="2021-01-22T12:48:10+01:00" />
+<meta itemprop="wordCount" content="639">
+<meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
+
+
+
+<meta itemprop="keywords" content="servidor correos,spf,mailx,postfix," />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
+
+<meta name="twitter:title" content="Servidor de Correos. Postfix (I)"/>
+<meta name="twitter:description" content="1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
+Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos."/>
+
+
+
+    <meta property="og:title" content="Servidor de Correos. Postfix (I)" />
+<meta property="og:description" content="1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
+Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
+2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete postfixy la utilidadbsd-mailx` para leer los correos." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/" />
+<meta property="og:image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
+<meta property="article:published_time" content="2021-01-22T12:48:10+01:00" />
+<meta property="article:modified_time" content="2021-01-22T12:48:10+01:00" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2021-01-22 12:48:10 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://unbitdeinformacioncadadia.netlify.app/posts/">Blog</a></li><li><a href="https://unbitdeinformacioncadadia.netlify.app/about/">Contacto</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        3 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/">Servidor de Correos. Postfix (I)</a>
+      </h1>
+
+      
+
+      <div class="post-content">
+        <h2 id="1-objetivo">1. Objetivo.</h2>
+<p>Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio <strong>iesgn05</strong>. El nombre del servidor de correo será <strong>mail.iesgn05.es</strong>.</p>
+<p>Configurar un registro <strong>SPF</strong>, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.</p>
+<h2 id="2-gestión-de-correos-desde-el-servidor">2. Gestión de correos desde el servidor</h2>
+<h3 id="21-instalación-del-servidor-de-correos">2.1. Instalación del servidor de correos</h3>
+<p>Para instalar el servidor de correos vamos a descargar e instalar el paquete <code></code>postfix<code>y la utilidad</code>bsd-mailx` para leer los correos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-get install postfix bsd-mailx
+</code></pre></div><p>Cuando instalemos postfix, dejaremos la configuración por defecto por el momento, dejando la opción &lsquo;Internet Site&rsquo; y creara la configuración estándar.</p>
+<h3 id="22-enviar-un-correo-de-prueba-de-local-al-exterior">2.2. Enviar un correo de prueba de local al exterior</h3>
+<p>Tarea 1: Documenta una prueba de funcionamiento, donde envíes desde tu servidor local al exterior. Muestra el log donde se vea el envío. Muestra el correo que has recibido. Muestra el registro SPF.</p>
+<ul>
+<li>Mandamos el correo de prueba:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@kiara:~$ mail cgarmai95@gmail.com
+Subject: Prueba
+Hola esto es una prueba
+Cc: 
+
+</code></pre></div><ul>
+<li>Comprobamos que nos llega el correo</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/ovh_correo/correo1.png" alt="correo1.png"></p>
+<ul>
+<li>Mostramos el log</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@kiara:~$ cat /var/log/mail.log 
+Jan <span style="color:#ae81ff">25</span> 09:02:52 kiara postfix/postfix-script<span style="color:#f92672">[</span>27856<span style="color:#f92672">]</span>: starting the Postfix mail system
+Jan <span style="color:#ae81ff">25</span> 09:02:52 kiara postfix/master<span style="color:#f92672">[</span>27858<span style="color:#f92672">]</span>: daemon started -- version 3.4.14, configuration /etc/postfix
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/pickup<span style="color:#f92672">[</span>27860<span style="color:#f92672">]</span>: 3BB6B42306: uid<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span> from<span style="color:#f92672">=</span>&lt;debian&gt;
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/cleanup<span style="color:#f92672">[</span>27978<span style="color:#f92672">]</span>: 3BB6B42306: message-id<span style="color:#f92672">=</span>&lt;20210125090703.3BB6B42306@kiara.iesgn05.es&gt;
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 3BB6B42306: from<span style="color:#f92672">=</span>&lt;debian@kiara.iesgn05.es&gt;, size<span style="color:#f92672">=</span>477, nrcpt<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">(</span>queue active<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/local<span style="color:#f92672">[</span>27980<span style="color:#f92672">]</span>: 3BB6B42306: to<span style="color:#f92672">=</span>&lt;Prueba@kiara.iesgn05.es&gt;, orig_to<span style="color:#f92672">=</span>&lt;Prueba&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.04, delays<span style="color:#f92672">=</span>0.02/0.01/0/0.01, dsn<span style="color:#f92672">=</span>5.1.1, status<span style="color:#f92672">=</span>bounced <span style="color:#f92672">(</span>unknown user: <span style="color:#e6db74">&#34;prueba&#34;</span><span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/local<span style="color:#f92672">[</span>27982<span style="color:#f92672">]</span>: 3BB6B42306: to<span style="color:#f92672">=</span>&lt;Subject:@kiara.iesgn05.es&gt;, orig_to<span style="color:#f92672">=</span>&lt;Subject:&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.04, delays<span style="color:#f92672">=</span>0.02/0.02/0/0.01, dsn<span style="color:#f92672">=</span>5.1.1, status<span style="color:#f92672">=</span>bounced <span style="color:#f92672">(</span>unknown user: <span style="color:#e6db74">&#34;subject:&#34;</span><span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:03 kiara postfix/smtp<span style="color:#f92672">[</span>27981<span style="color:#f92672">]</span>: connect to gmail-smtp-in.l.google.com<span style="color:#f92672">[</span>2a00:1450:400c:c0a::1a<span style="color:#f92672">]</span>:25: Network is unreachable
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/smtp<span style="color:#f92672">[</span>27981<span style="color:#f92672">]</span>: 3BB6B42306: to<span style="color:#f92672">=</span>&lt;cgarmai95@gmail.com&gt;, relay<span style="color:#f92672">=</span>gmail-smtp-in.l.google.com<span style="color:#f92672">[</span>64.233.184.27<span style="color:#f92672">]</span>:25, delay<span style="color:#f92672">=</span>0.78, delays<span style="color:#f92672">=</span>0.02/0.01/0.34/0.42, dsn<span style="color:#f92672">=</span>2.0.0, status<span style="color:#f92672">=</span>sent <span style="color:#f92672">(</span><span style="color:#ae81ff">250</span> 2.0.0 OK  <span style="color:#ae81ff">1611565624</span> i9si3008047wrw.2 - gsmtp<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/cleanup<span style="color:#f92672">[</span>27978<span style="color:#f92672">]</span>: 04D5C4231C: message-id<span style="color:#f92672">=</span>&lt;20210125090704.04D5C4231C@kiara.iesgn05.es&gt;
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 04D5C4231C: from<span style="color:#f92672">=</span>&lt;&gt;, size<span style="color:#f92672">=</span>2682, nrcpt<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>queue active<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/bounce<span style="color:#f92672">[</span>27984<span style="color:#f92672">]</span>: 3BB6B42306: sender non-delivery notification: 04D5C4231C
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 3BB6B42306: removed
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/local<span style="color:#f92672">[</span>27980<span style="color:#f92672">]</span>: 04D5C4231C: to<span style="color:#f92672">=</span>&lt;debian@kiara.iesgn05.es&gt;, relay<span style="color:#f92672">=</span>local, delay<span style="color:#f92672">=</span>0.01, delays<span style="color:#f92672">=</span>0/0/0/0, dsn<span style="color:#f92672">=</span>2.0.0, status<span style="color:#f92672">=</span>sent <span style="color:#f92672">(</span>delivered to mailbox<span style="color:#f92672">)</span>
+Jan <span style="color:#ae81ff">25</span> 09:07:04 kiara postfix/qmgr<span style="color:#f92672">[</span>27861<span style="color:#f92672">]</span>: 04D5C4231C: removed
+You have mail in /var/mail/debian
+
+</code></pre></div><ul>
+<li>Mostrar registro SPF</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/ohv_correo/correo2.png" alt="correo2.png"></p>
+<h3 id="22-enviar-un-correo-de-prueba-del-exterior-a-local">2.2. Enviar un correo de prueba del exterior a local</h3>
+<p>Tarea 2: Documenta una prueba de funcionamiento, donde envíes un correo desde el exterior (gmail, hotmail,…) a tu servidor local. Muestra el log donde se vea el envío. Muestra cómo has leído el correo. Muestra el registro MX de tu dominio.</p>
+<ul>
+<li>Enviamos el correo de prueba</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/ohv_correo/correo3.png" alt="correo3.png"></p>
+<ul>
+<li>Mostramos el log del envio</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">MIME-Version: 1.0
+Date: Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 10:29:42 +0100
+Message-ID: &lt;CA+p9fxpdJwBg_0wsL0kEsC_Q1Qjm6M9SF-YuqqPNDTBTP3w-_g@mail.gmail.com&gt;
+Subject: prueba2
+From: <span style="color:#e6db74">&#34;Celia García Márquez&#34;</span> &lt;cgarmai95@gmail.com&gt;
+To: debian@kiara.iesgn05.es
+Content-Type: multipart/alternative; boundary<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;00000000000087828d05b9b62d12&#34;</span>
+
+--00000000000087828d05b9b62d12
+Content-Type: text/plain; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+Esto es una prueba para el servidor de correos
+
+--<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+*Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez*
+
+--00000000000087828d05b9b62d12
+Content-Type: text/html; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;Esto es una prueba para el servidor de correos&lt;br clear<span style="color:#f92672">=</span>3D<span style="color:#f92672">=</span>
+<span style="color:#e6db74">&#34;all&#34;</span>&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- &lt;br&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span> class<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span> data<span style="color:#f92672">=</span>
+-smartmail<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span>&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;&lt;i&gt;Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa <span style="color:#f92672">=</span>
+M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+--00000000000087828d05b9b62d12--
+</code></pre></div><ul>
+<li>Comprobamos que nos ha llegado el correo, vemos el mendaje con la utilidad <code>mail</code></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Message 1:
+From cgarmai95@gmail.com  Mon Jan <span style="color:#ae81ff">25</span> 09:29:54 <span style="color:#ae81ff">2021</span>
+X-Original-To: debian@kiara.iesgn05.es
+DKIM-Signature: v<span style="color:#f92672">=</span>1; a<span style="color:#f92672">=</span>rsa-sha256; c<span style="color:#f92672">=</span>relaxed/relaxed;
+        d<span style="color:#f92672">=</span>gmail.com; s<span style="color:#f92672">=</span>20161025;
+        h<span style="color:#f92672">=</span>mime-version:from:date:message-id:subject:to;
+        bh<span style="color:#f92672">=</span>2rQiNF6LN2Lr26bwdeUaEikIBfAgcj3FFXH0Jwihfd0<span style="color:#f92672">=</span>;
+        b<span style="color:#f92672">=</span>mxEmJ7xX6+3hwa9oh/C0jAuSmHaXSiZ4UwVXhpHVriXRCF9qg+Qq3x2VOFvBgy2Ooe
+         BSz+PStpArCrP6s4td7Rm6jl88EiePiFXW1ERJU3Fos6lSiQvh/a3J+RCcXuznQtn/Pk
+         mvf5N93ZrW7ejbME4c82rtZCjJw5wwNp1U4ocJbAod38fTf263jsakmuEmUIKBo+S19S
+         qXkPc1t4yHrgeXlYMBGrlibiCSsQRXexbgSbLZ8KZ+BdGFqBxzWhY7EUD60USSJjw+j7
+         GUDk9jGxtB2M/mQcdVEjKwgZz+11n7oTCclN2C7mjof3+/1TrTbwY+l+h0exVa+0EC8O
+         +e7Q<span style="color:#f92672">==</span>
+X-Google-DKIM-Signature: v<span style="color:#f92672">=</span>1; a<span style="color:#f92672">=</span>rsa-sha256; c<span style="color:#f92672">=</span>relaxed/relaxed;
+        d<span style="color:#f92672">=</span>1e100.net; s<span style="color:#f92672">=</span>20161025;
+        h<span style="color:#f92672">=</span>x-gm-message-state:mime-version:from📅message-id:subject:to;
+        bh<span style="color:#f92672">=</span>2rQiNF6LN2Lr26bwdeUaEikIBfAgcj3FFXH0Jwihfd0<span style="color:#f92672">=</span>;
+        b<span style="color:#f92672">=</span>tAcv7LMfoO0GSNPm5lHJWBHEA9Y/Tr+uNvPKO3Mq+eGLAizzzeN5Z8XSUIMNcJQgIA
+         FhQL6z3OperopA3ufBP5JjxHFGUNYOczPuc+ynqJY/6nkKVVvMktP/sEVOzSa3lTlu/A
+         9P8XMeZ22wko4nNnB8h4YX80VhtiBRL/gHNczQ7BC+hbAP/abP8TOyiSyliALVhZHAmK
+         urTIE7Opl5WFpFXIBjyUaO3aD/9D65lbIczckdT7iUg3NO44Ix7OUOH6vLs3TPuvVTk3
+         lhMTTgbY0vpn5xY9NM3zhzjbhSk6JSKoWtrR+ZtLAjCMEWAWqbUsl0WLai0WlGOo2he0
+         qkVw<span style="color:#f92672">==</span>
+X-Gm-Message-State: AOAM530XD7PUhxVlbeMUpqmYiIlmOrWikb2sl9UUcFPZD1/O0JGQecc1
+        1lceXgI6W+g7Ttmc95emhj6zN2pq0Mx9BB3dak/zFBUTGvs<span style="color:#f92672">=</span>
+X-Google-Smtp-Source: ABdhPJx5I5LePunEuUcS/aU4J+C8LRdt80m6YPgIPai/SYaXIZaL3YrJTLk24gmMDM39Z5kaI6bYTp4clDMwry5+Clg<span style="color:#f92672">=</span>
+X-Received: by 2002:a9d:20a8:: with SMTP id x37mr825585ota.62.1611566992979;
+ Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 01:29:52 -0800 <span style="color:#f92672">(</span>PST<span style="color:#f92672">)</span>
+MIME-Version: 1.0
+From: <span style="color:#f92672">=</span>?UTF-8?Q?Celia_Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa_M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez?<span style="color:#f92672">=</span> &lt;cgarmai95@gmail.com&gt;
+Date: Mon, <span style="color:#ae81ff">25</span> Jan <span style="color:#ae81ff">2021</span> 10:29:42 +0100
+Subject: prueba2
+To: debian@kiara.iesgn05.es
+Content-Type: multipart/alternative; boundary<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;00000000000025fb9b05b9b62e3d&#34;</span>
+
+--00000000000025fb9b05b9b62e3d
+Content-Type: text/plain; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+Esto es una prueba para el servidor de correos
+
+--<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>
+*Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez*
+
+--00000000000025fb9b05b9b62e3d
+Content-Type: text/html; charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>
+Content-Transfer-Encoding: quoted-printable
+
+&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;Esto es una prueba para el servidor de correos&lt;br clear<span style="color:#f92672">=</span>3D<span style="color:#f92672">=</span>
+<span style="color:#e6db74">&#34;all&#34;</span>&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;-- &lt;br&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span> class<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span> data<span style="color:#f92672">=</span>
+-smartmail<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;gmail_signature&#34;</span>&gt;&lt;div dir<span style="color:#f92672">=</span>3D<span style="color:#e6db74">&#34;ltr&#34;</span>&gt;&lt;i&gt;Atte. Celia Garc<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>ADa <span style="color:#f92672">=</span>
+M<span style="color:#f92672">=</span>C3<span style="color:#f92672">=</span>A1rquez&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+</code></pre></div><ul>
+<li>Registro MX de mi dominio</li>
+</ul>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/ovh_correo/correo4.png" alt="correo4.png"></p>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/servidor-correos/">servidor correos</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/spf/">spf</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/mailx/">mailx</a></span>
+        <span class="tag"><a href="https://unbitdeinformacioncadadia.netlify.app/tags/postfix/">postfix</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        639 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          22/01/2021 12:48
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Servidor%20de%20Correos.%20Postfix%20%28I%29&amp;caption=Servidor%20de%20Correos.%20Postfix%20%28I%29&amp;canonicalUrl=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Servidor%20de%20Correos.%20Postfix%20%28I%29&amp;body=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f&amp;media=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f;description=Servidor%20de%20Correos.%20Postfix%20%28I%29" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f&amp;title=Servidor%20de%20Correos.%20Postfix%20%28I%29&amp;summary=Servidor%20de%20Correos.%20Postfix%20%28I%29&amp;source=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f&amp;resubmit=true&amp;title=Servidor%20de%20Correos.%20Postfix%20%28I%29" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f;title=Servidor%20de%20Correos.%20Postfix%20%28I%29" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Servidor%20de%20Correos.%20Postfix%20%28I%29%20https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f&amp;t=Servidor%20de%20Correos.%20Postfix%20%28I%29" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Servidor%20de%20Correos.%20Postfix%20%28I%29&amp;url=https%3a%2f%2funbitdeinformacioncadadia.netlify.app%2fposts%2f2021%2f01%2fservidor-de-correos.-postfix-i%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h"></span>
+          <hr />
+        </div>
+
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Proyecto: Escenario planteado sobre OpenStack</span>
+              </a>
+            </span>
+          
+
+          
+            <span class="button next">
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/">
+                <span class="button__text">Instalación de aplicación web CMS python</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2021</span>
+            
+                <span><a href="https://unbitdeinformacioncadadia.netlify.app/">Celia García Márquez</a></span>
+            
+            
+                <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://unbitdeinformacioncadadia.netlify.app/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
