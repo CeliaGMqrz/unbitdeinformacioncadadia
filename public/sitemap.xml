@@ -3,27 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/dkim/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/servidor-de-correos/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iii./</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</loc>
     <lastmod>2021-01-25T09:27:32+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/ldaps/</loc>
-    <lastmod>2021-01-25T09:27:32+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
-    <lastmod>2021-01-25T09:27:32+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2021-01-25T09:27:32+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2021-01-25T09:27:32+01:00</lastmod>
   </url>
   

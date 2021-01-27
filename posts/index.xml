@@ -6,8 +6,48 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 25 Jan 2021 09:27:32 +0100</lastBuildDate>
+        <lastBuildDate>Mon, 25 Jan 2021 17:15:21 +0100</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Servidor de Correos. Postfix (III).</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iii./</link>
+            <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iii./</guid>
+            <description>Gestión de correos desde un cliente Tarea 8: Configura el buzón de los usuarios de tipo Maildir. Envía un correo a tu usuario y comprueba que el correo se ha guardado en el buzón Maildir del usuario del sistema correspondiente. Recuerda que ese tipo de buzón no se puede leer con la utilidad mail.
+Tarea 9: Instala configura dovecot para ofrecer el protocolo IMAP. Configura dovecot de manera adecuada para ofrecer autentificación y cifrado</description>
+            <content type="html"><![CDATA[<h2 id="gestión-de-correos-desde-un-cliente">Gestión de correos desde un cliente</h2>
+<p>Tarea 8: Configura el buzón de los usuarios de tipo Maildir. Envía un correo a tu usuario y comprueba que el correo se ha guardado en el buzón Maildir del usuario del sistema correspondiente. Recuerda que ese tipo de buzón no se puede leer con la utilidad mail.</p>
+<p><strong>Tarea 9</strong>: Instala configura dovecot para ofrecer el protocolo IMAP. Configura dovecot de manera adecuada para ofrecer autentificación y cifrado</p>
+<h3 id="1-conceptos">1. Conceptos:</h3>
+<ul>
+<li>
+<p><strong>Dovecot</strong>: es un servidor de IMAP Y POP3 de código abierto para sistemas Linux. Puede trabajar con mbox y Maildir.</p>
+</li>
+<li>
+<p><strong>IMAP</strong>: Es un protocolo de acceso a mensajes de Internet, que permite el acceso a mensajes almacenados en un servidor de internet. A través de IMAP se puede tener acceso al correo electrónico teniendo acceso a la red.</p>
+</li>
+<li>
+<p><strong>Pop</strong>: Protocolo de oficina de correo. También es usado para la obtencion de mensajes de correo electrónico almacenados en un servidor remoto.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>Diferencias entre IMAP y POP</strong>: La diferencia principal entre estos dos protocolos es que IMAP almacena los mensajes en el servidor de correo mientras que POP3 los descarga y almacena de forma local.</p>
+</blockquote>
+<p><strong>Tipos de buzones</strong></p>
+<p>Hasta ahora hemos utilizado el buzon <strong>mbox</strong> a través del protocolo POP3, pero ahora vamos a utlizar el buzón <strong>Maildir</strong>, en el que los mensajes se guardan en un directorio llamado Maildir, imprescindible para el protocolo que vamos a usar <strong>IMAP</strong>.</p>
+<h3 id="2-instalación-de-dovecot">2. Instalación de dovecot</h3>
+<ul>
+<li>Instalamos los paquetes pertintentes que vamos a usar para dovecot</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install dovecot-imapd dovecot-pop3d dovecot-core
+</code></pre></div><ul>
+<li>Editamos el fichero de configuración de postfix de forma que lo modificamos asi</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nano /etc
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>Configurar LDAPs en Debian. OpenLDAP. (Freston)</title>
@@ -506,7 +546,8 @@ crontab -r
 La máquina virtual sobre la que trabajamos es un Centos 8, nuestro llamado Quijote.
 El objetivo es desplegar un CMS python, en este caso wagtail, basado en django.
 1. Instalación de wagtail. Entorno de desarrollo: Creación del entorno virtual.  Primero tendremos que crear un entorno virtual en nuestra máquina anfitriona.</description>
-            <content type="html"><![CDATA[<h2 id="objetivo">Objetivo:</h2>
+            <content type="html"><![CDATA[<p><img src="/images/escenario/django/django.png" alt="django.png"></p>
+<h2 id="objetivo">Objetivo:</h2>
 <p>En este post vamos a trabajar sobre el entorno de trabajo de openstack nuevamente, el mismo sobre el que tratamos en el blog.</p>
 <p>La máquina virtual sobre la que trabajamos es un Centos 8, nuestro llamado Quijote.</p>
 <p>El objetivo es desplegar un CMS python, en este caso wagtail, basado en django.</p>
@@ -548,13 +589,37 @@ Django version 3.1.5, using settings <span style="color:#e6db74">&#39;mysite.set
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 
-</code></pre></div><p><img src="wag1.png" alt="wag1.png"></p>
+</code></pre></div><p><img src="/images/escenario/django/wag1.png" alt="wag1.png"></p>
 <ul>
 <li>Nos vamos a <strong>http://127.0.0.1:8000/admin/</strong> en el navegador y metemos las credenciales que hemos configurado anteriormente y nos saldrá la pagina para administrar el sitio web.</li>
 </ul>
-<p><img src="wag2.png" alt="wag2.png"></p>
+<p><img src="/images/escenario/django/wag2.png" alt="wag2.png"></p>
 <h2 id="2-personalización-del-sitio-web">2. Personalización del Sitio Web</h2>
-]]></content>
+<p>He seguido un poco la <a href="https://docs.wagtail.io/en/stable/getting_started/tutorial.html">documentación de Wagtail</a>, para personalizar el sitio web y ahora tiene el siguiente aspecto.</p>
+<p><img src="/images/escenario/django/inicio.png" alt="inicio.png"></p>
+<p>Se le ha añadido varios apartados entre ellos un blog, al que se puede acceder añadiendo /blog a la url.</p>
+<p><img src="/images/escenario/django/admin.png" alt="admin.png"></p>
+<p><img src="/images/escenario/django/blog.png" alt="blog.png"></p>
+<h2 id="3-copia-de-seguridad-de-la-base-de-datos">3. Copia de seguridad de la base de datos</h2>
+<p>Vamos a guardar los ficheros que componen esta aplicación en un repositorio de git y ademas tambien vamos hacer la copia de seguridad de la base de datos y la subiremos al mismo repositorio.</p>
+<ul>
+<li>Creamos un repositorio vacio en el directorio de wagtail, añadimos todo el contenido y lo subimos al repositorio que tenemos creado en git.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git init
+git add *
+git commit -am <span style="color:#e6db74">&#34;wagtail&#34;</span>
+git remote add origin git@github.com:CeliaGMqrz/wagtail.git
+git branch -M main
+git push -u origin main
+</code></pre></div><ul>
+<li>Entramos en el directorio mysite y creamos la copia de seguridad de la base de datos, la añadimos al repositorio y la subimos.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd mysite/
+python manage.py dumpdata &gt; backup_db.json
+git add backup_db.json 
+git commit -am <span style="color:#e6db74">&#34;copia de seguridad&#34;</span>
+git push
+</code></pre></div>]]></content>
         </item>
         
         <item>
