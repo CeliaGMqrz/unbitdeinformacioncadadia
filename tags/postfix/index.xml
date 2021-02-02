@@ -16,7 +16,7 @@
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</guid>
       <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
 Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
-2. Gestión de correos desde el servidor 2.1. Instalación del servidor de correos Para instalar el servidor de correos vamos a descargar e instalar el paquete  postfix y la utilidad bsd-mailx ` para leer los correos.</description>
+Suponiendo que el servidor de correo se llama mail.iesgn05.es, crearemos un registro MX siendo este mail.</description>
     </item>
     
     <item>
