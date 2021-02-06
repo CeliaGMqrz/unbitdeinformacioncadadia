@@ -17,13 +17,13 @@
             <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iii./</guid>
             <description>Gestión de correos desde un cliente Tarea 8: Configurar postfix con Maildir Descripción:
 Configura el buzón de los usuarios de tipo Maildir. Envía un correo a tu usuario y comprueba que el correo se ha guardado en el buzón Maildir del usuario del sistema correspondiente. Recuerda que ese tipo de buzón no se puede leer con la utilidad mail.
-Configuracion:
+Configuración:
  Para hacer esta tarea vamos a indicar a postfix en su configuración dónde se van a guardar los nuevos correos.</description>
             <content type="html"><![CDATA[<h2 id="gestión-de-correos-desde-un-cliente">Gestión de correos desde un cliente</h2>
 <h3 id="tarea-8-configurar-postfix-con-maildir">Tarea 8: Configurar postfix con Maildir</h3>
 <p><strong>Descripción:</strong></p>
 <p>Configura el buzón de los usuarios de tipo Maildir. Envía un correo a tu usuario y comprueba que el correo se ha guardado en el buzón <strong>Maildir</strong> del usuario del sistema correspondiente. Recuerda que ese tipo de buzón no se puede leer con la utilidad mail.</p>
-<p><strong>Configuracion:</strong></p>
+<p><strong>Configuración:</strong></p>
 <ul>
 <li>Para hacer esta tarea vamos a indicar a postfix en su configuración dónde se van a guardar los nuevos correos.</li>
 </ul>
@@ -142,7 +142,7 @@ tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff"
 </code></pre></div><ul>
 <li>Creamos el CNAME en la zona DNS</li>
 </ul>
-<p><img src="/images/correo_ovh/imap.png" alt="imap.png"></p>
+<p><img src="/images/ovh_correo/imap.png" alt="imap.png"></p>
 <ul>
 <li>Habilitamos la opción &lsquo;protocols&rsquo; estableciendo como valor imap</li>
 </ul>
