@@ -9,11 +9,20 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Mon, 25 Jan 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>DKIM</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/dkim/</link>
+      <title>dovecot</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/dovecot/</link>
       <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
       
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/dkim/</guid>
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/dovecot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IMAP</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/imap/</link>
+      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/imap/</guid>
       <description></description>
     </item>
     
@@ -86,15 +95,6 @@
       <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/redirecciones/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>servidor correos</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/servidor-correos/</link>
-      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/servidor-correos/</guid>
       <description></description>
     </item>
     

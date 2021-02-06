@@ -14,8 +14,10 @@
       <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iii./</guid>
-      <description>Gestión de correos desde un cliente Tarea 8: Configura el buzón de los usuarios de tipo Maildir. Envía un correo a tu usuario y comprueba que el correo se ha guardado en el buzón Maildir del usuario del sistema correspondiente. Recuerda que ese tipo de buzón no se puede leer con la utilidad mail.
-Tarea 9: Instala configura dovecot para ofrecer el protocolo IMAP. Configura dovecot de manera adecuada para ofrecer autentificación y cifrado</description>
+      <description>Gestión de correos desde un cliente Tarea 8: Configurar postfix con Maildir Descripción:
+Configura el buzón de los usuarios de tipo Maildir. Envía un correo a tu usuario y comprueba que el correo se ha guardado en el buzón Maildir del usuario del sistema correspondiente. Recuerda que ese tipo de buzón no se puede leer con la utilidad mail.
+Configuracion:
+ Para hacer esta tarea vamos a indicar a postfix en su configuración dónde se van a guardar los nuevos correos.</description>
     </item>
     
     <item>

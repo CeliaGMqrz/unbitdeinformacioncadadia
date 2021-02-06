@@ -3,7 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/dkim/</loc>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/dovecot/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/imap/</loc>
     <lastmod>2021-01-25T17:15:21+01:00</lastmod>
   </url>
   
