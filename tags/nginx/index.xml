@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 28 Nov 2020 20:44:54 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Jan 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Servidor de Correos. Postfix (IV). Webmail Roundcube.</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail-roundcube./</link>
+      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail-roundcube./</guid>
+      <description>Descripción (Tarea 10 y 12)
+Vamos a instalar un webmail (Roundcube), sobre Debian Buster alojado en una máquina de OVH, para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.
+RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos.
+1. Requisitos:   Tener en funcionamiento un servidor de web, en este caso usaremos Nginx</description>
+    </item>
+    
     <item>
       <title>Instalación/migración de aplicaciones web PHP</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2020/11/instalaci%C3%B3n/migraci%C3%B3n-de-aplicaciones-web-php/</link>
