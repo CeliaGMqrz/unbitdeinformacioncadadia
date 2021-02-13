@@ -21,6 +21,17 @@ Configuración:
     </item>
     
     <item>
+      <title>Servidor de Correos. Postfix (IV). Webmail</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail/</link>
+      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail/</guid>
+      <description>Descripción (Tarea 10 y 12)
+Vamos a instalar un webmail () para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.
+Instalar webmail RoundCube RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos, en este caso usaremos postfix. Un servidor web en este caso tenemos a Nginx.</description>
+    </item>
+    
+    <item>
       <title>Configurar LDAPs en Debian. OpenLDAP. (Freston)</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</link>
       <pubDate>Mon, 25 Jan 2021 09:27:32 +0100</pubDate>
@@ -112,16 +123,6 @@ sudo mysql_secure_installation ubuntu@sancho:~$ sudo mysql_secure_installation N
   Modificación del escenario
   Actualización de Centos7 a Centos8
   1. Descripción de la tarea: En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un servidor web apache. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones** php-fpm**).</description>
-    </item>
-    
-    <item>
-      <title>Configurar un DNS con bind9</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/</link>
-      <pubDate>Tue, 12 Jan 2021 19:49:10 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/</guid>
-      <description>Objetivo: Vamos a instalar un servidor dns en freston que nos permita gestionar la resolución directa e inversa de nuestros nombres. Cada alumno va a poseer un servidor dns con autoridad sobre un subdominio de nuestro dominio principal gonzalonazareno.org, que se llamará tu_nombre.gonzalonazareno.org. A partir de este momento no será necesario la resolución estática en los servidores.
-  Determina la regla DNAT en dulcinea para que podamos hacer consultas DNS desde el exterior</description>
     </item>
     
   </channel>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>webmail on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/webmail/</link>
+    <description>Recent content in webmail on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 25 Jan 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/webmail/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Servidor de Correos. Postfix (IV). Webmail</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail/</link>
+      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail/</guid>
+      <description>Descripción (Tarea 10 y 12)
+Vamos a instalar un webmail () para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.
+Instalar webmail RoundCube RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos, en este caso usaremos postfix. Un servidor web en este caso tenemos a Nginx.</description>
+    </item>
+    
+  </channel>
+</rss>

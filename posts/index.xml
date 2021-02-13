@@ -476,6 +476,87 @@ tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff"
         </item>
         
         <item>
+            <title>Servidor de Correos. Postfix (IV). Webmail</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail/</link>
+            <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail/</guid>
+            <description>Descripción (Tarea 10 y 12)
+Vamos a instalar un webmail () para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.
+Instalar webmail RoundCube RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos, en este caso usaremos postfix. Un servidor web en este caso tenemos a Nginx.</description>
+            <content type="html"><![CDATA[<h2 id="descripción">Descripción</h2>
+<p>(Tarea 10 y 12)</p>
+<p>Vamos a instalar un webmail () para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.</p>
+<h2 id="instalar-webmail-roundcube">Instalar webmail RoundCube</h2>
+<p>RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos, en este caso usaremos <strong>postfix</strong>. Un servidor web en este caso tenemos a <strong>Nginx</strong>. Tendremos que tener instalado PHP 5.4 o superior.</p>
+<ul>
+<li>Instalación de extensiones php</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install nginx php-cgi php-fpm php-pear php-mysql php-imap php-memcache memcached php-pear php-intl
+</code></pre></div><ul>
+<li>Instalar roundcube, aceptaremos la configuracion por defecto e indicaremos la contraseña para nuestra aplicacion</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+</code></pre></div><ul>
+<li>Crear usuario</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@<span style="color:#e6db74">&#34;localhost&#34;</span> IDENTIFIED BY <span style="color:#e6db74">&#39;roundcube&#39;</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo certbot -d correo.iesgn05.es --agree-tos -m debian@iesgn05.es
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@kiara:~$ sudo sed -i <span style="color:#e6db74">&#39;s/;date.timezone =/date.timezone = Europe\/Amsterdam/g&#39;</span> /etc/php/7.3/fpm/php.ini
+debian@kiara:~$ sudo systemctl restart php7.3-fpm
+debian@kiara:~$ sudo certbot -d correo.iesgn05.es --agree-tos -m debian@iesgn05.es
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+How would you like to authenticate and install certificates?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: Apache Web Server plugin <span style="color:#f92672">(</span>apache<span style="color:#f92672">)</span>
+2: Nginx Web Server plugin <span style="color:#f92672">(</span>nginx<span style="color:#f92672">)</span>
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number <span style="color:#f92672">[</span>1-2<span style="color:#f92672">]</span> <span style="color:#66d9ef">then</span> <span style="color:#f92672">[</span>enter<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>press <span style="color:#e6db74">&#39;c&#39;</span> to cancel<span style="color:#f92672">)</span>: <span style="color:#ae81ff">2</span>
+Plugins selected: Authenticator nginx, Installer nginx
+Obtaining a new certificate
+Performing the following challenges:
+http-01 challenge <span style="color:#66d9ef">for</span> correo.iesgn05.es
+Waiting <span style="color:#66d9ef">for</span> verification...
+Cleaning up challenges
+Deploying Certificate to VirtualHost /etc/nginx/sites-enabled/mail.iesgn05.com.conf
+
+Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: No redirect - Make no further changes to the webserver configuration.
+2: Redirect - Make all requests redirect to secure HTTPS access. Choose this <span style="color:#66d9ef">for</span>
+new sites, or <span style="color:#66d9ef">if</span> you<span style="color:#e6db74">&#39;re confident your site works on HTTPS. You can undo this
+</span><span style="color:#e6db74">change by editing your web server&#39;</span>s configuration.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number <span style="color:#f92672">[</span>1-2<span style="color:#f92672">]</span> <span style="color:#66d9ef">then</span> <span style="color:#f92672">[</span>enter<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>press <span style="color:#e6db74">&#39;c&#39;</span> to cancel<span style="color:#f92672">)</span>: <span style="color:#ae81ff">2</span>
+Redirecting all traffic on port <span style="color:#ae81ff">80</span> to ssl in /etc/nginx/sites-enabled/mail.iesgn05.com.conf
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations! You have successfully enabled https://correo.iesgn05.es
+
+You should test your configuration at:
+https://www.ssllabs.com/ssltest/analyze.html?d<span style="color:#f92672">=</span>correo.iesgn05.es
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/correo.iesgn05.es/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/correo.iesgn05.es/privkey.pem
+   Your cert will expire on 2021-05-13. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the <span style="color:#e6db74">&#34;certonly&#34;</span> option. To non-interactively renew *all* of
+   your certificates, run <span style="color:#e6db74">&#34;certbot renew&#34;</span>
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let<span style="color:#960050;background-color:#1e0010">&#39;</span>s Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
             <title>Configurar LDAPs en Debian. OpenLDAP. (Freston)</title>
             <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</link>
             <pubDate>Mon, 25 Jan 2021 09:27:32 +0100</pubDate>
