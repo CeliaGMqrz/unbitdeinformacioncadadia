@@ -501,7 +501,7 @@ RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrit
 <p>Servidor de correos, en este caso usaremos <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/">Postfix</a></p>
 </li>
 <li>
-<p>Un servidor DNS, en este caso OVH se encarga de ello pero podemos configurarlo con <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/">Bind9</a>, de forma que se cree un subdominio o dominio que se usará para roundcube, en este caso el subdominio será correo.iesgn05.es. que es un CNAME de nuestra máquina kiara.iesgn05.es.</p>
+<p>Un servidor DNS, en este caso OVH se encarga de ello pero podemos configurarlo con <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/">Bind9</a>, de forma que se cree un subdominio o dominio que se usará para roundcube, en este caso el subdominio será mail.iesgn05.es. que es un CNAME de nuestra máquina kiara.iesgn05.es.</p>
 </li>
 </ul>
 <h2 id="2-instalación-de-extensiones-php">2. Instalación de extensiones PHP</h2>
