@@ -655,11 +655,12 @@ sudo systemctl status nginx
 </ul>
 <p><img src="/images/ovh_correo/r4.png" alt="r4.png"></p>
 <ul>
-<li>Aquí se hará la configuración de IMAP</li>
-</ul>
-<p><img src="/images/ovh_correo/r5.png" alt="r5.png"></p>
-<ul>
-<li>Aquí se indicará la configuracion de SMTP</li>
+<li>
+<p>Aquí se hará la configuración de IMAP, la dejaremos por defecto que coja el puerto 143.</p>
+</li>
+<li>
+<p>Aquí se indicará la configuracion de SMTP</p>
+</li>
 </ul>
 <p><img src="/images/ovh_correo/r6.png" alt="r6.png"></p>
 <ul>
