@@ -488,20 +488,20 @@ RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrit
             <content type="html"><![CDATA[<h2 id="descripción">Descripción</h2>
 <p>(Tarea 10 y 12)</p>
 <p>Vamos a instalar un webmail (Roundcube), sobre Debian Buster alojado en una máquina de OVH, para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.</p>
-<p><strong>RoundCube</strong> es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos.</p>
+<p><em>RoundCube</em> es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos.</p>
 <h2 id="1-requisitos">1. Requisitos:</h2>
 <ul>
 <li>
 <p>Tener en funcionamiento un servidor de web, en este caso usaremos <a href="https://github.com/CeliaGMqrz/servidor_Nginx">Nginx</a></p>
 </li>
 <li>
-<p>Un gestor de base de datos, usaremos <strong>MariaDB</strong>.</p>
+<p>Un gestor de base de datos, usaremos <em>MariaDB</em>.</p>
 </li>
 <li>
 <p>Servidor de correos, en este caso usaremos <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/">Postfix</a></p>
 </li>
 <li>
-<p>Un servidor DNS, en este caso OVH se encarga de ello pero podemos configurarlo con <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/">Bind9</a>, de forma que se cree un subdominio o dominio que se usará para roundcube, en este caso el subdominio será <em>correo.iesgn05.es.</em> que es un CNAME de nuestra máquina <em>kiara.iesgn05.es</em>.</p>
+<p>Un servidor DNS, en este caso OVH se encarga de ello pero podemos configurarlo con <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-un-dns-con-bind9/">Bind9</a>, de forma que se cree un subdominio o dominio que se usará para roundcube, en este caso el subdominio será correo.iesgn05.es. que es un CNAME de nuestra máquina kiara.iesgn05.es.</p>
 </li>
 </ul>
 <h2 id="2-instalación-de-extensiones-php">2. Instalación de extensiones PHP</h2>
@@ -512,12 +512,11 @@ RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrit
 </code></pre></div><ul>
 <li>Establecer zona horaria en php.ini, según la nuestra evidentemente.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo  sed  -i  <span style="color:#e6db74">&#39;s /; date.timezone = / date.timezone = Europe \ / Madrid / g&#39;</span>  / etc / php / 7.3 / fpm / php.ini
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo sed -i <span style="color:#e6db74">&#39;s/;date.timezone =/date.timezone = Europe\/Madrid/g&#39;</span> /etc/php/7.3/fpm/php.ini
 </code></pre></div><ul>
 <li>Reiniciar php-fpm</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo systemctl reiniciar php7.3-fpm
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo systemctl restart php7.3-fpm
 </code></pre></div><h2 id="2-configuración-mariadb-crear-usuario-y-base-de-datos-para-roundcube">2. Configuración MariaDB. Crear usuario y base de datos para roundcube</h2>
 <ul>
 <li>Entramos a MySQL como superusuario</li>
@@ -530,7 +529,7 @@ RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrit
 </code></pre></div><ul>
 <li>Creamos el usuario para la base de datos</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">CREATE USER <span style="color:#e6db74">&#39;roundcube&#39;</span>@<span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED BY <span style="color:#e6db74">&#39;password&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">CREATE USER <span style="color:#e6db74">&#39;roundcube&#39;</span>@<span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED BY <span style="color:#e6db74">&#39;roundcube&#39;</span>;
 </code></pre></div><ul>
 <li>Le otorgamos los permisos necesarios para la nueva base de datos</li>
 </ul>
@@ -562,30 +561,30 @@ apt install certbot -t buster-backports
 </code></pre></div><ul>
 <li>Creamos los certificados para correo.iesgn05.es</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo certbot -d correo.iesgn05.es --agree-tos -m debian@iesgn05.es
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo certbot -d mail.iesgn05.es --agree-tos -m debian@iesgn05.es
 </code></pre></div><h2 id="4-configuración-de-nginx">4. Configuración de NGINX</h2>
 <p>Una vez instalado y configurado Nginx con un sitio web inicial y comprobado que el sitio web funciona vamos a configurar el virtualhost que va servir nuestro webmail.</p>
 <ul>
 <li>Crearemos un fichero de configuración nuevo</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nano /etc/nginx/sites-avaliable/correo.iesgn05.es.conf
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/nginx/sites-available/mail.iesgn05.es
 </code></pre></div><ul>
 <li>Le añadimos el siguiente contenido, como podemos ver hemos añadido la configuración pertinente para usar https y que sea un sitio de confianza. Tambien podemos ver que hemos añadido los parámetros pertinentes para que php funcione.</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">server <span style="color:#f92672">{</span>
     listen 80;
-    server_name correo.iesgn05.es;
+    server_name mail.iesgn05.es;
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">301</span> https://$host$request_uri;
 <span style="color:#f92672">}</span>
  
 server <span style="color:#f92672">{</span>
     listen <span style="color:#ae81ff">443</span> ssl http2;
-    server_name correo.iesgn05.es;
+    server_name mail.iesgn05.es;
     root /var/www/roundcubemail;
     index index.php index.htm index.html;
  
-    ssl_certificate /etc/letsencrypt/live/correo.iesgn05.es/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/correo.iesgn05.es/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/mail.iesgn05.es/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/mail.iesgn05.es/privkey.pem;
  
     location / <span style="color:#f92672">{</span>
         try_files $uri $uri/ /index.php?$args;
@@ -605,6 +604,14 @@ server <span style="color:#f92672">{</span>
         fastcgi_busy_buffers_size 256k;
     <span style="color:#f92672">}</span>
 <span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>Creamos el enlace</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo ln -s /etc/nginx/sites-available/mail.iesgn05.es /etc/nginx/sites-enabled/
+</code></pre></div><ul>
+<li>Comprobamos la sintaxis</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nginx -t
 </code></pre></div><h2 id="5-instalación-de-roundcube">5. Instalación de Roundcube</h2>
 <ul>
 <li>Obtenemos el paquete</li>
@@ -629,10 +636,52 @@ server <span style="color:#f92672">{</span>
 sudo systemctl restart nginx
 sudo systemctl status nginx
 </code></pre></div><ul>
-<li>Nos dirigmos al navegador e introducimos la url: correo.iesgn05.es/installer</li>
+<li>Nos dirigmos al navegador e introducimos la url: mail.iesgn05.es/installer</li>
 </ul>
 <p>Nos saldrá el entorno de instalación de roundcube.</p>
 <p><img src="/images/ovh_correo/r1.png" alt="r1.png"></p>
+<p>Le damos a NEXT y continuamos con la instalación.</p>
+<p>Ahora vamos a crear la configuración:</p>
+<ul>
+<li>General configuration: Lo dejaremos por defecto.</li>
+</ul>
+<p><img src="/images/ovh_correo/r2.png" alt="r2.png"></p>
+<ul>
+<li>Logging &amp; Debugging: Se trata de los ficheros de log, los dejaremos por defecto.</li>
+</ul>
+<p><img src="/images/ovh_correo/r3.png" alt="r3.png"></p>
+<ul>
+<li>Database setup: Aqui elegiremos la base de datos, El nombre de la base de datos, el usuario y la contraseña</li>
+</ul>
+<p><img src="/images/ovh_correo/r4.png" alt="r4.png"></p>
+<ul>
+<li>Aquí se hará la configuración de IMAP</li>
+</ul>
+<p><img src="/images/ovh_correo/r5.png" alt="r5.png"></p>
+<ul>
+<li>Aquí se indicará la configuracion de SMTP</li>
+</ul>
+<p><img src="/images/ovh_correo/r6.png" alt="r6.png"></p>
+<ul>
+<li>Lo demás lo dejamos por defecto todo y le damos a &lsquo;Create config&rsquo; y después a CONTINUE.</li>
+</ul>
+<p>Ahora Vamos a comprobar la configuración, Inicializamos la base de datos para que se copien las tablas, en &lsquo;Initialize database&rsquo;</p>
+<p><img src="/images/ovh_correo/r7.png" alt="r7.png"></p>
+<p>Ahora hacemos el test para el envío por SMTP</p>
+<p><img src="/images/ovh_correo/r8.png" alt="r8.png"></p>
+<p>Comprobamos que lo recibimos</p>
+<p><img src="/images/ovh_correo/mensaje.png" alt="mensaje.png"></p>
+<p>Por último comprobamos el IMAP</p>
+<p><img src="/images/ovh_correo/r10.png" alt="r10.png"></p>
+<p>Una vez comprobado todo vamos a eliminar el instalador</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo rm -fr /var/www/roundcubemail/installer/
+</code></pre></div><p>Una vez eliminado vamos a abrir un navegador e indicar la url mail.iesgn05.es, nos pedirá el nombre de usuario y la contraseña para imap y se nos abrirá nuestro correo.</p>
+<p><img src="/images/ovh_correo/webmailyes.png" alt="webmailyes.png"></p>
+<p>Probamos enviar y recibir correos desde Webmail y funciona correctamente</p>
+<p><img src="/images/ovh_correo/wm1.png" alt="wm1.png"></p>
+<p><img src="/images/ovh_correo/wm2.png" alt="wm2.png"></p>
+<p><img src="/images/ovh_correo/wm3.png" alt="wm3.png"></p>
+<p><img src="/images/ovh_correo/wm4.png" alt="wm4.png"></p>
 <p>Fuentes:</p>
 <ul>
 <li><a href="https://atetux.com/how-to-install-roundcube-webmail-1-4-on-debian-10">https://atetux.com/how-to-install-roundcube-webmail-1-4-on-debian-10</a></li>
