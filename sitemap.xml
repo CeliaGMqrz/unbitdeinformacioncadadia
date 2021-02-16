@@ -3,6 +3,61 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/gesti%C3%B3n-de-peticiones-y-rendimiento-de-servidores-web/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/rendimiento/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/varnish/</loc>
+    <lastmod>2021-02-16T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/cortafuegos/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/dovecot/</loc>
     <lastmod>2021-01-25T17:15:21+01:00</lastmod>
   </url>
@@ -13,17 +68,12 @@
   </url>
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/iptables/</loc>
+    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/mariadb/</loc>
-    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/nginx/</loc>
-    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/</loc>
     <lastmod>2021-01-25T17:15:21+01:00</lastmod>
   </url>
   
@@ -44,16 +94,6 @@
   
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iv.-webmail-roundcube./</loc>
-    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/</loc>
-    <lastmod>2021-01-25T17:15:21+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/</loc>
     <lastmod>2021-01-25T17:15:21+01:00</lastmod>
   </url>
   
@@ -168,6 +208,16 @@
   </url>
   
   <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/ansible/</loc>
+    <lastmod>2021-01-20T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/introducci%C3%B3n-a-ansible/</loc>
+    <lastmod>2021-01-20T17:15:21+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</loc>
     <lastmod>2021-01-13T14:51:48+01:00</lastmod>
   </url>
@@ -175,11 +225,6 @@
   <url>
     <loc>https://unbitdeinformacioncadadia.netlify.app/tags/ubuntu/</loc>
     <lastmod>2021-01-13T14:51:48+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unbitdeinformacioncadadia.netlify.app/tags/apache/</loc>
-    <lastmod>2021-01-13T11:36:08+01:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rendimiento on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/rendimiento/</link>
+    <description>Recent content in rendimiento on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 16 Feb 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/rendimiento/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aumento del rendimiento de Nginx con Varnish</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/</link>
+      <pubDate>Tue, 16 Feb 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/</guid>
+      <description>Para ver la introducción a este tema puedes entrar en este post:
+ Gestión de peticiones y rendimiento de servidores Web
+1. Concepto: Varnish Varnish es un acelerador de HTTP que funciona como proxy inverso. Se sitúa delante del servidor web, cacheando la respuesta del servidor web en memoria. De forma que cuando un cliente demanda la url por segunda vez, Varnish le da la respuesta ahorrando recursos en el backend y permitiendo más conexiones simultáneas.</description>
+    </item>
+    
+    <item>
+      <title>Gestión de peticiones y rendimiento de servidores Web</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/gesti%C3%B3n-de-peticiones-y-rendimiento-de-servidores-web/</link>
+      <pubDate>Tue, 16 Feb 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/gesti%C3%B3n-de-peticiones-y-rendimiento-de-servidores-web/</guid>
+      <description>Los servidores web pueden ser configurados para manejar peticiones de diferente forma. En esta entrada vamos a hablar de los MPM (Módulos de multiprocesamiento) que nos permiten configurar el servidor web para gestionar las peticiones que llegan al servidor.
+Se pueden hacer distintas configuraciones en los servidores web para que sirvan páginas PHP y Pyhton. Comprobaremos el rendimiento de las mismas dependiendo de la configuración adoptada. Se mencionarán distintas aplicaciones para mejorar este rendimiento (aceleradores PHP, varnish &amp;hellip;)</description>
+    </item>
+    
+  </channel>
+</rss>

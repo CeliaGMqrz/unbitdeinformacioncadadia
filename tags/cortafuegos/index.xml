@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cortafuegos on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/cortafuegos/</link>
+    <description>Recent content in cortafuegos on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 25 Jan 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/cortafuegos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cortafuegos perimetral. Iptables</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/</link>
+      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/</guid>
+      <description>Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
+La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
+NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:</description>
+    </item>
+    
+  </channel>
+</rss>

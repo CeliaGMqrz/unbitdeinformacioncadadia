@@ -7,7 +7,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 25 Jan 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Feb 2021 17:15:21 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aumento del rendimiento de Nginx con Varnish</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/</link>
+      <pubDate>Tue, 16 Feb 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/</guid>
+      <description>Para ver la introducción a este tema puedes entrar en este post:
+ Gestión de peticiones y rendimiento de servidores Web
+1. Concepto: Varnish Varnish es un acelerador de HTTP que funciona como proxy inverso. Se sitúa delante del servidor web, cacheando la respuesta del servidor web en memoria. De forma que cuando un cliente demanda la url por segunda vez, Varnish le da la respuesta ahorrando recursos en el backend y permitiendo más conexiones simultáneas.</description>
+    </item>
+    
+    <item>
+      <title>Gestión de peticiones y rendimiento de servidores Web</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/gesti%C3%B3n-de-peticiones-y-rendimiento-de-servidores-web/</link>
+      <pubDate>Tue, 16 Feb 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/gesti%C3%B3n-de-peticiones-y-rendimiento-de-servidores-web/</guid>
+      <description>Los servidores web pueden ser configurados para manejar peticiones de diferente forma. En esta entrada vamos a hablar de los MPM (Módulos de multiprocesamiento) que nos permiten configurar el servidor web para gestionar las peticiones que llegan al servidor.
+Se pueden hacer distintas configuraciones en los servidores web para que sirvan páginas PHP y Pyhton. Comprobaremos el rendimiento de las mismas dependiendo de la configuración adoptada. Se mencionarán distintas aplicaciones para mejorar este rendimiento (aceleradores PHP, varnish &amp;hellip;)</description>
+    </item>
+    
+    <item>
+      <title>Cortafuegos perimetral. Iptables</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/</link>
+      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/</guid>
+      <description>Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
+La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
+NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:</description>
+    </item>
+    
     <item>
       <title>Servidor de Correos. Postfix (III).</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-iii./</link>
@@ -85,45 +117,6 @@ Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de p
 La máquina virtual sobre la que trabajamos es un Centos 8, nuestro llamado Quijote.
 El objetivo es desplegar un CMS python, en este caso wagtail, basado en django.
 1. Instalación de wagtail. Entorno de desarrollo: Creación del entorno virtual.  Primero tendremos que crear un entorno virtual en nuestra máquina anfitriona.</description>
-    </item>
-    
-    <item>
-      <title>Configurar HTTPS en Centos 8 (Quijote)</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</link>
-      <pubDate>Thu, 21 Jan 2021 10:11:23 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-https-en-centos-8-quijote/</guid>
-      <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
-1. Creación de un certificado SSL Wilcard Concepto: ¿Qué es un certificado SSL Wilcard?
-Es un certificado que protege la dirección URL de un sitio web, así como también sus subdominios.
-Crear clave privada y certificado
-El certificado principalmente se va a generar en Freston, nuestra máquina donde tenemos configurado el DNS de nuestro escenario.</description>
-    </item>
-    
-    <item>
-      <title>Servidor de base de datos. MariaDB en Ubuntu</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</link>
-      <pubDate>Wed, 13 Jan 2021 14:51:48 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-base-de-datos.-mariadb-en-ubuntu/</guid>
-      <description>En sancho (Ubuntu) vamos a instalar un servidor de base de datos mariadb (bd.celia.gonzalonazareno.org).
-1. Instalación de mariadb en Ubuntu Antes de nada tendremos que actualizar la paquetería
-sudo apt-get update sudo apt-get upgrade Instalamos mysql agregando el repositorio
-sudo apt-get install software-properties-common sudo apt-key adv --fetch-keys &amp;#39;https://mariadb.org/mariadb_release_signing_key.asc&amp;#39; sudo add-apt-repository &amp;#39;deb [arch=amd64,arm64,ppc64el] https://mirror.one.com/mariadb/repo/10.4/ubuntu focal main&amp;#39; sudo apt install mariadb-server Procederemos a la instalación segura de mysql
-sudo mysql_secure_installation ubuntu@sancho:~$ sudo mysql_secure_installation NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB SERVERS IN PRODUCTION USE!</description>
-    </item>
-    
-    <item>
-      <title>Servidor Web Apache2 (httpd) en Centos8</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</link>
-      <pubDate>Wed, 13 Jan 2021 11:36:08 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-web-apache2-httpd-en-centos8/</guid>
-      <description>Este artículo trata sobre la instalación de un servidor web Apache2 sobre Centos8 incluido dentro de un entorno previamente creado en un cloud. Las entradas anteriores son las siguientes:
-  Instalación inicial de los servidores
-  Modificación del escenario
-  Actualización de Centos7 a Centos8
-  1. Descripción de la tarea: En quijote (CentOs)(Servidor que está en la DMZ) vamos a instalar un servidor web apache. Configura el servidor para que sea capaz de ejecutar código php (para ello vamos a usar un servidor de aplicaciones** php-fpm**).</description>
     </item>
     
   </channel>
