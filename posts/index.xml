@@ -21,7 +21,8 @@
             <content type="html"><![CDATA[<blockquote>
 <p>Para ver la introducción a este tema puedes entrar en este post:</p>
 </blockquote>
-<p><a href="">Gestión de peticiones y rendimiento de servidores Web</a></p>
+<p><a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/gesti%C3%B3n-de-peticiones-y-rendimiento-de-servidores-web/">Gestión de peticiones y rendimiento de servidores Web</a></p>
+<p><img src="/images/rendimiento/varnish.png" alt="varnish.png"></p>
 <h2 id="1-concepto-varnish">1. Concepto: Varnish</h2>
 <p>Varnish es un acelerador de HTTP que funciona como <strong>proxy inverso</strong>. Se sitúa delante del servidor web, cacheando la respuesta del servidor web en memoria. De forma que cuando un cliente demanda la url por segunda vez, Varnish le da la respuesta ahorrando recursos en el backend y permitiendo más conexiones simultáneas. También se puede usar como <strong>balanceador de carga</strong>.</p>
 <p>Características:</p>
@@ -247,7 +248,7 @@ Se pueden hacer distintas configuraciones en los servidores web para que sirvan 
 <p><strong>Multiprocesos de Apache</strong></p>
 <ul>
 <li>
-<p>Multiproceso del tipo Prefork (mpm-prefork)</p>
+<p>Multiproceso del tipo <strong>Prefork</strong> (mpm-prefork)</p>
 <ul>
 <li>
 <p>Apache inicia varios subprocesos y cada petición es atendida por uno de estos; Cuando termina con la petición podría atender a otro cliente o ser terminado (MaxRequestPerChild).</p>
@@ -267,7 +268,7 @@ Se pueden hacer distintas configuraciones en los servidores web para que sirvan 
 </ul>
 </li>
 <li>
-<p>Multiproceso tipo Worker (mpm-worker)</p>
+<p>Multiproceso tipo <strong>Worker</strong> (mpm-worker)</p>
 <ul>
 <li>Apache inicia varios subprocesos y estos mantienen varios hilos (threads) con los cuales procesan las peticiones. De forma que un subproceso puede atender varios clientes. (ThreadsPerChild).</li>
 <li>El hecho de que un subproceso pueda manejar varias peticiones supone utilizar menos recursos.</li>
@@ -285,7 +286,7 @@ Se pueden hacer distintas configuraciones en los servidores web para que sirvan 
 <p>Dependiendo el tipo de contenido que vayamos a servir elegiría uno u otro.</p>
 <ul>
 <li>
-<p>Multiproceso tipo Event (mpm-event)</p>
+<p>Multiproceso tipo <strong>Event</strong> (mpm-event)</p>
 <ul>
 <li>Ya es estable</li>
 <li>Es una mejora de MPM worker y soluciona el problema de optimización de Worker con la opciñon Keep Alive de Apache.</li>
@@ -293,7 +294,7 @@ Se pueden hacer distintas configuraciones en los servidores web para que sirvan 
 </ul>
 </li>
 <li>
-<p>Multiprocesamiento tipo ITK (mpm-itk)</p>
+<p>Multiprocesamiento tipo <strong>ITK</strong> (mpm-itk)</p>
 <ul>
 <li>Es nuevo y experimental, muy parecido a Prefork, utiliza subprocesos y no hilos (threads).</li>
 <li>Permite asignar a cada virtualhost servido un usuario del sistema, así en un servidor compartido que aloja varios sitios web, los usuarios no pueden interactuar con los archivos del resto.</li>
@@ -409,7 +410,7 @@ systemctl restart apache2
 <p>Varnish: Es un acelerador de HTTP que funciona como <strong>proxy inverso</strong>. Se situa delante del servidor web, cacheando la respuesta del servidor web en memoria. De forma que cuando un cliente demanda la url por segunda vez, Varnish le da la respuesta ahorrando recursos en el backend y permitiendo más conexiones simultáneas.</p>
 </li>
 </ul>
-<p>Para ver el aumento de rendimiento con Varnish accede a este <a href="">post</a></p>
+<p>Para ver el aumento de rendimiento con Varnish accede a este <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/">post</a></p>
 <p>Fuentes:</p>
 <p><a href="https://fp.josedomingo.org/serviciosgs/u05/">https://fp.josedomingo.org/serviciosgs/u05/</a></p>
 <p><a href="https://blog.ichasco.com/nginx-mejorar-el-rendimiento-con-la-cache/">https://blog.ichasco.com/nginx-mejorar-el-rendimiento-con-la-cache/</a></p>
