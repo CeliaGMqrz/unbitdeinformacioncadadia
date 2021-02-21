@@ -2063,55 +2063,7 @@ Successfully installed pymysql-1.0.2
 
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">import pymysql
 pymysql.install_as_MySQLdb<span style="color:#f92672">()</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">(</span>mezzanine<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>centos@quijote mezzanine_app<span style="color:#f92672">]</span>$ python3.7 manage.py migrate
-/home/centos/mezzanine/lib/python3.7/site-packages/mezzanine/utils/conf.py:65: UserWarning: You haven<span style="color:#e6db74">&#39;t defined the ALLOWED_HOSTS settings, which Django requires. Will fall back to the domains configured as sites.
-</span><span style="color:#e6db74">  warn(&#34;You haven&#39;</span>t defined the ALLOWED_HOSTS settings, which <span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">Operations to perform:
-</span><span style="color:#e6db74">  Apply all migrations: admin, auth, blog, conf, contenttypes, core, django_comments, forms, galleries, generic, pages, redirects, sessions, sites, twitter
-</span><span style="color:#e6db74">Running migrations:
-</span><span style="color:#e6db74">  Applying contenttypes.0001_initial... OK
-</span><span style="color:#e6db74">  Applying auth.0001_initial... OK
-</span><span style="color:#e6db74">  Applying admin.0001_initial... OK
-</span><span style="color:#e6db74">  Applying admin.0002_logentry_remove_auto_add... OK
-</span><span style="color:#e6db74">  Applying contenttypes.0002_remove_content_type_name... OK
-</span><span style="color:#e6db74">  Applying auth.0002_alter_permission_name_max_length... OK
-</span><span style="color:#e6db74">  Applying auth.0003_alter_user_email_max_length... OK
-</span><span style="color:#e6db74">  Applying auth.0004_alter_user_username_opts... OK
-</span><span style="color:#e6db74">  Applying auth.0005_alter_user_last_login_null... OK
-</span><span style="color:#e6db74">  Applying auth.0006_require_contenttypes_0002... OK
-</span><span style="color:#e6db74">  Applying auth.0007_alter_validators_add_error_messages... OK
-</span><span style="color:#e6db74">  Applying auth.0008_alter_user_username_max_length... OK
-</span><span style="color:#e6db74">  Applying sites.0001_initial... OK
-</span><span style="color:#e6db74">  Applying blog.0001_initial... OK
-</span><span style="color:#e6db74">  Applying blog.0002_auto_20150527_1555... OK
-</span><span style="color:#e6db74">  Applying blog.0003_auto_20170411_0504... OK
-</span><span style="color:#e6db74">  Applying conf.0001_initial... OK
-</span><span style="color:#e6db74">  Applying core.0001_initial... OK
-</span><span style="color:#e6db74">  Applying core.0002_auto_20150414_2140... OK
-</span><span style="color:#e6db74">  Applying django_comments.0001_initial... OK
-</span><span style="color:#e6db74">  Applying django_comments.0002_update_user_email_field_length... OK
-</span><span style="color:#e6db74">  Applying django_comments.0003_add_submit_date_index... OK
-</span><span style="color:#e6db74">  Applying pages.0001_initial... OK
-</span><span style="color:#e6db74">  Applying forms.0001_initial... OK
-</span><span style="color:#e6db74">  Applying forms.0002_auto_20141227_0224... OK
-</span><span style="color:#e6db74">  Applying forms.0003_emailfield... OK
-</span><span style="color:#e6db74">  Applying forms.0004_auto_20150517_0510... OK
-</span><span style="color:#e6db74">  Applying forms.0005_auto_20151026_1600... OK
-</span><span style="color:#e6db74">  Applying forms.0006_auto_20170425_2225... OK
-</span><span style="color:#e6db74">  Applying galleries.0001_initial... OK
-</span><span style="color:#e6db74">  Applying galleries.0002_auto_20141227_0224... OK
-</span><span style="color:#e6db74">  Applying generic.0001_initial... OK
-</span><span style="color:#e6db74">  Applying generic.0002_auto_20141227_0224... OK
-</span><span style="color:#e6db74">  Applying generic.0003_auto_20170411_0504... OK
-</span><span style="color:#e6db74">  Applying pages.0002_auto_20141227_0224... OK
-</span><span style="color:#e6db74">  Applying pages.0003_auto_20150527_1555... OK
-</span><span style="color:#e6db74">  Applying pages.0004_auto_20170411_0504... OK
-</span><span style="color:#e6db74">  Applying redirects.0001_initial... OK
-</span><span style="color:#e6db74">  Applying sessions.0001_initial... OK
-</span><span style="color:#e6db74">  Applying sites.0002_alter_domain_unique... OK
-</span><span style="color:#e6db74">  Applying twitter.0001_initial... OK
-</span><span style="color:#e6db74">
-</span></code></pre></div><ul>
+</code></pre></div><ul>
 <li>Ahora ya podemos hacer el migrate</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">(</span>mezzanine<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>centos@quijote mezzanine_app<span style="color:#f92672">]</span>$ python3.7 manage.py migrate
