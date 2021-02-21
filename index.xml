@@ -115,8 +115,8 @@ Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de p
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/instalaci%C3%B3n-de-aplicaci%C3%B3n-web-cms-python/</guid>
       <description>Objetivo: En este post vamos a trabajar sobre el entorno de trabajo de openstack nuevamente, el mismo sobre el que tratamos en el blog.
 La máquina virtual sobre la que trabajamos es un Centos 8, nuestro llamado Quijote.
-El objetivo es desplegar un CMS python, en este caso wagtail, basado en django.
-1. Instalación de wagtail. Entorno de desarrollo: Creación del entorno virtual.  Primero tendremos que crear un entorno virtual en nuestra máquina anfitriona.</description>
+El objetivo es desplegar un CMS python, en este caso mezzanine, basado en django.
+1. Instalación de mezzanine. Entorno de desarrollo: Creación del entorno virtual.  Primero tendremos que crear un entorno virtual en nuestra máquina anfitriona.</description>
     </item>
     
   </channel>
