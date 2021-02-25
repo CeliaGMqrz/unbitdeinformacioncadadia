@@ -115,7 +115,7 @@ init-pki complete; you may now create a CA or requests.
 Your newly created PKI dir is: /usr/share/easy-rsa/pki
 
 </code></pre></div><p>Se ha creado el subdirectorio pki, donde después iremos creando las claves y certificados pertinentes.</p>
-<h3 id="generación-de-los-parámetros-diffie-hellman">Generación de los parámetros Diffie-Hellman</h3>
+<h2 id="generación-de-los-parámetros-diffie-hellman">Generación de los parámetros Diffie-Hellman</h2>
 <p><strong>Se trata de un protocolo de establecimiento de claves entre partes que no han tenido contacto previo utilizando un canal inseguro y de manera anónima. Se emplea generalmente como medio para acordar claves simétricas que serán empleadas para el cifrado de una sesión.</strong></p>
 <p>Para crearlo ejecutamos el siguiente comando</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">root@vpn-server:/usr/share/easy-rsa# ./easyrsa gen-dh
@@ -429,7 +429,10 @@ default via 10.0.0.1 dev eth0
 192.168.100.0/24 via 10.99.99.5 dev tun0 
 
 </code></pre></div><h2 id="funcionamiento-acceso-desde-el-cliente-a-la-lan">Funcionamiento. Acceso desde el cliente a la LAN.</h2>
-<p><img src="/images/vpn/captura1.png" alt="captura1.png"></p>
+<p>Direccionamiento del cliente:</p>
+<p><img src="/images/vpn/captura2.png" alt="captura2.png"></p>
+<p>Funcionamiento
+<img src="/images/vpn/captura1.png" alt="captura1.png"></p>
 <ul>
 <li>Comprobamos que podemos acceder al servidor y la red local lan.</li>
 </ul>
