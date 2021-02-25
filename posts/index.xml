@@ -312,7 +312,10 @@ debian@ansible:~$ sudo mv cliente.crt /etc/openvpn/keys/
 debian@ansible:~$ sudo mv ca.crt /etc/openvpn/keys/
 debian@ansible:~$ sudo mv ta.key /etc/openvpn/keys/
 </code></pre></div><h2 id="2-configuración-del-servidor-openvpn">2. Configuración del servidor openvpn</h2>
-<p>Para configurar el servidor , creamos un archivo de configuración dentro del directorio openvpn</p>
+<p>Previamente hemos activado el bit de forwarding</p>
+<p><code>nano /etc/sysctl.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</code></pre></div><p>Para configurar el servidor , creamos un archivo de configuración dentro del directorio openvpn</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/openvpn/servidor.conf
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Use a dynamic TUN device</span>
 dev tun
