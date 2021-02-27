@@ -315,6 +315,9 @@ debian@ansible:~$ sudo mv ta.key /etc/openvpn/keys/
 <p>Previamente hemos activado el bit de forwarding</p>
 <p><code>nano /etc/sysctl.conf</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</code></pre></div><p>Tambien hemos descomentado la siguiente linea del fichero:</p>
+<p><code>sudo nano /etc/default/openvpn </code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">AUTOSTART<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;all&#34;</span>
 </code></pre></div><p>Para configurar el servidor , creamos un archivo de configuración dentro del directorio openvpn</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/openvpn/servidor.conf
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Use a dynamic TUN device</span>
@@ -460,6 +463,94 @@ PING 192.168.100.10 <span style="color:#f92672">(</span>192.168.100.10<span styl
 <span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 5ms
 rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.710/2.259/2.905/0.495 ms
 
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>VPN con OpenVPN y certificados x509 (II)</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509-ii/</link>
+            <pubDate>Wed, 24 Feb 2021 08:27:54 +0100</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509-ii/</guid>
+            <description>Escenario:
+Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
+  Servidor 1: vpn_server
+ Red 10.0.0.15 Red1 192.168.100.2    Cliente 1: lan
+ Red1 192.168.100.10    Servidor 2: vpn_server2
+ Red 10.0.0.13 Red2 192.168.200.7    Cliente 2: lan2
+ Red2 192.</description>
+            <content type="html"><![CDATA[<p>Escenario:</p>
+<p>Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:</p>
+<ul>
+<li>
+<p>Servidor 1: vpn_server</p>
+<ul>
+<li>Red 10.0.0.15</li>
+<li>Red1 192.168.100.2</li>
+</ul>
+</li>
+<li>
+<p>Cliente 1: lan</p>
+<ul>
+<li>Red1 192.168.100.10</li>
+</ul>
+</li>
+<li>
+<p>Servidor 2: vpn_server2</p>
+<ul>
+<li>Red 10.0.0.13</li>
+<li>Red2 192.168.200.7</li>
+</ul>
+</li>
+<li>
+<p>Cliente 2: lan2</p>
+<ul>
+<li>Red2 192.168.200.4</li>
+</ul>
+</li>
+</ul>
+<p>Objetivo:</p>
+<p>Tras el establecimiento de la VPN, una máquina de cada red detrás de cada servidor VPN debe ser capaz de acceder a una máquina del otro extremo. En otras palabras el cliente 1 debe de tener comunicacion al cliente 2 por un tunel, ya que se encuentran en redes diferentes.</p>
+<p>Cabe decir que tenemos instalado en las 4 máquinas el paquete openvpn.</p>
+<p>Configuración</p>
+<p>Servidor 1</p>
+<p><code>sudo nano /etc/openvpn/servidor.conf </code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Use a dynamic TUN device</span>
+dev tun
+
+<span style="color:#75715e"># Connect to server</span>
+remote 10.0.0.15
+
+<span style="color:#75715e"># Set virtual point-to-point IP addresses</span>
+ifconfig 10.99.99.0 255.255.255.0
+pull
+
+<span style="color:#75715e"># Use TCP for communicating with server</span>
+proto tcp-client
+
+<span style="color:#75715e"># Enable TLS and assume client role during TLS handshake</span>
+tls-client
+
+<span style="color:#75715e"># Certificado de la CA</span>
+ca /etc/openvpn/keys/ca.crt
+
+<span style="color:#75715e"># Certificado del cliente</span>
+cert /etc/openvpn/keys/cliente.crt
+
+<span style="color:#75715e"># Clave privada del cliente</span>
+key /etc/openvpn/keys/cliente.key
+
+<span style="color:#75715e"># Use fast LZO compression</span>
+comp-lzo
+
+<span style="color:#75715e"># Ping remote every 10sg and restart after 60sg passed without sign of life from remote</span>
+keepalive <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">60</span>
+
+<span style="color:#75715e"># Set output verbosity to normal usage range </span>
+verb <span style="color:#ae81ff">3</span>
+
+<span style="color:#75715e"># Output logging messages to openvpn.log file</span>
+log /var/log/openvpn.log
 </code></pre></div>]]></content>
         </item>
         

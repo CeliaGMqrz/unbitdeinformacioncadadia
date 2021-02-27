@@ -20,6 +20,21 @@ El modelo de VPN de acceso remoto es el modelo más usado actualmente.</descript
     </item>
     
     <item>
+      <title>VPN con OpenVPN y certificados x509 (II)</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509-ii/</link>
+      <pubDate>Wed, 24 Feb 2021 08:27:54 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509-ii/</guid>
+      <description>Escenario:
+Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
+  Servidor 1: vpn_server
+ Red 10.0.0.15 Red1 192.168.100.2    Cliente 1: lan
+ Red1 192.168.100.10    Servidor 2: vpn_server2
+ Red 10.0.0.13 Red2 192.168.200.7    Cliente 2: lan2
+ Red2 192.</description>
+    </item>
+    
+    <item>
       <title>Aumento del rendimiento de Nginx con Varnish</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/</link>
       <pubDate>Tue, 16 Feb 2021 17:15:21 +0100</pubDate>
@@ -106,16 +121,6 @@ Tratamos con los diferentes sistemas y la instalación y configuración de servi
       <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
 Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
 Suponiendo que el servidor de correo se llama mail.iesgn05.es, crearemos un registro MX siendo este mail.</description>
-    </item>
-    
-    <item>
-      <title>Servidor de Correos. Postfix (II). Alias y Redirecciones.</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</link>
-      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-ii.-alias-y-redirecciones./</guid>
-      <description>1. Uso de cron para notificar a root de una tarea Vamos a comprobar como los procesos del servidor pueden mandar correos para informar sobre su estado. Por ejemplo cada vez que se ejecuta una tarea cron podemos enviar un correo informando del resultado. Normalmente estos correos se mandan al usuario root del servidor, para ello:
-Vamos a crear un script sencillo que muestre las 10 últimas líneas de log de postfix:</description>
     </item>
     
   </channel>

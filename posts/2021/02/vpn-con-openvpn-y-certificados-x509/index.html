@@ -53,7 +53,7 @@ Se trata de una Red privada virtual. Es una tecnología de red de ordenadores qu
 El modelo de VPN de acceso remoto es el modelo más usado actualmente.">
 <meta itemprop="datePublished" content="2021-02-24T08:27:54+01:00" />
 <meta itemprop="dateModified" content="2021-02-24T08:27:54+01:00" />
-<meta itemprop="wordCount" content="2458">
+<meta itemprop="wordCount" content="2470">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
 
 
@@ -462,6 +462,9 @@ debian@ansible:~$ sudo mv ta.key /etc/openvpn/keys/
 <p>Previamente hemos activado el bit de forwarding</p>
 <p><code>nano /etc/sysctl.conf</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</code></pre></div><p>Tambien hemos descomentado la siguiente linea del fichero:</p>
+<p><code>sudo nano /etc/default/openvpn </code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">AUTOSTART<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;all&#34;</span>
 </code></pre></div><p>Para configurar el servidor , creamos un archivo de configuración dentro del directorio openvpn</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/openvpn/servidor.conf
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Use a dynamic TUN device</span>
@@ -632,7 +635,7 @@ rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.710/2.259/2.905/0.49
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        2458 Words
+        2470 Words
       </p>
 
       <p>
@@ -757,8 +760,8 @@ rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.710/2.259/2.905/0.49
 
           
             <span class="button next">
-              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/aumento-del-rendimiento-de-nginx-con-varnish/">
-                <span class="button__text">Aumento del rendimiento de Nginx con Varnish</span>
+              <a href="https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509-ii/">
+                <span class="button__text">VPN con OpenVPN y certificados x509 (II)</span>
                 <span class="button__icon">→</span>
               </a>
             </span>
