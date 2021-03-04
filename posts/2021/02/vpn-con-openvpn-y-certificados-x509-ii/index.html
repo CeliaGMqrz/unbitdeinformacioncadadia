@@ -6,12 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Celia García Márquez ">
 <meta name="description" content="Escenario:
-Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
+Tenemos dos servidores, dos maquinas conectadas a las redes locales diferentes y un cliente. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
   Servidor 1: vpn_server
- Red 10.0.0.15 Red1 192.168.100.2    Cliente 1: lan
- Red1 192.168.100.10    Servidor 2: vpn_server2
- Red 10.0.0.13 Red2 192.168.200.7    Cliente 2: lan2
- Red2 192." />
+ Red común 172.22.201.64 Red 10.0.0.8 Red1 192.168.100.2    Maquina de la red local 1: lan
+ Red1 192.168.100.10    Servidor 2: vpn_server2" />
 <meta name="keywords" content="blogs, vpn" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -53,15 +51,13 @@ Tenemos dos servidores y dos clientes. Los servidores están conectados a dos re
 
 <meta itemprop="name" content="VPN con OpenVPN y certificados x509 (II)">
 <meta itemprop="description" content="Escenario:
-Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
+Tenemos dos servidores, dos maquinas conectadas a las redes locales diferentes y un cliente. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
   Servidor 1: vpn_server
- Red 10.0.0.15 Red1 192.168.100.2    Cliente 1: lan
- Red1 192.168.100.10    Servidor 2: vpn_server2
- Red 10.0.0.13 Red2 192.168.200.7    Cliente 2: lan2
- Red2 192.">
+ Red común 172.22.201.64 Red 10.0.0.8 Red1 192.168.100.2    Maquina de la red local 1: lan
+ Red1 192.168.100.10    Servidor 2: vpn_server2">
 <meta itemprop="datePublished" content="2021-02-24T08:27:54+01:00" />
 <meta itemprop="dateModified" content="2021-02-24T08:27:54+01:00" />
-<meta itemprop="wordCount" content="234">
+<meta itemprop="wordCount" content="362">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
 
 
@@ -73,23 +69,19 @@ Tenemos dos servidores y dos clientes. Los servidores están conectados a dos re
 
 <meta name="twitter:title" content="VPN con OpenVPN y certificados x509 (II)"/>
 <meta name="twitter:description" content="Escenario:
-Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
+Tenemos dos servidores, dos maquinas conectadas a las redes locales diferentes y un cliente. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
   Servidor 1: vpn_server
- Red 10.0.0.15 Red1 192.168.100.2    Cliente 1: lan
- Red1 192.168.100.10    Servidor 2: vpn_server2
- Red 10.0.0.13 Red2 192.168.200.7    Cliente 2: lan2
- Red2 192."/>
+ Red común 172.22.201.64 Red 10.0.0.8 Red1 192.168.100.2    Maquina de la red local 1: lan
+ Red1 192.168.100.10    Servidor 2: vpn_server2"/>
 
 
 
     <meta property="og:title" content="VPN con OpenVPN y certificados x509 (II)" />
 <meta property="og:description" content="Escenario:
-Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
+Tenemos dos servidores, dos maquinas conectadas a las redes locales diferentes y un cliente. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:
   Servidor 1: vpn_server
- Red 10.0.0.15 Red1 192.168.100.2    Cliente 1: lan
- Red1 192.168.100.10    Servidor 2: vpn_server2
- Red 10.0.0.13 Red2 192.168.200.7    Cliente 2: lan2
- Red2 192." />
+ Red común 172.22.201.64 Red 10.0.0.8 Red1 192.168.100.2    Maquina de la red local 1: lan
+ Red1 192.168.100.10    Servidor 2: vpn_server2" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509-ii/" />
 <meta property="og:image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
@@ -182,17 +174,18 @@ Tenemos dos servidores y dos clientes. Los servidores están conectados a dos re
 
       <div class="post-content">
         <p>Escenario:</p>
-<p>Tenemos dos servidores y dos clientes. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:</p>
+<p>Tenemos dos servidores, dos maquinas conectadas a las redes locales diferentes y un cliente. Los servidores están conectados a dos redes la exterior en común y una interna compartida con su respectivo cliente de forma que tenemos el siguiente direccionamiento:</p>
 <ul>
 <li>
 <p>Servidor 1: vpn_server</p>
 <ul>
-<li>Red 10.0.0.15</li>
+<li>Red común 172.22.201.64</li>
+<li>Red 10.0.0.8</li>
 <li>Red1 192.168.100.2</li>
 </ul>
 </li>
 <li>
-<p>Cliente 1: lan</p>
+<p>Maquina de la red local 1: lan</p>
 <ul>
 <li>Red1 192.168.100.10</li>
 </ul>
@@ -200,60 +193,101 @@ Tenemos dos servidores y dos clientes. Los servidores están conectados a dos re
 <li>
 <p>Servidor 2: vpn_server2</p>
 <ul>
+<li>Red común 172.22.201.33</li>
 <li>Red 10.0.0.13</li>
-<li>Red2 192.168.200.7</li>
+<li>Red2 192.168.200.8</li>
 </ul>
 </li>
 <li>
-<p>Cliente 2: lan2</p>
+<p>Maquina de la red local 1: lan2</p>
 <ul>
 <li>Red2 192.168.200.4</li>
 </ul>
 </li>
 </ul>
 <p>Objetivo:</p>
-<p>Tras el establecimiento de la VPN, una máquina de cada red detrás de cada servidor VPN debe ser capaz de acceder a una máquina del otro extremo. En otras palabras el cliente 1 debe de tener comunicacion al cliente 2 por un tunel, ya que se encuentran en redes diferentes.</p>
+<p>Tras el establecimiento de la VPN, una máquina de cada red detrás de cada servidor VPN debe ser capaz de acceder a una máquina del otro extremo.</p>
 <p>Cabe decir que tenemos instalado en las 4 máquinas el paquete openvpn.</p>
 <p>Configuración</p>
-<p>Servidor 1</p>
+<p>Servidor 2 (rol de servidor)</p>
 <p><code>sudo nano /etc/openvpn/servidor.conf </code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Use a dynamic TUN device</span>
 dev tun
-
-<span style="color:#75715e"># Connect to server</span>
-remote 10.0.0.15
-
-<span style="color:#75715e"># Set virtual point-to-point IP addresses</span>
-ifconfig 10.99.99.0 255.255.255.0
-pull
-
-<span style="color:#75715e"># Use TCP for communicating with server</span>
-proto tcp-client
-
-<span style="color:#75715e"># Enable TLS and assume client role during TLS handshake</span>
-tls-client
-
+<span style="color:#75715e"># Virtual ip</span>
+ifconfig 10.99.99.1 10.99.99.2
+<span style="color:#75715e"># Local subnet</span>
+route 192.168.100.0 255.255.255.0
+<span style="color:#75715e"># Enable TLS and assume server role</span>
+tls-server
+<span style="color:#75715e"># Diffie-Hellman</span>
+dh /etc/openvpn/keys/dh.pem
 <span style="color:#75715e"># Certificado de la CA</span>
 ca /etc/openvpn/keys/ca.crt
-
-<span style="color:#75715e"># Certificado del cliente</span>
-cert /etc/openvpn/keys/cliente.crt
-
-<span style="color:#75715e"># Clave privada del cliente</span>
-key /etc/openvpn/keys/cliente.key
-
+<span style="color:#75715e"># Certificado local</span>
+cert /etc/openvpn/keys/servidor.crt
+<span style="color:#75715e"># Clave privada </span>
+key /etc/openvpn/keys/servidor.key
 <span style="color:#75715e"># Use fast LZO compression</span>
 comp-lzo
+<span style="color:#75715e"># Ping remote every 10sg and restart after 60sg passed without sign of file from remote.</span>
+keepalive <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">60</span>
+<span style="color:#75715e"># Set output verbosity to normal usage range</span>
+verb <span style="color:#ae81ff">3</span>
+log /var/log/office1.log
 
-<span style="color:#75715e"># Ping remote every 10sg and restart after 60sg passed without sign of life from remote</span>
+</code></pre></div><ul>
+<li>Vemos que se ha creado el tunel</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">13: tun0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt; mtu <span style="color:#ae81ff">1500</span> qdisc pfifo_fast state UNKNOWN group default qlen <span style="color:#ae81ff">100</span>
+    link/none 
+    inet 10.99.99.1 peer 10.99.99.2/32 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e63:da50:7b73:26f6/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+</code></pre></div><ul>
+<li>Ahora le pasamos los certificados y claves al cliente de sergio</li>
+</ul>
+<p>Servidor 1 (rol de cliente)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#### Fichero de sit-to-site vpn ####</span>
+<span style="color:#75715e">#Dispositivo de túnel</span>
+dev tun
+
+<span style="color:#75715e">#IP del servidor</span>
+remote 172.22.201.33
+
+<span style="color:#75715e">#Encaminamiento</span>
+ifconfig 10.99.99.2 10.99.99.1
+
+<span style="color:#75715e"># Subred remota</span>
+route 192.168.200.0 255.255.255.0
+
+<span style="color:#75715e">#Rol de cliente</span>
+tls-client
+
+<span style="color:#75715e">#Certificado de la CA</span>
+ca /etc/openvpn/ca_celia.crt
+
+<span style="color:#75715e">#Certificado cliente</span>
+cert /etc/openvpn/cliente_celia.crt
+
+<span style="color:#75715e">#Clave privada cliente</span>
+key /etc/openvpn/cliente_celia.key
+
+<span style="color:#75715e">#Activar la compresión LZO</span>
+comp-lzo
+
+<span style="color:#75715e">#Detectar caídas de la conexión</span>
 keepalive <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">60</span>
 
-<span style="color:#75715e"># Set output verbosity to normal usage range </span>
+<span style="color:#75715e">#Nivel de la información</span>
 verb <span style="color:#ae81ff">3</span>
 
-<span style="color:#75715e"># Output logging messages to openvpn.log file</span>
-log /var/log/openvpn.log
-</code></pre></div>
+log /var/log/vpn.log
+
+</code></pre></div><p>Funcionamiento:</p>
+<p>Podemos comprobar que tenemos comunicación de extremo a extremo. Del cliente 1 al cliente 2 y a ambos servidores estandos en redes locales distintas.</p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/vpn/vpn1.jpeg" alt="vpn1.jpeg"></p>
+
       </div>
     </article>
 
@@ -278,7 +312,7 @@ log /var/log/openvpn.log
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        234 Words
+        362 Words
       </p>
 
       <p>
