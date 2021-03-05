@@ -7,7 +7,8 @@
 <meta name="author" content="Celia García Márquez ">
 <meta name="description" content="Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
 La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
-NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:" />
+NAT 1.Las máquinas de nuestra red tienen que tener acceso al exterior Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:
+up iptables -t nat -A POSTROUTING -s 10." />
 <meta name="keywords" content="blogs, cortafuegos, iptables" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -50,10 +51,11 @@ NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reg
 <meta itemprop="name" content="Cortafuegos perimetral. Iptables">
 <meta itemprop="description" content="Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
 La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
-NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:">
+NAT 1.Las máquinas de nuestra red tienen que tener acceso al exterior Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:
+up iptables -t nat -A POSTROUTING -s 10.">
 <meta itemprop="datePublished" content="2021-01-25T17:15:21+01:00" />
 <meta itemprop="dateModified" content="2021-01-25T17:15:21+01:00" />
-<meta itemprop="wordCount" content="102">
+<meta itemprop="wordCount" content="3099">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
 
 
@@ -66,14 +68,16 @@ NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reg
 <meta name="twitter:title" content="Cortafuegos perimetral. Iptables"/>
 <meta name="twitter:description" content="Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
 La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
-NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:"/>
+NAT 1.Las máquinas de nuestra red tienen que tener acceso al exterior Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:
+up iptables -t nat -A POSTROUTING -s 10."/>
 
 
 
     <meta property="og:title" content="Cortafuegos perimetral. Iptables" />
 <meta property="og:description" content="Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
 La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
-NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:" />
+NAT 1.Las máquinas de nuestra red tienen que tener acceso al exterior Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:
+up iptables -t nat -A POSTROUTING -s 10." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/" />
 <meta property="og:image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
@@ -151,7 +155,7 @@ NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reg
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        One minute
+        15 minutes
 
         
       </p>
@@ -168,15 +172,565 @@ NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reg
         <h2 id="introducción">Introducción</h2>
 <p>Vamos a construir un <strong>cortafuegos</strong> en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.</p>
 <p>La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo <strong>DROP</strong>.</p>
-<h2 id="nat">NAT</h2>
-<ul>
-<li>Las máquinas de nuestra red tienen que tener acceso al exterior</li>
-</ul>
+<h3 id="nat">NAT</h3>
+<h3 id="1las-máquinas-de-nuestra-red-tienen-que-tener-acceso-al-exterior">1.Las máquinas de nuestra red tienen que tener acceso al exterior</h3>
 <p>Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">up iptables -t nat -A POSTROUTING -s 10.0.1.0/24 -o eth0 -j MASQUERADE
 up iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -o eth0 -j MASQUERADE
-</code></pre></div><p>Si miramos las reglas aplicadas comprobamos que están en funcionamiento</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+</code></pre></div><p>Pero lo vamos a cambiar de forma que esté configurado con la dirección estática. Estas reglas las modificaremos en el fichero <strong>/etc/network/interfaces</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">up iptables -t nat -A POSTROUTING -s 10.0.1.0/24 -o eth0 -j SNAT --to 10.0.0.3
+up iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -o eth0 -j SNAT --to 10.0.0.3
+</code></pre></div><p>Reiniciamos el servicio y vemos que se ha configurado correctamente. Además podemos ver que tenemos otras reglas ya configuraras para los diferentes servicios que hemos ido configurando a lo largo del curso. Aunque aquí lo único que nos interesan son las lineas de SNAT.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -L -nv
+Chain PREROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">352</span> packets, <span style="color:#ae81ff">28200</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:10.0.2.4:80
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:443 to:10.0.2.4:443
+    <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">94</span> DNAT       udp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            udp dpt:53 to:10.0.1.2:53
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25 to:10.0.1.2:25
+
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">12</span> packets, <span style="color:#ae81ff">2103</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain POSTROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">44</span> packets, <span style="color:#ae81ff">2953</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+  <span style="color:#ae81ff">329</span> <span style="color:#ae81ff">24699</span> SNAT       all  --  *      eth0    10.0.1.0/24          0.0.0.0/0            to:10.0.0.3
+    <span style="color:#ae81ff">5</span>   <span style="color:#ae81ff">396</span> SNAT       all  --  *      eth0    10.0.2.0/24          0.0.0.0/0            to:10.0.0.3
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">39</span> packets, <span style="color:#ae81ff">2584</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+</code></pre></div><ul>
+<li>Comprobamos que tenemos acceso al exterior desde todas las máquinas del escenario</li>
+</ul>
+<blockquote>
+<p>Suponemos que tenemos bien configurado nuestro servidor DNS que es Freston y que en el fichero /etc/resolv.conf de cada máquina estamos apuntando a él (10.0.1.2)</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#Dulcinea</span>
+
+debian@dulcinea:~$ ping www.google.es
+PING www.google.es <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">112</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">231</span> ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">112</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">306</span> ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">112</span> time<span style="color:#f92672">=</span><span style="color:#ae81ff">198</span> ms
+^C
+--- www.google.es ping statistics ---
+<span style="color:#ae81ff">4</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 25% packet loss, time 6ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 198.016/245.154/306.043/45.161 ms
+
+
+<span style="color:#75715e">#Freston</span>
+debian@freston:~$ ping www.google.es
+PING www.google.es <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>69.7 ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>42.10 ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>67.8 ms
+^C
+--- www.google.es ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 5ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 42.993/60.184/69.743/12.183 ms
+
+
+<span style="color:#75715e">#Sancho</span>
+
+ubuntu@sancho:~$ ping www.google.es
+PING www.google.es <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>55.4 ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>44.5 ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>48.7 ms
+^C
+--- www.google.es ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 44.477/49.522/55.356/4.476 ms
+
+<span style="color:#75715e">#Quijote</span>
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ping www.google.es
+PING www.google.es <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>47.6 ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>42.4 ms
+<span style="color:#ae81ff">64</span> bytes from mad41s10-in-f3.1e100.net <span style="color:#f92672">(</span>142.250.184.3<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">111</span> time<span style="color:#f92672">=</span>43.5 ms
+^C
+--- www.google.es ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 449ms
+
+</code></pre></div><h3 id="2-configura-de-manera-adecuada-todas-las-reglas-nat-necesarias-para-que-los-servicios-expuestos-al-exterior-sean-accesibles">2. Configura de manera adecuada todas las reglas NAT necesarias para que los servicios expuestos al exterior sean accesibles.</h3>
+<p>Tenemos dos servicios: Servidor DNS y Servidor Web</p>
+<h3 id="servidor-dns-freston">Servidor DNS (FRESTON)</h3>
+<p>Para ello necesitaremos tener bien configurado nuestro servidor DNS y las reglas pertintentes en Dulcinea para que funcione correctamente de forma que:</p>
+<ul>
+<li>Esta regla ya la teniamos agregada previamente.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -t nat -A PREROUTING -p udp --dport <span style="color:#ae81ff">53</span> -i eth0 -j DNAT --to 10.0.1.2:53
+</code></pre></div><ul>
+<li>Funciona después de cada reinicio porque hemos instalado un paquete llamado <code>iptables-persistent</code></li>
+</ul>
+<p>Si editamos el fichero donde tenemos guardadas las reglas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/iptables/rules.v4
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">. . .
+. . .
+
+<span style="color:#75715e"># Regla para que se puedan realizar consultas desde fuera nuestro DNS</span>
+
+-A PREROUTING -i eth0 -p udp -m udp --dport <span style="color:#ae81ff">53</span> -j DNAT --to-destination 10.0.1.2:53
+
+. . .
+. . .
+
+</code></pre></div><ul>
+<li>Comprobamos que podemos hacer una consulta desde el exterior y responde correctamente.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">celiagm@debian:~$ dig @172.22.200.222 ns celia.gonzalonazareno.org
+
+; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1+deb10u3-Debian &lt;&lt;&gt;&gt; @172.22.200.222 ns celia.gonzalonazareno.org
+; <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> server found<span style="color:#f92672">)</span>
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER<span style="color:#e6db74">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span style="color:#ae81ff">26194</span>
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: <span style="color:#ae81ff">2</span>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: <span style="color:#ae81ff">4096</span>
+; COOKIE: e11a461c6588fede6608354360421f03b7895a49c1216c3f <span style="color:#f92672">(</span>good<span style="color:#f92672">)</span>
+;; QUESTION SECTION:
+;celia.gonzalonazareno.org.	IN	NS
+
+;; ANSWER SECTION:
+celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN	NS	dulcinea.celia.gonzalonazareno.org.
+
+;; ADDITIONAL SECTION:
+dulcinea.celia.gonzalonazareno.org. <span style="color:#ae81ff">86400</span> IN A	172.22.200.222
+
+;; Query time: <span style="color:#ae81ff">73</span> msec
+;; SERVER: 172.22.200.222#53<span style="color:#f92672">(</span>172.22.200.222<span style="color:#f92672">)</span>
+;; WHEN: vie mar <span style="color:#ae81ff">05</span> 13:07:31 CET <span style="color:#ae81ff">2021</span>
+;; MSG SIZE  rcvd: <span style="color:#ae81ff">121</span>
+
+</code></pre></div><h3 id="servidor-web-quijote">Servidor web (Quijote)</h3>
+<p>Nuestro servidor web nos ofrece servicio por el puerto 80 y por el puerto 443 (https), ya teniamos nuestras reglas agregadas que son las siguientes, también contempladas en el fichero de /etc/iptables/rules.v4</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># para usar http puerto 80</span>
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#ae81ff">80</span> -i eth0 -j DNAT --to 10.0.2.4:80
+
+
+<span style="color:#75715e"># Para usar https puerto 443</span>
+
+iptables -A OUTPUT -p tcp -m tcp --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#ae81ff">443</span> -i eth0 -j DNAT --to 10.0.2.4:443
+
+</code></pre></div><p>Fucionamiento:</p>
+<p>Si entramos en la página web <a href="http://www.celia.gonzalonazareno.org">www.celia.gonzalonazareno.org</a></p>
+<p><img src="https://unbitdeinformacioncadadia.netlify.app/images/cortafuegos/bienvenido.png" alt="bienvenido.png"></p>
+<p>Podemos ver que se han utilizado las dos reglas que hemos añadido</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -L -nv
+Chain PREROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">416</span> packets, <span style="color:#ae81ff">34596</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+    <span style="color:#ae81ff">5</span>   <span style="color:#ae81ff">300</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:10.0.2.4:80
+    <span style="color:#ae81ff">5</span>   <span style="color:#ae81ff">300</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:443 to:10.0.2.4:443
+
+. . .
+. . .
+</code></pre></div><h2 id="reglas">Reglas</h2>
+<h2 id="ping">PING</h2>
+<ul>
+<li>Tenemos que hacer ping desde todas las maquinas</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Desde dulcinea</span>
+debian@dulcinea:~$ ping sancho
+PING sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.10 ms
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.681 ms
+^C
+--- sancho.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 3ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.681/0.888/1.095/0.207 ms
+debian@dulcinea:~$ ping freston
+PING freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.435 ms
+<span style="color:#ae81ff">64</span> bytes from freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.808 ms
+^C
+--- freston.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 3ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.435/0.621/0.808/0.188 ms
+debian@dulcinea:~$ ping quijote
+PING quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.17 ms
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.966 ms
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.696 ms
+^C
+--- quijote.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 5ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.696/0.945/1.173/0.195 ms
+
+
+<span style="color:#75715e"># Desde freston</span>
+
+debian@freston:~$ ping dulcinea.celia.gonzalonazareno.org
+PING dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.469 ms
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.642 ms
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.518 ms
+^C
+--- dulcinea.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 53ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.469/0.543/0.642/0.072 ms
+debian@freston:~$ ping quijote.celia.gonzalonazareno.org
+PING quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.47 ms
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.26 ms
+^C
+--- quijote.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 3ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.261/1.364/1.467/0.103 ms
+debian@freston:~$ ping sancho.celia.gonzalonazareno.org
+PING sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>1.18 ms
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.672 ms
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.592 ms
+^C
+--- sancho.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 5ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.592/0.816/1.184/0.262 ms
+
+
+<span style="color:#75715e">## Desde quijote</span>
+
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ping freston.celia.gonzalonazareno.org
+PING freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.18 ms
+<span style="color:#ae81ff">64</span> bytes from freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.09 ms
+^C
+--- freston.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 3ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.086/1.134/1.182/0.048 ms
+
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ping dulcinea.celia.gonzalonazareno.org
+PING dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.370 ms
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.773 ms
+^C
+--- dulcinea.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 1ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.370/0.571/0.773/0.202 ms
+
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ping sancho.celia.gonzalonazareno.org
+PING sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>0.745 ms
+<span style="color:#ae81ff">64</span> bytes from sancho.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.11<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.27 ms
+^C
+--- sancho.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 2ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.745/1.007/1.270/0.264 ms
+
+<span style="color:#75715e"># Desde sancho</span>
+
+ubuntu@sancho:~$ ping dulcinea.celia.gonzalonazareno.org
+PING dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.611 ms
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.573 ms
+<span style="color:#ae81ff">64</span> bytes from dulcinea.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.6<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.568 ms
+^C
+--- dulcinea.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 2033ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.568/0.584/0.611/0.019 ms
+ubuntu@sancho:~$ ping quijote.celia.gonzalonazareno.org
+PING quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.33 ms
+<span style="color:#ae81ff">64</span> bytes from quijote.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.2.4<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>1.09 ms
+^C
+--- quijote.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 1.088/1.206/1.325/0.118 ms
+ubuntu@sancho:~$ ping freston.celia.gonzalonazareno.org
+PING freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.429 ms
+<span style="color:#ae81ff">64</span> bytes from freston.celia.gonzalonazareno.org <span style="color:#f92672">(</span>10.0.1.2<span style="color:#f92672">)</span>: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span> time<span style="color:#f92672">=</span>0.537 ms
+^C
+--- freston.celia.gonzalonazareno.org ping statistics ---
+<span style="color:#ae81ff">2</span> packets transmitted, <span style="color:#ae81ff">2</span> received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.429/0.483/0.537/0.054 ms
+
+
+</code></pre></div><h3 id="1-ssh">1. SSH</h3>
+<ul>
+<li>1.1. Acceder por ssh a todas las máquinas</li>
+</ul>
+<h4 id="ssh-dulcinea-a-quijote---sancho---freston">SSH DULCINEA A [QUIJOTE - SANCHO - FRESTON]</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">## SSH desde DULCINEA AL RESTO DE MAQUINAS</span>
+
+debian@dulcinea:~$ ssh freston
+Linux freston 4.19.0-13-cloud-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.160-2 (2020-11-28) x86_64</span>
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have mail.
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 12:46:53 <span style="color:#ae81ff">2021</span> from 10.0.1.6
+debian@freston:~$ exit
+logout
+Connection to freston closed.
+debian@dulcinea:~$ ssh centos@quijote
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 13:13:31 <span style="color:#ae81ff">2021</span> from 10.0.2.10
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ exit
+logout
+Connection to quijote closed.
+debian@dulcinea:~$ ssh ubuntu@sancho
+Welcome to Ubuntu 20.04.1 LTS <span style="color:#f92672">(</span>GNU/Linux 5.4.0-60-generic x86_64<span style="color:#f92672">)</span>
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Mar  <span style="color:#ae81ff">5</span> 13:46:27 CET <span style="color:#ae81ff">2021</span>
+
+  System load:  0.08              Processes:             <span style="color:#ae81ff">108</span>
+  Usage of /:   37.5% of 9.52GB   Users logged in:       <span style="color:#ae81ff">1</span>
+  Memory usage: 69%               IPv4 address <span style="color:#66d9ef">for</span> ens3: 10.0.1.11
+  Swap usage:   0%
+
+ * Introducing self-healing high availability clusters in MicroK8s.
+   Simple, hardened, Kubernetes <span style="color:#66d9ef">for</span> production, from RaspberryPi to DC.
+
+     https://microk8s.io/high-availability
+
+<span style="color:#ae81ff">63</span> updates can be installed immediately.
+<span style="color:#ae81ff">0</span> of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+
+*** System restart required ***
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 12:47:25 <span style="color:#ae81ff">2021</span> from 10.0.1.6
+ubuntu@sancho:~$ exit
+logout
+Connection to sancho closed.
+</code></pre></div><h4 id="ssh-red-interna---red-dmz">SSH RED INTERNA - RED DMZ</h4>
+<p>Vamos a crear dos reglas iptables del tipo FORWARD para poder acceder desde la red interna a la DMZ y viceversa. Las reglas son las siguientes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -A FORWARD -i eth2 -o eth1 -p tcp --sport <span style="color:#ae81ff">22</span> -m state --state ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i eth2 -o eth1 -p tcp --sport <span style="color:#ae81ff">22</span> -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div><p>Comprobamos que se han añadido las reglas correctamente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables --list
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+target     prot opt source               destination
+
+Chain FORWARD <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere             tcp spt:ssh state ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             tcp spt:ssh state ESTABLISHED
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:https
+
+</code></pre></div><h5 id="funcionamiento">Funcionamiento</h5>
+<p>Comprobamos que podemos entrar por ssh desde freston a quijote y viceversa</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">## Desde freston entramos a quijote y viceversa.</span>
+
+debian@freston:~$ ssh -A centos@quijote.celia.gonzalonazareno.org
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 18:29:25 <span style="color:#ae81ff">2021</span> from 10.0.1.2
+
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ hostname
+quijote
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ssh debian@freston.celia.gonzalonazareno.org
+Linux freston 4.19.0-13-cloud-amd64 <span style="color:#75715e">#1 SMP Debian 4.19.160-2 (2020-11-28) x86_64</span>
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have mail.
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 18:29:49 <span style="color:#ae81ff">2021</span> from 10.0.2.4
+
+debian@freston:~$ hostname
+freston
+
+<span style="color:#75715e">## Desde quijote entramos a sancho y viceversa</span>
+
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ ssh -A ubuntu@sancho.celia.gonzalonazareno.org
+Welcome to Ubuntu 20.04.1 LTS <span style="color:#f92672">(</span>GNU/Linux 5.4.0-60-generic x86_64<span style="color:#f92672">)</span>
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Mar  <span style="color:#ae81ff">5</span> 18:38:53 CET <span style="color:#ae81ff">2021</span>
+
+  System load:  0.0               Processes:             <span style="color:#ae81ff">107</span>
+  Usage of /:   37.5% of 9.52GB   Users logged in:       <span style="color:#ae81ff">1</span>
+  Memory usage: 63%               IPv4 address <span style="color:#66d9ef">for</span> ens3: 10.0.1.11
+  Swap usage:   0%
+
+ * Introducing self-healing high availability clusters in MicroK8s.
+   Simple, hardened, Kubernetes <span style="color:#66d9ef">for</span> production, from RaspberryPi to DC.
+
+     https://microk8s.io/high-availability
+
+<span style="color:#ae81ff">63</span> updates can be installed immediately.
+<span style="color:#ae81ff">0</span> of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+
+*** System restart required ***
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 18:38:44 <span style="color:#ae81ff">2021</span> from 10.0.2.4
+ubuntu@sancho:~$ hostname
+sancho
+ubuntu@sancho:~$ ssh -A centos@quijote.celia.gonzalonazareno.org
+The authenticity of host <span style="color:#e6db74">&#39;quijote.celia.gonzalonazareno.org (10.0.2.4)&#39;</span> can<span style="color:#e6db74">&#39;t be established.
+</span><span style="color:#e6db74">ECDSA key fingerprint is SHA256:pZTEnytfMqYmtRT/lWIqyDRJAXcbawGuxNeVWCSNQRU.
+</span><span style="color:#e6db74">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+</span><span style="color:#e6db74">Warning: Permanently added &#39;</span>quijote.celia.gonzalonazareno.org<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span> to the list of known hosts.
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 18:38:28 <span style="color:#ae81ff">2021</span> from 10.0.2.10
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ hostname
+quijote
+
+</code></pre></div><ul>
+<li>1.2. Todas las máquinas pueden hacer ssh a máquinas del exterior</li>
+</ul>
+<p>Para ello añadimos las siguientes reglas que aceptan las conexiones ssh tanto de entrada como de salida en dulcinea</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -A OUTPUT -o eth0 -p tcp --dport <span style="color:#ae81ff">22</span> -j ACCEPT
+sudo iptables -A OUTPUT -o eth0 -p tcp --dport <span style="color:#ae81ff">22</span> -j ACCEPT
+</code></pre></div><p>Comprobamos que se han añadido</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables -t nat -L -nv
+Chain PREROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">63</span> packets, <span style="color:#ae81ff">6533</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:10.0.2.4:80
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:443 to:10.0.2.4:443
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       udp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            udp dpt:53 to:10.0.1.2:53
+    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25 to:10.0.1.2:25
+
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">6</span> packets, <span style="color:#ae81ff">1475</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain POSTROUTING <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">21</span> packets, <span style="color:#ae81ff">1512</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+   <span style="color:#ae81ff">52</span>  <span style="color:#ae81ff">4103</span> SNAT       all  --  *      eth0    10.0.1.0/24          0.0.0.0/0            to:10.0.0.3
+    <span style="color:#ae81ff">3</span>   <span style="color:#ae81ff">228</span> SNAT       all  --  *      eth0    10.0.2.0/24          0.0.0.0/0            to:10.0.0.3
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT <span style="color:#ae81ff">21</span> packets, <span style="color:#ae81ff">1512</span> bytes<span style="color:#f92672">)</span>
+ pkts bytes target     prot opt in     out     source               destination
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables --list
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+target     prot opt source               destination
+
+Chain FORWARD <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere             tcp spt:ssh state ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             tcp spt:ssh state ESTABLISHED
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:https
+
+</code></pre></div><h2 id="dns">DNS</h2>
+<ul>
+<li>El único dns que pueden usar los equipos de las dos redes es freston, no pueden utilizar un DNS externo.</li>
+<li>Dulcinea puede usar cualquier servidor DNS.</li>
+<li>Tenemos que permitir consultas dns desde el exterior a freston, para que, por ejemplo, papion-dns pueda preguntar.</li>
+</ul>
+<blockquote>
+<p>Todas estos requisitos ya están dispuestos en anteriores ejercicios.</p>
+</blockquote>
+<p>Todas las máquinas en el fichero /etc/resolv.conf utilizan el servidor dns de Freston</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nameserver 10.0.1.2
+search celia.gonzalonazareno.org
+</code></pre></div><h2 id="base-de-datos">BASE DE DATOS</h2>
+<ul>
+<li>
+<p>A la base de datos de sancho sólo pueden acceder las máquinas de la DMZ.</p>
+<ul>
+<li>En sancho:</li>
+</ul>
+</li>
+</ul>
+<p>Editamos el fichero</p>
+<p><code>nano /etc/mysql/my.cnf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">port            <span style="color:#f92672">=</span> <span style="color:#ae81ff">3306</span>
+</code></pre></div><p>Comprobamos que el puerto que esta utilizando en este caso es el puerto 3306.</p>
+<p>Ademas en el mismo fichero nos aseguramos que están estas dos lineas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">...
+skip-external-locking
+bind-address            <span style="color:#f92672">=</span> 0.0.0.0
+...
+</code></pre></div><ul>
+<li>En dulcinea:</li>
+</ul>
+<p>Agregamos las reglas de iptables de forma que bloqueamos las conexiones por el puerto 3306 y solo dejamos pasar a quijote con la ip 10.0.2.4</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -A INPUT -s 10.0.2.4 -p tcp --dport <span style="color:#ae81ff">3306</span> -j ACCEPT
+sudo iptables -A OUTPUT -d 10.0.2.4 -p tcp --sport <span style="color:#ae81ff">3306</span> -j ACCEPT
+iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">3306</span> -j DROP
+iptables -A OUTPUT -p tcp --dport <span style="color:#ae81ff">3306</span> -j DROP
+</code></pre></div><ul>
+<li>Comprobamos que estan añadidas</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ sudo iptables --list --line-numbers
+Chain INPUT <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+num  target     prot opt source               destination         
+<span style="color:#ae81ff">1</span>    DROP       tcp  --  anywhere             anywhere             tcp dpt:mysql
+<span style="color:#ae81ff">2</span>    ACCEPT     tcp  --  quijote.celia.gonzalonazareno.org  anywhere             tcp dpt:mysql
+<span style="color:#ae81ff">3</span>    DROP       tcp  --  anywhere             anywhere             tcp dpt:mysql
+<span style="color:#ae81ff">4</span>    ACCEPT     tcp  --  quijote.celia.gonzalonazareno.org  anywhere             tcp dpt:mysql
+
+Chain FORWARD <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+num  target     prot opt source               destination         
+<span style="color:#ae81ff">1</span>    ACCEPT     tcp  --  anywhere             anywhere             tcp spt:ssh state ESTABLISHED
+<span style="color:#ae81ff">2</span>    ACCEPT     tcp  --  anywhere             anywhere             tcp spt:ssh state ESTABLISHED
+
+Chain OUTPUT <span style="color:#f92672">(</span>policy ACCEPT<span style="color:#f92672">)</span>
+num  target     prot opt source               destination         
+<span style="color:#ae81ff">1</span>    ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:https
+<span style="color:#ae81ff">2</span>    ACCEPT     tcp  --  anywhere             quijote.celia.gonzalonazareno.org  tcp spt:mysql
+<span style="color:#ae81ff">3</span>    DROP       tcp  --  anywhere             anywhere             tcp dpt:mysql
+
+</code></pre></div><ul>
+<li>Comprobamos que podemos acceder desde quijote a la base de datos</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">debian@dulcinea:~$ ssh centos@quijote
+Last login: Fri Mar  <span style="color:#ae81ff">5</span> 20:35:52 <span style="color:#ae81ff">2021</span> from 10.0.2.10
+<span style="color:#f92672">[</span>centos@quijote ~<span style="color:#f92672">]</span>$ mysql -u celia -p -h bd.celia.gonzalonazareno.org
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or <span style="color:#ae81ff">\g</span>.
+Your MariaDB connection id is <span style="color:#ae81ff">133</span>
+Server version: 10.4.17-MariaDB-1:10.4.17+maria~focal-log mariadb.org binary distribution
+
+Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type <span style="color:#e6db74">&#39;help;&#39;</span> or <span style="color:#e6db74">&#39;\h&#39;</span> <span style="color:#66d9ef">for</span> help. Type <span style="color:#e6db74">&#39;\c&#39;</span> to clear the current input statement.
+
+MariaDB <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]</span>&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| db_quijote         |
+| information_schema |
+| mezzanine          |
+| mysql              |
+| performance_schema |
+| wagtail            |
++--------------------+
+<span style="color:#ae81ff">6</span> rows in set <span style="color:#f92672">(</span>0.002 sec<span style="color:#f92672">)</span>
+
+MariaDB <span style="color:#f92672">[(</span>none<span style="color:#f92672">)]</span>&gt; 
+
+</code></pre></div><h2 id="web">Web</h2>
+<p>Las reglas aplicadas son estas:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># para usar http puerto 80</span>
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#ae81ff">80</span> -i eth0 -j DNAT --to 10.0.2.4:80
+
+
+<span style="color:#75715e"># Para usar https puerto 443</span>
+
+iptables -A OUTPUT -p tcp -m tcp --dport <span style="color:#ae81ff">443</span> -j ACCEPT
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#ae81ff">443</span> -i eth0 -j DNAT --to 10.0.2.4:443
+</code></pre></div><h2 id="servicio-de-correos">Servicio de correos</h2>
+<p>Para el correo tenemos aplicada la siguiente regla</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#ae81ff">25</span> -i eth0 -j DNAT --to 10.0.1.2:25
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">4</span>        <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span> DNAT       tcp  --  eth0   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25 to:10.0.1.2:25
 </code></pre></div>
       </div>
     </article>
@@ -203,7 +757,7 @@ up iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -o eth0 -j MASQUERADE
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        102 Words
+        3099 Words
       </p>
 
       <p>

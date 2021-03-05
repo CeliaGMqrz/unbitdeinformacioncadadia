@@ -61,7 +61,8 @@ Se pueden hacer distintas configuraciones en los servidores web para que sirvan 
       <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/cortafuegos-perimetral.-iptables/</guid>
       <description>Introducción Vamos a construir un cortafuegos en dulcinea que nos permita controlar el tráfico de nuestra red. El cortafuegos que vamos a construir debe funcionar tras un reinicio.
 La política por defecto que vamos a configurar en nuestro cortafuegos será de tipo DROP.
-NAT  Las máquinas de nuestra red tienen que tener acceso al exterior  Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:</description>
+NAT 1.Las máquinas de nuestra red tienen que tener acceso al exterior Estas reglas de iptables ya estaban configuradas en ejercicios anteriores, son las siguientes:
+up iptables -t nat -A POSTROUTING -s 10.</description>
     </item>
     
     <item>
