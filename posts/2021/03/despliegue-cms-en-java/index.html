@@ -6,8 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Celia García Márquez ">
 <meta name="description" content="En esta entrada vamos a tratar de desplegar una aplicación CMS escrito en Java. Para ello usaremos &amp;lsquo;Guacamole&amp;rsquo;.
-Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Vagrantfile
-Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
+Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
 Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web sin necesidad de usar un cliente." />
 <meta name="keywords" content="blogs, java, guacamole" />
 <meta name="robots" content="noodp" />
@@ -50,12 +49,11 @@ Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Ope
 
 <meta itemprop="name" content="Despliegue CMS en Java">
 <meta itemprop="description" content="En esta entrada vamos a tratar de desplegar una aplicación CMS escrito en Java. Para ello usaremos &lsquo;Guacamole&rsquo;.
-Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Vagrantfile
-Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
+Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
 Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web sin necesidad de usar un cliente.">
 <meta itemprop="datePublished" content="2021-03-07T21:11:44+01:00" />
 <meta itemprop="dateModified" content="2021-03-07T21:11:44+01:00" />
-<meta itemprop="wordCount" content="970">
+<meta itemprop="wordCount" content="969">
 <meta itemprop="image" content="https://unbitdeinformacioncadadia.netlify.app/images/avatar_red.jpg"/>
 
 
@@ -67,16 +65,14 @@ Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Ope
 
 <meta name="twitter:title" content="Despliegue CMS en Java"/>
 <meta name="twitter:description" content="En esta entrada vamos a tratar de desplegar una aplicación CMS escrito en Java. Para ello usaremos &lsquo;Guacamole&rsquo;.
-Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Vagrantfile
-Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
+Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
 Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web sin necesidad de usar un cliente."/>
 
 
 
     <meta property="og:title" content="Despliegue CMS en Java" />
 <meta property="og:description" content="En esta entrada vamos a tratar de desplegar una aplicación CMS escrito en Java. Para ello usaremos &lsquo;Guacamole&rsquo;.
-Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Vagrantfile
-Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
+Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
 Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web sin necesidad de usar un cliente." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/despliegue-cms-en-java/" />
@@ -176,9 +172,7 @@ Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Ope
 <li>Sistema operativo: Debian Buster.</li>
 <li>Necesitaremos usuario con privilegios root y la paquetería actualizada.</li>
 </ul>
-<p><code>Vagrantfile</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
-</code></pre></div><p>Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.</p>
+<p>Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.</p>
 <h2 id="guacamole-como-concepto-tomcat">Guacamole como concepto. Tomcat.</h2>
 <p><strong>Apache Guacamole</strong> es una herramienta <strong>libre</strong> y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web <strong>sin necesidad de usar un cliente</strong>.</p>
 <p>No es una aplicación web autónoma ya que precisa de más componentes y elementos. Se trata de una aplicación web simple y mínima. Un componente esencial que vamos a usar con ella es <strong>Tomcat</strong>.</p>
@@ -414,7 +408,7 @@ sudo a2enmod proxy proxy_http
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        970 Words
+        969 Words
       </p>
 
       <p>
