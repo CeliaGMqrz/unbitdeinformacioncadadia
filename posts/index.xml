@@ -134,8 +134,7 @@ basic-user-mapping: /etc/guacamole/user-mapping.xml
 
 </code></pre></div><p>El módulo de autentificación por defecto lee las credenciales ubicadas en el fichero &lsquo;user-mapping.xml&rsquo; por lo que vamos a generar un hash y la contraseña que queramos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo -n contrasenia | openssl md5
-</code></pre></div><p>(stdin)= c55d52d0b68a73e44dd7dc6bd0381b47</p>
-<p>Ahora creamos el xml de asignación para usuarios</p>
+</code></pre></div><p>Ahora creamos el xml de asignación para usuarios</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/guacamole/user-mapping.xml
 </code></pre></div><p>En este fichero indicaremos el usuario que vayamos a poner, y el hash que nos generó con la contraseña que hemos creado previamente, más adelante crearemos la contraseña para VNC.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&lt;user-mapping&gt;
