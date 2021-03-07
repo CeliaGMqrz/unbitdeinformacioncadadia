@@ -7,7 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 24 Feb 2021 08:27:54 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Mar 2021 21:11:44 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Despliegue CMS en Java</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/despliegue-cms-en-java/</link>
+      <pubDate>Sun, 07 Mar 2021 21:11:44 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/despliegue-cms-en-java/</guid>
+      <description>En esta entrada vamos a tratar de desplegar una aplicación CMS escrito en Java. Para ello usaremos &amp;lsquo;Guacamole&amp;rsquo;.
+Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Vagrantfile
+Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
+Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web sin necesidad de usar un cliente.</description>
+    </item>
+    
+    <item>
+      <title>Introducción a Docker</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-docker/</link>
+      <pubDate>Sun, 07 Mar 2021 21:11:44 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-docker/</guid>
+      <description>Contenedores y aplicaciones ¿Qué son los contendores?
+Son diferentes compartimentos en el que cada aplicación visualiza un sistema operativo virtualmente sin compartirlo con nadie. Aislamos cada aplicación en un compartimento. Instalaremos una aplicacion en cada contenedor. En cada contenedor podemos tener solo un proceso.
+Con los contenedores podemos utilizar distintas versiones de software.
+Es un mecanismo de virtualización ligera que permite al sistema operativo dar la sensación de aislamiento a cada proceso de forma que no compartimos recursos.</description>
+    </item>
+    
     <item>
       <title>VPN con OpenVPN y certificados x509</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/02/vpn-con-openvpn-y-certificados-x509/</link>
@@ -98,28 +122,6 @@ RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrit
       <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
 1. Introducción LDAP. Protocolo Ligero de Acceso a Directorio. ¿Qué es LDAP?
 Es un protocolo muy utilizado por empresas que apuestan por el software libre al utilizar distribuciones de Linux para construir un **directorio activo **en el que se gestionan las credenciales de los trabajadores, los permisos y estaciones de trabajo.</description>
-    </item>
-    
-    <item>
-      <title>Proyecto: Escenario planteado sobre OpenStack</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/</link>
-      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/proyecto-escenario-planteado-sobre-openstack/</guid>
-      <description>Introducción En el IES Gonzalo Nazareno, en el segundo año del ciclo superior de Administración de sistemas informáticos en red, se ha propuesto un escenario implantado sobre Openstack en el que nosotros, los alumnos, hemos puesto en práctica muchas tareas relacionadas con servidores linux.
-Trabajamos con sistemas operativos Linux, entre ellos con distribuciones como Debian Buster, Centos7, Centos8 y Ubuntu Server 20.04.
-Tratamos con los diferentes sistemas y la instalación y configuración de servidores web como Apache2 o Nginx, bases de datos, cifrado con openssl, servicios como bind9 para DNS, directorio activo como OpenLDAP, entre otros&amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>Servidor de Correos. Postfix (I)</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</link>
-      <pubDate>Fri, 22 Jan 2021 12:48:10 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/servidor-de-correos.-postfix-i/</guid>
-      <description>1. Objetivo. Instalación y configuración de un servidor de correos en una máquina de OVH, para el dominio iesgn05. El nombre del servidor de correo será mail.iesgn05.es.
-Configurar un registro SPF, que es un mecanismo de autenticación que mediante un registro DNS de tipo TXT describe las direcciones IPs y nombres DNS autorizados a enviar correo @DOMINIO.
-Suponiendo que el servidor de correo se llama mail.iesgn05.es, crearemos un registro MX siendo este mail.</description>
     </item>
     
   </channel>

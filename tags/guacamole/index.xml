@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>guacamole on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/guacamole/</link>
+    <description>Recent content in guacamole on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 07 Mar 2021 21:11:44 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/guacamole/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Despliegue CMS en Java</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/despliegue-cms-en-java/</link>
+      <pubDate>Sun, 07 Mar 2021 21:11:44 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/despliegue-cms-en-java/</guid>
+      <description>En esta entrada vamos a tratar de desplegar una aplicación CMS escrito en Java. Para ello usaremos &amp;lsquo;Guacamole&amp;rsquo;.
+Entorno de trabajo. Escenario.  Vamos a usar una máquina virtual con Vagrant y Virtualbox. Sistema operativo: Debian Buster. Necesitaremos usuario con privilegios root y la paquetería actualizada.  Vagrantfile
+Una vez tengamos el entorno de trabajo nos aseguraremos que tenemos el sistema actualizado.
+Guacamole como concepto. Tomcat. Apache Guacamole es una herramienta libre y Open-Source que nos permite conectarnos remotamente a un servidor mediante el navegador web sin necesidad de usar un cliente.</description>
+    </item>
+    
+    <item>
+      <title>Introducción a Docker</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-docker/</link>
+      <pubDate>Sun, 07 Mar 2021 21:11:44 +0100</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-docker/</guid>
+      <description>Contenedores y aplicaciones ¿Qué son los contendores?
+Son diferentes compartimentos en el que cada aplicación visualiza un sistema operativo virtualmente sin compartirlo con nadie. Aislamos cada aplicación en un compartimento. Instalaremos una aplicacion en cada contenedor. En cada contenedor podemos tener solo un proceso.
+Con los contenedores podemos utilizar distintas versiones de software.
+Es un mecanismo de virtualización ligera que permite al sistema operativo dar la sensación de aislamiento a cada proceso de forma que no compartimos recursos.</description>
+    </item>
+    
+  </channel>
+</rss>
