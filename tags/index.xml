@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 07 Mar 2021 21:11:44 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>icdc</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/tags/icdc/</link>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/icdc/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>guacamole</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/tags/guacamole/</link>
@@ -86,15 +95,6 @@
       <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
       
       <guid>https://unbitdeinformacioncadadia.netlify.app/tags/dovecot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>IMAP</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/tags/imap/</link>
-      <pubDate>Mon, 25 Jan 2021 17:15:21 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/tags/imap/</guid>
       <description></description>
     </item>
     

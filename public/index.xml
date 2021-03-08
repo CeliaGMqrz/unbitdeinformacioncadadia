@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 07 Mar 2021 21:11:44 +0100</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducción a la integración continua y despliegue continuo</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-la-integraci%C3%B3n-continua-y-despliegue-continuo/</link>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-la-integraci%C3%B3n-continua-y-despliegue-continuo/</guid>
+      <description>Conceptos previos. La integración contínua es un método por el cuál se hacen integraciones automáticas de un proyecto habitualmente en un periodo de tiempo muy corto para detectar los fallos cuanto antes.
+La integración es la compilación y ejecución de pruebas de un proyecto, como por ejemplo una página web estática que se despliega.
+Se lleva un control de versiones, pruebas e informes.
+El despliegue contínuo es una técnica más avanzada que la integración continua, ya que no hay intervención humana posible, si no que la automatización es completa.</description>
+    </item>
+    
     <item>
       <title>Despliegue CMS en Java</title>
       <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/despliegue-cms-en-java/</link>
@@ -110,17 +122,6 @@ Configuración:
 Vamos a instalar un webmail (Roundcube), sobre Debian Buster alojado en una máquina de OVH, para gestionar el correo del equipo mediante una interfaz web. Recibo y envío de correos.
 RoundCube es un cliente de correo electrónico IMAP, de código abierto y escrito en PHP. Para instalar este webmail deberemos de tener en funcionamiento un servidor de correos.
 1. Requisitos:   Tener en funcionamiento un servidor de web, en este caso usaremos Nginx</description>
-    </item>
-    
-    <item>
-      <title>Configurar LDAPs en Debian. OpenLDAP. (Freston)</title>
-      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</link>
-      <pubDate>Mon, 25 Jan 2021 09:27:32 +0100</pubDate>
-      
-      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/01/configurar-ldaps-en-debian.-openldap.-freston/</guid>
-      <description>¡! Este post está relacionado con un entrono de trabajo con openstack incluido en otras entradas de mi blog.
-1. Introducción LDAP. Protocolo Ligero de Acceso a Directorio. ¿Qué es LDAP?
-Es un protocolo muy utilizado por empresas que apuestan por el software libre al utilizar distribuciones de Linux para construir un **directorio activo **en el que se gestionan las credenciales de los trabajadores, los permisos y estaciones de trabajo.</description>
     </item>
     
   </channel>

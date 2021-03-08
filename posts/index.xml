@@ -6,8 +6,33 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 07 Mar 2021 21:11:44 +0100</lastBuildDate>
+        <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://unbitdeinformacioncadadia.netlify.app/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Introducción a la integración continua y despliegue continuo</title>
+            <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-la-integraci%C3%B3n-continua-y-despliegue-continuo/</link>
+            <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-la-integraci%C3%B3n-continua-y-despliegue-continuo/</guid>
+            <description>Conceptos previos. La integración contínua es un método por el cuál se hacen integraciones automáticas de un proyecto habitualmente en un periodo de tiempo muy corto para detectar los fallos cuanto antes.
+La integración es la compilación y ejecución de pruebas de un proyecto, como por ejemplo una página web estática que se despliega.
+Se lleva un control de versiones, pruebas e informes.
+El despliegue contínuo es una técnica más avanzada que la integración continua, ya que no hay intervención humana posible, si no que la automatización es completa.</description>
+            <content type="html"><![CDATA[<h2 id="conceptos-previos">Conceptos previos.</h2>
+<p>La <strong>integración contínua</strong> es un método por el cuál se hacen integraciones automáticas de un proyecto habitualmente en un periodo de tiempo muy corto para detectar los fallos cuanto antes.</p>
+<p>La integración es la compilación y ejecución de pruebas de un proyecto, como por ejemplo una página web estática que se despliega.</p>
+<p>Se lleva un control de versiones, pruebas e informes.</p>
+<p>El <strong>despliegue contínuo</strong> es una técnica más avanzada que la integración continua, ya que no hay intervención humana posible, si no que la automatización es completa.</p>
+<p>Para llevar acabo estas tareas podemos usar herramientas como: Jenkins, Travis, Gitlab, Github actions, CircleCi &hellip; entre otras.</p>
+<p><img src="/images/icdc/despliegue.png" alt="despliegue.png"></p>
+<h2 id="despliegue-de-una-página-web-estática-build-deploy">Despliegue de una página web estática (build, deploy)</h2>
+<p>En esta práctica vamos a generar una página web con <strong>Hugo</strong> y desplegarlo en <strong>Netlify</strong>.</p>
+<p>No voy a detenerme en cómo crear la pagina estática con hugo, pero se puede ver en <a href="https://github.com/CeliaGMqrz/gen_pagina_estatica_hugo">este repositorio</a>.</p>
+<p>Crearemos un nuevo proyecto con hugo y lo subiremos a un repositorio de github (sólo los ficheros markdown), añadimos un .gitignore para la carpeta public y la carpeta themes.</p>
+<p>Repositorio -&gt; <a href="https://github.com/CeliaGMqrz/celiashome">Celia&rsquo;s Home</a></p>
+]]></content>
+        </item>
         
         <item>
             <title>Despliegue CMS en Java</title>

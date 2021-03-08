@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>icdc on Un bit de informacion cada día</title>
+    <link>https://unbitdeinformacioncadadia.netlify.app/tags/icdc/</link>
+    <description>Recent content in icdc on Un bit de informacion cada día</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unbitdeinformacioncadadia.netlify.app/tags/icdc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducción a la integración continua y despliegue continuo</title>
+      <link>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-la-integraci%C3%B3n-continua-y-despliegue-continuo/</link>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://unbitdeinformacioncadadia.netlify.app/posts/2021/03/introducci%C3%B3n-a-la-integraci%C3%B3n-continua-y-despliegue-continuo/</guid>
+      <description>Conceptos previos. La integración contínua es un método por el cuál se hacen integraciones automáticas de un proyecto habitualmente en un periodo de tiempo muy corto para detectar los fallos cuanto antes.
+La integración es la compilación y ejecución de pruebas de un proyecto, como por ejemplo una página web estática que se despliega.
+Se lleva un control de versiones, pruebas e informes.
+El despliegue contínuo es una técnica más avanzada que la integración continua, ya que no hay intervención humana posible, si no que la automatización es completa.</description>
+    </item>
+    
+  </channel>
+</rss>
